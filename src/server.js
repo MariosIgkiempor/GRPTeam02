@@ -2,6 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 
+const csvFiles = require('./routes/CSVFiles')
+
 // initialise express
 const app = express()
 
@@ -15,6 +17,9 @@ const db = require('./config/config.js').mongoURI
 mongoose.connect(db)
   .then(() => console.log('MongoDB connected'))
   .catch(error => console.log(`MongoDB connection error ${error}`))
+
+// use routes
+app.use('/api/csv', csvFiles)
 
 const port = 5000;
 
