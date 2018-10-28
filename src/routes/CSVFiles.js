@@ -20,6 +20,7 @@ router.post('/', (req, res) => {
 
   newFile.save()
     .then(_ => res.json())
+    .then(json => console.log(json))
 })
 
 module.exports = router

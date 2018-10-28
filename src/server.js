@@ -24,6 +24,7 @@ const port = 5000;
 
 app.listen(port, () => console.log(`Server listening on port ${port}`))
 
-const readFile = require('./parsing/csvParser').readFile
+const parseFile = require('./parsing/csvParser').parseFile
 
-readFile('Pyramid.csv')
+const parsedArray = parseFile('Had8.csv')
+console.log(parsedArray)
