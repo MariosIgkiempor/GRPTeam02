@@ -1,6 +1,5 @@
 const express = require('express')
 const mongoose = require('mongoose')
-const bodyParser = require('body-parser')
 
 const csvFiles = require('./routes/CSVFiles')
 
@@ -8,13 +7,13 @@ const csvFiles = require('./routes/CSVFiles')
 const app = express()
 
 // add body-parser middleware
-app.use(bodyParser.json())
+app.use(express.json())
 
 // bring in database config
 const db = require('./config/config.js').mongoURI
 
 // connect to the MongoDB databse
-mongoose.connect(db)
+mongoose.connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB connected'))
   .catch(error => console.log(`MongoDB connection error ${error}`))
 
@@ -24,3 +23,7 @@ app.use('/api/csv', csvFiles)
 const port = 5000;
 
 app.listen(port, () => console.log(`Server listening on port ${port}`))
+
+const readFile = require('./parsing/csvParser').readFile
+
+readFile('Pyramid.csv')

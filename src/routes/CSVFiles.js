@@ -11,4 +11,15 @@ router.get('/', (req, res) => {
     .then(csvFiles => res.json(csvFiles))
 })
 
+// route to add a CSVFiles
+router.post('/', (req, res) => {
+  const newFile = new CSVFile({
+    vals: req.body.vals,
+    output: req.body.output
+  })
+
+  newFile.save()
+    .then(_ => res.json())
+})
+
 module.exports = router
