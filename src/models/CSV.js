@@ -6,12 +6,11 @@ const CSVFileSchema = new Schema(
   {
     vals: [Number],
     output: Boolean
-  },
-  { strict: false }
+  }
 )
 
 // create the model from the schma
-const CSVFile = mongoose.model('CSVFiles', CSVFileSchema)
+const CSVFile = mongoose.model('CSVFile', CSVFileSchema)
 
 // export CSVFile model
 module.exports = CSVFile
