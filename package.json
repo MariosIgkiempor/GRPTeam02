@@ -1,0 +1,28 @@
+{
+  "name": "grp02-machine-learning-datasets",
+  "version": "0.0.1",
+  "description": "An app to identify the best machine learning method to model a given dataset",
+  "main": "server.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MariosIgkiempor/GRPTeam02.git"
+  },
+  "author": "Marios Igkiempor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MariosIgkiempor/GRPTeam02/issues"
+  },
+  "homepage": "https://github.com/MariosIgkiempor/GRPTeam02#readme",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "concurrently": "^4.0.1",
+    "express": "^4.16.4",
+    "mongoose": "^5.3.7"
+  }
+}
