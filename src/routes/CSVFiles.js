@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
+
 // bring in the CSVFile model
-const CSVFile = ('../models/CSV.js')
+const CSVFile = require('../models/CSV')
 
 // route to fetch all saved CSVFiles
 router.get('/', (req, res) => {
