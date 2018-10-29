@@ -2,8 +2,7 @@ const fs = require('fs')
 const request = require('request')
 
 // takes the file out of the datasets folder and converts it to an array of objects
-// with the schema { outputs: Boolean, values: [Integer] } as required by the CSVFiles
-// model of the MongoDB database
+// with the schema { outputs: Boolean, values: [Integer] } as required by the CSVFiles model of the MongoDB database
 const readFile = filename => {
   const fileData = fs.readFileSync(`${__dirname}/datasets/${filename}`, 'utf8')
 
@@ -23,10 +22,12 @@ const readFile = filename => {
   return array
 }
 
+// send a POST request to the server on port declared in the config file
 const sendData = arr => {
+  const port = require('../config/config').port
   arr.forEach((elem) => {
       const options = {
-        uri: 'http://localhost:5000/api/csv',
+        uri: `http://localhost:${port}/api/csv`,
         method: 'POST',
         json: {
           "vals": elem.vals,

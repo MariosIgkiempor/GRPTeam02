@@ -1,7 +1,8 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-// create the schema for storing CSV Files Had8.csv and Pyramid.csv
+// create the schema for storing CSV Files (Had8.csv and Pyramid.csv)
+// vals can have any number of numbers in it
 const CSVFileSchema = new Schema(
   {
     vals: [Number],

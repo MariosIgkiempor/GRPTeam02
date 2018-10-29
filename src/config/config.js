@@ -2,5 +2,6 @@
 // and other config variables needed throughout the app
 
 module.exports = {
-  mongoURI: 'mongodb://admin:password1@ds219832.mlab.com:19832/grpteam02-db'
+  mongoURI: 'mongodb://admin:password1@ds219832.mlab.com:19832/grpteam02-db',
+  port: 5000
 }
