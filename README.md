@@ -3,7 +3,7 @@ Git repository for GRP Team02's group project.
 
 ## Team Information
 **Team Members**
-- Boyuam Ma
+- Boyuan Ma
 - Xinyang Li
 - Hao Liu
 - Xinjie Pang
@@ -14,7 +14,14 @@ Chris Roadknight
 
 ## Project Outline
 **Project 15 - Machine Learning Dataset Parsing Tool**
+
 An application is required that parses datasets and suggests the best machine learning approaches for modelling that dataset. These datasets will be supplied. This tool will be used as both a prefilter for machine learning and as a teaching aid.
+
+**User Requirements**
+
+- capture knowledge to facilitate processing of data using a rule-based approach
+- an extendible database
+- data visualisation
 
 ## TODO
 **Establish a Kanban workflow outline**
@@ -24,7 +31,7 @@ An application is required that parses datasets and suggests the best machine le
 - [ ] Document decision on using Kanban
 
 **Database design**
-- [ ] Implement the database
+- [x] Implement the database
 - [ ] Document decision on using a NoSQL databse
-- [ ] Start importing/archiving data
-- [ ] Start querying the database
+- [x] Start importing/archiving data
+- [x] Start querying the database
