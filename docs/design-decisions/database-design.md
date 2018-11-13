@@ -4,5 +4,5 @@ Heterogenous big data benefits from NoSQL for a few reasons. Firstly, there is n
 
 Removing schemas also makes the database faster to query. [https://www.mongodb.com/compare/mongodb-mysql](MongoDB: MongoDB and MySQL Compared) Because each data store is store in one document rather than spread across multiple tables, the program knows exactly where to look for the data set rather than having to search through multiple tables. This helps when we are having to search through hundred of datasets to find the data set we are interested in.
 
-## Heterogenous Data
-
+## Relations
+The data sets that out program will use contain almost no relations. As such, using a relational database would waste a lot of the functionality associated with relations, and cause a lot of uneccessary overhead. Instead, a non-relational database will just store data sets independently of each other. Querying the database will simply involve returning a JSON object, with no links to other data sets.
