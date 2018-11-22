@@ -1,0 +1,16 @@
+- could ask the user for additional information
+ - images?
+ - time?
+ - static data?
+- dataset might need preprocessing?
+    - eg for outliers/missing values
+    - dirty data? eg wrong datatypes/110%/negative values
+- could add interactivity/images etc at the end
+    - start simple
+    - could have interactive visuals
+    - potentially actual machine learning?
+- could give an opinion and then ask questions later to improve the answer
+- svm ranking?
+- does not have to be a website
+    - definitely not a mobile app (teaching tool)
+- could visualise the rule tree but not necessarily - lose mystery
