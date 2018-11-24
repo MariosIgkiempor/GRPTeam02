@@ -44,7 +44,9 @@ Datasets that the program will analyse will be provided by the client. The possi
 In essense, the project will take a dataset and tell the user the most optimal machine learning strategy with which to analyse the data.
 
 \section{Background Information and \\Relevant Research}
-
+\subsection{Machine Learning}
+The team has to figure out how many machine learning methods would be provided in our website, their respective principles, and how and when to use each one.
+There is many Test suitability of open source machine learning toolkits such as H2o \cite{h2o.ai}, Weka \cite{weka} and various Python and R packages. These machine learning toolkits could be used to analyze different datasets. In this early stage of the project, the team has chosen to use Weka to understand each machine learning method.
 \section{Requirements Specification}
 
 \section{Initial Design Ideas}
@@ -55,10 +57,16 @@ In essense, the project will take a dataset and tell the user the most optimal m
 \subsubsection{NoSQL vs SQL}
 Heterogenous big data benefits from NoSQL for a few reasons. Firstly, there is no predefined schema that the data has to conform to, which is useful for our application as we have to save data from a multitude of different data sources in the same data store. We cannot index all the data efficiently beforehand, and therefore cannot define a large schema that all datasets will conform to. Even if we could, a large schema would waste a lot of space, as most datasets would only use a small subset of the schema. This would also make searching the database very inefficient, as we would have to search through potentially hundreds of unused fields.
 
-Removing schemas also makes the database faster to query\cite{sqlvsnosql}. Because each dataset is stored in one document rather than spread across multiple tables, the program knows exactly where to look for the data set rather than having to search through multiple tables. This helps when we are having to search through hundred of datasets to find the data set we are interested in.
+Removing schemas also makes the database faster to query \cite{sqlvsnosql}. Because each dataset is stored in one document rather than spread across multiple tables, the program knows exactly where to look for the data set rather than having to search through multiple tables. This helps when we are having to search through hundred of datasets to find the data set we are interested in.
 
 \subsubsection{Lack of Relations Between Datasets}
 The data sets that our program will use contain almost no relations. As such, using a relational database would waste a lot of the functionality associated with relations, and cause a lot of uneccessary overhead. Instead, a non-relational database will just store data sets independently of each other. Querying the database will simply involve returning a JSON object, with no links to other data sets.
+
+\subsection{Accepted File Types in the System}
+
+When studying Weka, the team found that there are many file types that machine learning tools could use, for instance Arff data files, CSV data files, XRFF data files, amongst others. After some research into the UCI Machine Learning Repository \cite{uci}, the team decided to use CSV data files to store datasets into the database and to be used by the machine learning tools. This is because CSV files make it convenient for the team to transform the .data files and .name files found on the UCI repository into a single file. CSV files are also easy to store in the NoSQL database. Knowing the format of the data is useful for data pre-processing and analysing.
+
+
 \section{Problems Encountered}
 
 \section{Time Planning and Project Management}
@@ -73,13 +81,11 @@ Alongside the Gantt chart, we have a Kanban board which is hosted on Trello.com.
 \begin{itemize}
 % \item For a little team like ours which has only 5 members, agile provides a more suitable framework for software development.
 \item Teams using Kanban can cope with mutable requirements flexibly. Teamwork will continue with changing project environment.
-\item Formal and informal meetings can be held as frequently as needed, agile working process can be pushed favorably by team communication.
-\item Due to the main process of project having been decided, Kanban is a good system as it allows us to vizualise every stage work and everyone’s processing.
+\item Formal and informal meetings can be held as frequently as needed and agile working process can be pushed favorably by team communication.
+\item Due to the main process of the project having been decided, Kanban is a good system as it allows us to vizualise every stage of work and everyone’s processing.
 \item For a team with less development experience, it is difficult to deliver an executable program in a short time. Scrum would be difficult to practice because of its demand on techniques and experience.
-\item Scrum need to stipulate working time for every iteration, it is difficult for
-team with less development experience. Kanban only display stage
-missions but not time limits.
-\item Scrum need to definite Product Owner, Scrum manager and Team which might cause confusion an inexperienced team. Kanban can make team members focus on their work and research.
+\item Scrum need to stipulate working time for every iteration, which is difficult for teams with less development experience. Kanban only displays stage missions but not time limits.
+\item Scrum needs to declare a Product Owner, Scrum manager and Team which might cause confusion in an inexperienced team. Kanban can make team members focus on their work and research.
 \end{itemize}
 
 \pagebreak
