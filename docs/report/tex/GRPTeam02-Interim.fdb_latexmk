@@ -1,13 +1,13 @@
 # Fdb version 3
-["bibtex GRPTeam02-Interim"] 1542962962 "GRPTeam02-Interim.aux" "GRPTeam02-Interim.bbl" "GRPTeam02-Interim" 1543047276
+["bibtex GRPTeam02-Interim"] 1543052735 "GRPTeam02-Interim.aux" "GRPTeam02-Interim.bbl" "GRPTeam02-Interim" 1543053128
   "/usr/local/texlive/2017/texmf-dist/bibtex/bst/IEEEtran/IEEEtranN.bst" 1480098433 63583 d34cb6c328acc69716207f4a3421ad46 ""
-  "GRPTeam02-Interim.aux" 1543047276 1383 3c9119b0d1b7902bf7448719b2b22f0d ""
+  "GRPTeam02-Interim.aux" 1543053127 1564 41c10943644b8597bf8959e0fd4525d8 ""
   "bibliography.bib" 1542962532 538 05b2483dfb0bbad2841de93b44fe32e2 ""
   (generated)
   "GRPTeam02-Interim.blg"
   "GRPTeam02-Interim.bbl"
-["pdflatex"] 1543047276 "/Users/mario/Google Drive/uni/modules/second/grp/grp-docs/GRPTeam02/docs/report/tex/GRPTeam02-Interim.tex" "GRPTeam02-Interim.pdf" "GRPTeam02-Interim" 1543047276
-  "/Users/mario/Google Drive/uni/modules/second/grp/grp-docs/GRPTeam02/docs/report/tex/GRPTeam02-Interim.tex" 1543047276 6620 98f046c23e4b5c165ef30300a72e67b4 ""
+["pdflatex"] 1543053127 "/Users/mario/Google Drive/uni/modules/second/grp/grp-docs/GRPTeam02/docs/report/tex/GRPTeam02-Interim.tex" "GRPTeam02-Interim.pdf" "GRPTeam02-Interim" 1543053128
+  "/Users/mario/Google Drive/uni/modules/second/grp/grp-docs/GRPTeam02/docs/report/tex/GRPTeam02-Interim.tex" 1543053127 10192 956e44e9ba6eb1f560aee56d839e16c7 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm" 1480098701 1328 c834bbb027764024c09d3d2bf908b5f0 ""
   "/usr/local/texlive/2017/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1480098701 1324 c910af8c371558dc20f2d7822f66fe64 ""
@@ -25,18 +25,19 @@
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd" 1480098821 2256 80ce1168fb4ce6a85583a9cf8972c013 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/base/size10.clo" 1480098821 8292 e897c12e1e886ce77fe26afc5d470886 ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/cite/cite.sty" 1480098825 26218 19edeff8cdc2bcb704e8051dc55eb5a7 ""
+  "/usr/local/texlive/2017/texmf-dist/tex/latex/enumitem/enumitem.sty" 1480098827 42666 6fa770e3485520a6a5f2ea7d259c8f8d ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty" 1480098827 22494 ab2f238426db63334832f85a72ef1f3b ""
   "/usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty" 1480098835 45456 1c8843383c0bd05870c45fa0ebea6cc2 ""
   "/usr/local/texlive/2017/texmf-dist/web2c/texmf.cnf" 1494087824 32646 eadc4ca26cdbe7105ac7c593aa8c4f72 ""
   "/usr/local/texlive/2017/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1495593472 2350277 a699055bee05bf8a40b0504752487295 ""
   "/usr/local/texlive/2017/texmf-var/web2c/pdftex/pdflatex.fmt" 1510151408 4129592 83e30df18b45f0ee65b446107bda15e6 ""
   "/usr/local/texlive/2017/texmf.cnf" 1495593465 577 2b71d4d888f9e5560b2e99985915a9fa ""
-  "GRPTeam02-Interim.aux" 1543047276 1383 3c9119b0d1b7902bf7448719b2b22f0d ""
-  "GRPTeam02-Interim.bbl" 1542962963 1644 c6b7d916aef5c77dc5084e4ae829ae34 "bibtex GRPTeam02-Interim"
-  "GRPTeam02-Interim.tex" 1543047276 6620 98f046c23e4b5c165ef30300a72e67b4 ""
-  "GRPTeam02-Interim.toc" 1543047276 875 ecb6828ff4a828e2b5ae7820dc16f48e ""
+  "GRPTeam02-Interim.aux" 1543053127 1564 41c10943644b8597bf8959e0fd4525d8 ""
+  "GRPTeam02-Interim.bbl" 1543052735 1644 c6b7d916aef5c77dc5084e4ae829ae34 "bibtex GRPTeam02-Interim"
+  "GRPTeam02-Interim.tex" 1543053127 10192 956e44e9ba6eb1f560aee56d839e16c7 ""
+  "GRPTeam02-Interim.toc" 1543053127 1020 9aa17773ce55ed97d55ba94602ecc5a3 ""
   (generated)
   "GRPTeam02-Interim.pdf"
-  "GRPTeam02-Interim.log"
   "GRPTeam02-Interim.aux"
+  "GRPTeam02-Interim.log"
   "GRPTeam02-Interim.toc"

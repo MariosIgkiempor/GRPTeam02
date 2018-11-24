@@ -2,7 +2,9 @@
 \usepackage{cite}
 \usepackage[numbers]{natbib}
 \usepackage{fancyhdr}
- 
+\usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.} 
+
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{COMP2043.GRP Interim Group Report}
@@ -47,8 +49,85 @@ In essense, the project will take a dataset and tell the user the most optimal m
 \subsection{Machine Learning}
 The team has to figure out how many machine learning methods would be provided in our website, their respective principles, and how and when to use each one.
 There is many Test suitability of open source machine learning toolkits such as H2o \cite{h2o.ai}, Weka \cite{weka} and various Python and R packages. These machine learning toolkits could be used to analyze different datasets. In this early stage of the project, the team has chosen to use Weka to understand each machine learning method.
-\section{Requirements Specification}
 
+\section{Requirements Specification}
+Following meeting with the client and discussing initial user requirements and system requirements specification, as well as subsequent meeting revising both requirements, the team and the client have agreed on a set of requirements.
+
+\subsection{User Requirements}
+
+\begin{enumerate}
+  \item Parse datasets and suggests the best machine learning approaches for modeling that dataset
+
+  \item The user will supply datasets to be analysed
+  
+  \item The system will need to be appropriate for use as both a prefilter for machine learning and as a teaching aid.
+  
+  \item The user requires a degree of data visualization in the front end
+  
+  \item The user requires a comprehensive, extendible database. The database should allow the user to:
+  \begin{enumerate}
+    \item upload datasets
+    \item modify existing datasets
+    \item provide relevant information about the datasets
+  \end{enumerate}
+  
+  \item A rule-based approach will initially be sufficient to assertain what the ideal machine learning approach is for each dataset
+  
+  \item The client has significant knowledge of machine learning methods and some of this knowledge will be captured to facilitate the decision making process
+\end{enumerate}
+
+\subsection{Functional System Requirements}
+
+\begin{enumerate}
+  \item The system will require a database which can store the data in every dataset
+  
+  \begin{enumerate}
+    \item The user can upload the dataset
+  
+    \item The datasets are available for users to download
+    
+    \item Information about the dataset (what type of data, whether or not there are missing values) can be provided by the user and stored as metadata with each dataset
+    
+    \item The datasets need preprocessing to find details about the data. These details must be stored as metadata with the dataset. Details will be characteristics of the datasets which help decide the best machine learning approach. Such details could include:
+    \begin{enumerate}
+      \item The type of data
+      \item Size of the dataset
+      \item Number of features
+      \item Number of target outputs provided with the data
+      \item Whether or not there are missing values
+      \item Whether the labels are categories or values
+      \item Complexity of the dataset
+      \item Complexity of relations in the dataset
+      \item Wether or not the dataset is structured
+    \end{enumerate}
+
+    \item The customer needs to be able to add, delete or change information stored in the database
+  \end{enumerate}
+  
+  \item The system must be able to analyze a dataset and provide the best machine learning approach to model the dataset
+  \begin{enumerate}
+    \item The reason why that approach is best needs to be provided to the user
+  
+    \item The system will have different cataglogues of machine learning. Each cataglogue provides the algorithm for the machine learning and the sample datasets.
+    
+    \item The system must have a search engine which can search for both the datasets' name and machine learning approaches.
+  \end{enumerate}
+  
+  \item The system must provide different types of data visualization
+  \begin{enumerate}
+    \item Bar charts
+    \item Scatter graphs
+    \item Images 
+    \item Interactive visualization at the result page
+  \end{enumerate}
+  
+  \item The system should have different mapping opinions for finding the ideal machine learning method:
+  \begin{enumerate}
+    \item Rule-based system
+    \item Deterministic mode
+    \item Probabilistic mode
+  \end{enumerate} 
+\end{enumerate}
 \section{Initial Design Ideas}
 
 \section{Key Implementation Decisions}

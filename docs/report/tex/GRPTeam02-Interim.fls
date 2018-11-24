@@ -14,6 +14,8 @@ INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/natbib/natbib.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/enumitem/enumitem.sty
+INPUT /usr/local/texlive/2017/texmf-dist/tex/latex/enumitem/enumitem.sty
 INPUT GRPTeam02-Interim.aux
 INPUT GRPTeam02-Interim.aux
 OUTPUT GRPTeam02-Interim.aux
