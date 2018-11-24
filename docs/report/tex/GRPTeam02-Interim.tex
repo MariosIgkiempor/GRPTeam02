@@ -4,6 +4,8 @@
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \setlist[enumerate]{label*=\arabic*.} 
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 \pagestyle{fancy}
 \fancyhf{}
@@ -128,6 +130,16 @@ Following meeting with the client and discussing initial user requirements and s
     \item Probabilistic mode
   \end{enumerate} 
 \end{enumerate}
+
+\subsection{Modelling Requirements}
+Following the elicitation of user and system requirements, the team decided it was useful to model both. We began by making a simple use case diagram, shown in figure \ref{usecase}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{usecase}
+  \caption{Simple use case diagram of the system}
+  \label{usecase}
+\end{figure}
 \section{Initial Design Ideas}
 
 \section{Key Implementation Decisions}
