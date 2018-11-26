@@ -14,3 +14,4 @@
 \contentsline {subsection}{\numberline {5.2}Accepted File Types in the System}{7}
 \contentsline {section}{\numberline {6}Problems Encountered}{7}
 \contentsline {section}{\numberline {7}Time Planning and Project Management}{7}
+\contentsline {subsection}{\numberline {7.1}Division of Work}{8}
