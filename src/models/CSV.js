@@ -5,8 +5,22 @@ const Schema = mongoose.Schema
 // vals can have any number of numbers in it
 const CSVFileSchema = new Schema(
   {
-    vals: [Number],
-    output: Boolean
+    headings: [String],
+    vals: [[Number]],
+    labels: {},
+    dataType: String,
+    size: Number,
+    numFeatures: Number,
+    missingValues: {},
+    missingLabels: {},
+    labelsRatio: Number,
+    categorical: Boolean,
+    complexity: String,
+    relations: String,
+    structure: Boolean
+  },
+  {
+    strict: false
   }
 )
 

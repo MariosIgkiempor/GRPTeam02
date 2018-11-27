@@ -14,8 +14,19 @@ router.get('/', (req, res) => {
 // route to add a CSVFiles
 router.post('/', (req, res) => {
   const newFile = new CSVFile({
+    headings: req.body.headings,
     vals: req.body.vals,
-    output: req.body.output
+    labels: req.body.labels,
+    dataType: req.body.dataType,
+    size: req.body.size,
+    numFeatures: req.body.numFeatures,
+    missingValues: req.body.missingValues,
+    missingLabels: req.body.missingLabels,
+    labelsRatio: req.body.labelsRatio,
+    categorical: req.body.categorical,
+    complexity: req.body.complexity,
+    relations: req.body.relations,
+    structure: req.body.structure
   })
 
   newFile.save()

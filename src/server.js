@@ -36,5 +36,5 @@ const parseFile = require('./parsing/csvParser').parseFile
 // csv files should have a header line, followed by an array of numbers,
 // the last column of the CSV should be a boolean true/false
 
-// const parsedArray = parseFile('Had8.csv')
+parseFile('testing.csv')
 // console.log(parsedArray)
