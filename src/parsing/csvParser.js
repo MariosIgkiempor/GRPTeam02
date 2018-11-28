@@ -53,17 +53,18 @@ const readFile = filename => {
       .forEach(col => outputObject.missingValues.push({ row, col }))
   )
   
+  outputObject.vals = rawDataArray
   outputObject.size = outputObject.vals.length
+
+  outputObject.labelsRatio = outputObject.labels.length / outputObject.size
+
+  // TODO: Detect data type for labels
+  outputObject.dataType = findValsDataType(rawDataArray)
+  
+  if (outputObject.dataType === "number") // only find anomalies if data is numbers
+    outputObject.anomalies = findAnomalies(rawDataArray)
+  
   console.log(outputObject)
-
-  // TODO: Detect data type for vals and labels
-  // for now, it is assumed all data will be numbers
-  // outputObject.dataType = findDataType(outputObject)
-
-  // outputObject.labelsRatio = outputObject.labels.length / outputObject.size
-
-  outputObject.anomalies = findAnomalies(rawDataArray)
-  // console.log(outputObject.anomalies)
 
   return outputObject
 }
@@ -75,58 +76,55 @@ const findMatchingIndicies = f => xs => xs
 const findMissingIndicies = findMatchingIndicies(x => x === null)
 
 const findAnomalies = arr => {
-  let vals = []
-    .concat(...arr)         // flatten the input array
-    .filter(x => x != null) // get rid of null values
-    .sort((a,b) => a-b)     // sort lowest to highest
+  let vals =
+     flatten(arr)            // flatten the input array
+    .map(x => parseFloat(x)) // temporary
+    .filter(x => x !== null) // get rid of null values
+    .sort((a,b) => a-b)      // sort lowest to highest
 
-  // find interquartile range
+  // ------------ find interquartile range ------------
   let n = vals.length
-  const median = (l, r) => Math.floor(((r - l + 1) + 1) / 2 - 1)
-  let medianIndex = median(0, n)
-  let q1Arr = vals.slice(0, medianIndex)
-  let q3Arr = vals.slice(medianIndex + 1)
-  // console.log(vals[medianIndex], q1Arr, q3Arr)
-  let q1 = q1Arr[median(0, q1Arr.length)]
+  const median = (l, r) => // median of a sorted array is the element in the middle
+    Math.floor(((r - l + 1) + 1) / 2 - 1)
+  const medianIndex = median(0, n)
+  const q1Arr       = vals.slice(0, medianIndex)     // first half of sorted values
+  const q3Arr       = vals.slice(medianIndex + 1)    // last half of sorted vals
+  const q1          = q1Arr[median(0, q1Arr.length)] // first quartile
+  const q3          = q3Arr[median(0, q3Arr.length)] // third quartile
+  const iqr         = q3 - q1                        // interquartile range
 
-  // console.log(`Q1: ${q1}`)
-  let q3 = q3Arr[median(0, q3Arr.length)]
+  // anomaly is any value less than 1.5 times the IQR
+  //                   or more than 1.5 times the IQR
+  const isAnomaly = (q1, q3, iqr, x) => x < (q1 - 1.5 * iqr) || x > (q3 + 1.5 * iqr)
 
-  // console.log(`Q3: ${q3}`)
-  let iqr = q3 - q1
-  // console.log(`IQR: ${iqr}`)
-
-  const isAnomaly = x => x < q1 - 1.5 * iqr || x > q3 + 1.5 * iqr
-
-  console.log(arr)
   let anomalies = []
-  arr.forEach((xs, row) => {
-    xs.map(parseFloat)
-      .map((x, i) => isAnomaly(x) ? i : null)
-      .forEach(x => console.log(x))
-      // .filter(x => x !== null)
-      // .forEach(col => anomalies.push({ row, col }))
+
+  // temporary; only numbers will parsed using this function
+  vals = arr.map(xs => xs.map(ys => parseInt(ys)))
+
+  vals.forEach((xs, row) => {
+    xs.map((x, i) => isAnomaly(q1, q3, iqr, x) ? i : null)
+      .filter(x => x != null)
+      .forEach(col => anomalies.push({ row, col }))
     }
   )
-  
-  console.log(anomalies)
   return anomalies
 }
 
-const findDataType = obj => {
-  const vals = obj.vals
-  let dataType = typeof vals[0][0]
-  for (let y = 0; y < vals.length; y++) {
-    for (let x = 0; x < vals[y].length; x++) {
-      if (vals[y][x] !== null) {
-        dataType = dataType === typeof vals[y][x]
-          ? dataType
-          : "mixed"
-      }
-      if (dataType === "mixed") return dataType;
-    }
-  }
-  return dataType
+const findValsDataType = arr => {
+  const vals = flatten(arr).filter(x => x !== null)
+  if (vals.length === 0) return "empty"
+
+  const parsedNumbers = vals.map(x => parseFloat(x))
+  const isNumber = parsedNumbers.every(x => !isNaN(x))
+
+  // if all numbers are 1 or 0, dataType is boolean
+  const isBoolean = // values are boolean if all values are 1 or 0
+    isNumber &&
+    parsedNumbers.reduce((a, x) => a && (x === 1 || x === 0), true)
+  if (isBoolean) return "boolean"
+  else if (isNumber) return "number"
+  else return "string" // if not boolean, dataType is assumed to be a String
 }
 
 const isCategorical = obj => {
