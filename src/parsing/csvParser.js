@@ -63,10 +63,55 @@ const readFile = filename => {
   outputObject.dataType = "Number"
   outputObject.labelsRatio = outputObject.labels.length / outputObject.size
 
-  // findAnomalies(outputObject)
+  outputObject.anomalies = findAnomalies(outputObject)
+  console.log(outputObject.anomalies)
 
   return outputObject
 }
+
+const findAnomalies = obj => {
+  let vals = obj.vals
+  let allVals = []
+  for (let y = 0; y < vals.length; y++) {
+    for (let x = 0; x < vals[y].length; x++) {
+      if (vals[y][x] != null) allVals.push(vals[y][x])
+    }
+  }
+
+  // TODO: implement a faster sorting algorithm
+  allVals.sort((a,b) => a-b)
+  console.log(allVals)
+
+  // find interquartile range
+  let n = allVals.length
+  const median = (l, r) => Math.floor(((r - l + 1) + 1) / 2 - 1)
+  let medianIndex = median(0, n)
+  let q1Arr = allVals.slice(0, medianIndex)
+  let q3Arr = allVals.slice(medianIndex + 1)
+  // console.log(allVals[medianIndex], q1Arr, q3Arr)
+  let q1 = q1Arr[median(0, q1Arr.length)]
+
+  console.log(q1, allVals[median(0, medianIndex)])
+  let q3 = q3Arr[median(0, q3Arr.length)]
+
+  console.log(q3, allVals[median(medianIndex + 1, n)])
+  let iqr = q3 - q1
+
+
+  let anomalies = []
+  for (let y = 0; y < vals.length; y++) {
+    for (let x = 0; x < vals[y].length; x++) {
+      if ((vals[y][x] < q1 - 1.5 * iqr || vals[y][x] > q3 + 1.5 * iqr) && (vals[y][x] != null)) {
+        // console.log(q1, q3, q1 - 1.5 * iqr, q3 + 1.5 * iqr)
+        anomalies.push({ x, y })
+      }
+    }
+  }
+  
+  console.log(anomalies)
+  return anomalies
+}
+
 
 // send a POST request to the server on port declared in the config file
 const sendData = elem => {
@@ -87,7 +132,8 @@ const sendData = elem => {
         "categorical": elem.categorical,
         "complexity": elem.complexity,
         "relations": elem.relations,
-        "structure": elem.structure
+        "structure": elem.structure,
+        "anomalies": elem.anomalies
       }
     }
 

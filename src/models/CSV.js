@@ -17,11 +17,10 @@ const CSVFileSchema = new Schema(
     categorical: Boolean,
     complexity: String,
     relations: String,
-    structure: Boolean
+    structure: Boolean,
+    anomalies: {}
   },
-  {
-    strict: false
-  }
+  { strict: false }
 )
 
 // create the model from the schma

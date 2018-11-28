@@ -26,12 +26,13 @@ router.post('/', (req, res) => {
     categorical: req.body.categorical,
     complexity: req.body.complexity,
     relations: req.body.relations,
-    structure: req.body.structure
+    structure: req.body.structure,
+    anomalies: req.body.anomalies
   })
 
   newFile.save()
     .then(_ => res.json())
-    .then(json => console.log(json))
+    // .then(json => console.log(json))
 })
 
 module.exports = router
