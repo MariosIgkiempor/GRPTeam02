@@ -1,3 +1,4 @@
+require('../misc/helpers')
 const fs = require('fs')
 const request = require('request')
 
@@ -18,100 +19,119 @@ const readFile = filename => {
   outputObject.labels = []
 
   // raw data from the file, including headings and labels
-  // type: [String]
-  const rawDataArray = fileData.trim().split('\r\n')
+  // type: [[String]]
+  let rawDataArray = fileData
+    .trim()
+    .split('\r\n')
+    .map(e => e.split(','))
 
   // array of the headers of the csv files
   // type: [String]
-  const headings = rawDataArray.shift().split(',')
-  headings.splice(-1, 1)
+  const headings = rawDataArray
+    .splice(0, 1)[0]
+    .slice(0, -1)
   outputObject.headings = headings
   outputObject.numFeatures = outputObject.headings.length
   
+  // replace missing values with null
+  rawDataArray = rawDataArray.map(row => 
+    row.map(x => x === '' ? null : x)
+  )
+
+  // array of labels
+  outputObject.labels = rawDataArray.map(row => row.pop())
+
+  // array of row index of missing labels (if any)
+  outputObject.missingLabels = findMissingIndicies(outputObject.labels)
+  
   // array of indecies of missing values
   // if empty, no missing values
-  // missing values represented by { x:Number, y:Number }
+  // missing values represented by { row:Number, col:Number }
   outputObject.missingValues = []
-
-  // array of row index of missing label
-  // if empty, no missing label
-  outputObject.missingLabels = []
-
-
-  rawDataArray.forEach((elem, row) => {
-    let cols = elem.split(',')
-
-    const label = cols.pop()
-    // find and append missing values to missingValues array
-    cols.forEach((e, col) => {
-      if (e == '') outputObject.missingValues.push({ x: row, y: col })
-    })
-
-    if (!label || label === '') outputObject.missingLabels.push(row)
-    else outputObject.labels.push(label)
-
-    cols = cols.map(value => value === '' ? null : parseFloat(value))
-
-    outputObject.vals.push(cols)
-  })
-
+  rawDataArray.map((xs, row) => 
+    findMissingIndicies(xs)
+      .forEach(col => outputObject.missingValues.push({ row, col }))
+  )
+  
   outputObject.size = outputObject.vals.length
-
+  console.log(outputObject)
 
   // TODO: Detect data type for vals and labels
   // for now, it is assumed all data will be numbers
-  outputObject.dataType = "Number"
-  outputObject.labelsRatio = outputObject.labels.length / outputObject.size
+  // outputObject.dataType = findDataType(outputObject)
 
-  outputObject.anomalies = findAnomalies(outputObject)
-  console.log(outputObject.anomalies)
+  // outputObject.labelsRatio = outputObject.labels.length / outputObject.size
+
+  outputObject.anomalies = findAnomalies(rawDataArray)
+  // console.log(outputObject.anomalies)
 
   return outputObject
 }
 
-const findAnomalies = obj => {
-  let vals = obj.vals
-  let allVals = []
-  for (let y = 0; y < vals.length; y++) {
-    for (let x = 0; x < vals[y].length; x++) {
-      if (vals[y][x] != null) allVals.push(vals[y][x])
-    }
-  }
+const findMatchingIndicies = f => xs => xs
+  .map((x, i) => f(x) ? i : null)
+  .filter(x => x !== null)
 
-  // TODO: implement a faster sorting algorithm
-  allVals.sort((a,b) => a-b)
-  console.log(allVals)
+const findMissingIndicies = findMatchingIndicies(x => x === null)
+
+const findAnomalies = arr => {
+  let vals = []
+    .concat(...arr)         // flatten the input array
+    .filter(x => x != null) // get rid of null values
+    .sort((a,b) => a-b)     // sort lowest to highest
 
   // find interquartile range
-  let n = allVals.length
+  let n = vals.length
   const median = (l, r) => Math.floor(((r - l + 1) + 1) / 2 - 1)
   let medianIndex = median(0, n)
-  let q1Arr = allVals.slice(0, medianIndex)
-  let q3Arr = allVals.slice(medianIndex + 1)
-  // console.log(allVals[medianIndex], q1Arr, q3Arr)
+  let q1Arr = vals.slice(0, medianIndex)
+  let q3Arr = vals.slice(medianIndex + 1)
+  // console.log(vals[medianIndex], q1Arr, q3Arr)
   let q1 = q1Arr[median(0, q1Arr.length)]
 
-  console.log(q1, allVals[median(0, medianIndex)])
+  // console.log(`Q1: ${q1}`)
   let q3 = q3Arr[median(0, q3Arr.length)]
 
-  console.log(q3, allVals[median(medianIndex + 1, n)])
+  // console.log(`Q3: ${q3}`)
   let iqr = q3 - q1
+  // console.log(`IQR: ${iqr}`)
 
+  const isAnomaly = x => x < q1 - 1.5 * iqr || x > q3 + 1.5 * iqr
 
+  console.log(arr)
   let anomalies = []
-  for (let y = 0; y < vals.length; y++) {
-    for (let x = 0; x < vals[y].length; x++) {
-      if ((vals[y][x] < q1 - 1.5 * iqr || vals[y][x] > q3 + 1.5 * iqr) && (vals[y][x] != null)) {
-        // console.log(q1, q3, q1 - 1.5 * iqr, q3 + 1.5 * iqr)
-        anomalies.push({ x, y })
-      }
+  arr.forEach((xs, row) => {
+    xs.map(parseFloat)
+      .map((x, i) => isAnomaly(x) ? i : null)
+      .forEach(x => console.log(x))
+      // .filter(x => x !== null)
+      // .forEach(col => anomalies.push({ row, col }))
     }
-  }
+  )
   
   console.log(anomalies)
   return anomalies
 }
 
+const findDataType = obj => {
+  const vals = obj.vals
+  let dataType = typeof vals[0][0]
+  for (let y = 0; y < vals.length; y++) {
+    for (let x = 0; x < vals[y].length; x++) {
+      if (vals[y][x] !== null) {
+        dataType = dataType === typeof vals[y][x]
+          ? dataType
+          : "mixed"
+      }
+      if (dataType === "mixed") return dataType;
+    }
+  }
+  return dataType
+}
+
+const isCategorical = obj => {
+
+}
 
 // send a POST request to the server on port declared in the config file
 const sendData = elem => {
@@ -148,6 +168,6 @@ const sendData = elem => {
 module.exports = {
   parseFile: filename => {
     const fileArray = readFile(filename)
-    sendData(fileArray)
+    // sendData(fileArray)
   }
 }
