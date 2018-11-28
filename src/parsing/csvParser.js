@@ -59,6 +59,7 @@ const readFile = filename => {
   if (outputObject.dataType === "number") // only find anomalies if data is numbers
     outputObject.anomalies = findAnomalies(rawDataArray)
 
+  // parse the object's values depending on the data type
   if (outputObject.dataType === "number") 
     outputObject.vals = rawDataArray.map(xs => xs.map(parseFloat))
   else if (outputObject.dataType === "boolean")
@@ -66,7 +67,6 @@ const readFile = filename => {
   else if (outputObject.dataType === "string")
     outputObject.vals = rawDataArray
     
-  
   outputObject.size = outputObject.vals.length
   outputObject.labelsRatio = outputObject.labels.length / outputObject.size
   
@@ -84,9 +84,9 @@ const findMatchingIndicies = f => xs => xs
 const findMissingIndicies = findMatchingIndicies(x => x === null)
 
 const findAnomalies = arr => {
-  let vals =
+  const vals =
      flatten(arr)            // flatten the input array
-    .map(x => parseFloat(x)) // temporary
+    .map(x => parseFloat(x)) // parse as numbers (this method will only be called with numbers)
     .filter(x => x !== null) // get rid of null values
     .sort((a,b) => a-b)      // sort lowest to highest
 
@@ -107,15 +107,13 @@ const findAnomalies = arr => {
 
   let anomalies = []
 
-  // temporary; only numbers will parsed using this function
-  vals = arr.map(xs => xs.map(ys => parseInt(ys)))
+  arr
+    .map(xs => xs.map(ys => parseFloat(ys)))                 // read all input values as numbers
+    .forEach((xs, row) =>                                    // for each row of input values
+      xs.map((x, i) => isAnomaly(q1, q3, iqr, x) ? i : null) // check which indecies are anomalies
+        .filter(x => x != null)                              // filter out indecies that aren't anomalies
+        .forEach(col => anomalies.push({ row, col })))       // push to anomalies array the row and col its found on in the input array
 
-  vals.forEach((xs, row) => {
-    xs.map((x, i) => isAnomaly(q1, q3, iqr, x) ? i : null)
-      .filter(x => x != null)
-      .forEach(col => anomalies.push({ row, col }))
-    }
-  )
   return anomalies
 }
 
