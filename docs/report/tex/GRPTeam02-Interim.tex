@@ -52,6 +52,23 @@ In essense, the project will take a dataset and tell the user the most optimal m
 The team has to figure out how many machine learning methods would be provided in our website, their respective principles, and how and when to use each one.
 There is many Test suitability of open source machine learning toolkits such as H2o \cite{h2o.ai}, Weka \cite{weka} and various Python and R packages. These machine learning toolkits could be used to analyze different datasets. In this early stage of the project, the team has chosen to use Weka to understand each machine learning method.
 
+\subsection{Understanding Machine Learning Algorithms}
+Section \ref{pickingML} lists the machine learning algorithms that the system will be able to produce as output. The team felt it would be beneficial to have a basic understanding of each algorithm and where it is most useful. Some background research was conducted into each algorithm:
+
+\subsubsection*{Self-Organising Map (SOM)}
+\subsubsection*{K-Means Clustering}
+\subsubsection*{Principal Component Analysis}
+\subsubsection*{Linear Regression}
+\subsubsection*{Neural Network}
+\subsubsection*{Multiclass Neural Network}
+\subsubsection*{Random Forest Regression}
+\subsubsection*{Logistic Regression}
+\subsubsection*{Multiclass Logistic Regression}
+\subsubsection*{Naive Bayesian Network}
+\subsubsection*{Support Vector Machine}
+\subsubsection*{Self-Training}
+\subsubsection*{Forced Clustering}
+
 \section{Requirements Specification}
 Following meeting with the client and discussing initial user requirements and system requirements specification, as well as subsequent meeting revising both requirements, the team and the client have agreed on a set of requirements.
 
@@ -144,7 +161,7 @@ Following the elicitation of user and system requirements, the team decided it w
 The use case diagram clearly shows how the user will interact with the system. Due to the nature of the system, much of its complexity is hidden from the user and therefore the user does not have many use cases. Regardless, the use case diagram is an important part of the requirements gathering process as it makes it easier for the client to visualise their interactions with the system.
 
 \section{Initial Design Ideas}
-\subsection{Picking the Machine Learning Approach}
+\subsection{Picking the Machine Learning Approach} \label{pickingML}
 The final goal of the project is to analyze datasets and automatically suggest the best machine learning tools by using our machine learning analyzer. The analyzer will initially be composed of a Decision Tree, which will identify the best machine learning approach based on features of a given dataset.
 
 The short-term goal is to classify dataset into three broad categories: Supervised Learning, Unsupervised Learning and Semi-supervised Learning according to whether there is output data in the dataset. In order to provide a prototype to the client, the system will pick a random machine learning approah. This will let the client have an idea of what a working system would function like.
@@ -172,6 +189,37 @@ The team decide to provide 17 potential machine learning tools:
 The best suitable tool will be suggested from these machine learning tools by using decision algorithm in the second iteration of the project, after the prototype.
 
 The website will display the selected most suitable machine learning tool for each dataset uploaded by client. In the long term, the team hopes that the website will be able to analyze the dataset by using the best machine learning tool and visualize the output. However, we are aware that given time constraints, it may not be possible to implement all 17 algorithms, and as such we have agreed with the client that although it would be useful to have, it is not part of the core functionality.
+
+The decision algorithm will be used to determine which is the best analyzing algorithm for datasets. First of all, the algorithm will determine whether the dataset is supervised; according to whether there is output data in the dataset, we divide the dataset into three categories: Unsupervised Learning, Semi-supervised Learning and Supervised Learning, as can be seen in figure \ref{main-decision}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{main-decision}
+  \caption{Deciding the class of machine learning to use}
+  \label{main-decision}
+\end{figure}
+
+If the dataset has no output data, it is classed as an Unsupervised Learning problem. Within Unsupervised Learning, if there are lots of features in the dataset, suggest using a Self-Organizing Map to analyze. Otherwise judge whether the dataset have structure or not. If they have structure, suggest K-means Clustering to analyze, otherwise suggest using Principal Component Analysis. This deicion is modelled in figure \ref{unsupervised-decision}.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{unsupervised-decision}
+  \caption{Deciding which unsupervised learning technique to suggest}
+  \label{unsupervised-decision}
+\end{figure}
+
+If the dataset is completely labelled with output data, divide it into Supervised Learning. If the outputs are categories divide the dataset to Classification. Else if the outputs are continuous values, divide the dataset to Regression.
+
+If the dataset is best modelled by classification, determine how many categories the dataset contains. If dataset contains 3 or more categories, determine if the dataset is simple or not. For small complex datasets, suggest Multiclass Neural Network or Random Forest Regression. For simple large dataset, suggest using Multiclass Logistic Regression to analyze. If the dataset only contains less than 3 categories, determine whether the relation in the dataset is simple. If the dataset has simple relations, suggest Logistic Regression. Otherwise determine how many features in the dataset. If the dataset has less than 100 features, suggest Neural Network, otherwise suggest Naïve Bayesian Classifier or Support Vector Machine. If, after modelling the data using a Naïve Bayesian Classifier or Support Vector Machine, the output is worse than a guess, suggest Anti-learning.
+
+If the dataset is composed of values (regression), also determine the dataset simple or not, if it is a simple large dataset, suggest Linear Regression. Else if a complex small dataset, suggest Random Forest Regression and Sum Regression. Figure \ref{supervised-decision} vizualises this set of decisions.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{supervised-decision}
+  \caption{Deciding which supervised learning technique to suggest}
+  \label{supervised-decision}
+\end{figure} \pagebreak
 
 \section{Key Implementation Decisions}
 \subsection{Database Design}
