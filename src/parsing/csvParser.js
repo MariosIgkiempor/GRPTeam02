@@ -52,22 +52,30 @@ const readFile = filename => {
     findMissingIndicies(xs)
       .forEach(col => outputObject.missingValues.push({ row, col }))
   )
-  
-  outputObject.vals = rawDataArray
-  outputObject.size = outputObject.vals.length
-
-  outputObject.labelsRatio = outputObject.labels.length / outputObject.size
 
   // TODO: Detect data type for labels
   outputObject.dataType = findValsDataType(rawDataArray)
   
   if (outputObject.dataType === "number") // only find anomalies if data is numbers
     outputObject.anomalies = findAnomalies(rawDataArray)
+
+  if (outputObject.dataType === "number") 
+    outputObject.vals = rawDataArray.map(xs => xs.map(parseFloat))
+  else if (outputObject.dataType === "boolean")
+    outputObject.vals = rawDataArray.map(xs => xs.map(parseBool))
+  else if (outputObject.dataType === "string")
+    outputObject.vals = rawDataArray
+    
+  
+  outputObject.size = outputObject.vals.length
+  outputObject.labelsRatio = outputObject.labels.length / outputObject.size
   
   console.log(outputObject)
 
   return outputObject
 }
+
+const parseBool = x => x === '1' ? true : false
 
 const findMatchingIndicies = f => xs => xs
   .map((x, i) => f(x) ? i : null)
