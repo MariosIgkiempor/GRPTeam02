@@ -2,6 +2,10 @@ require('../misc/helpers')
 const fs = require('fs')
 const request = require('request')
 
+const CATEGORICAL_THRESHOLD = 0.25
+
+// TODO: missing values - what to fill them with
+
 // takes the file out of the datasets folder and converts it to an object
 // with the schema defined in ../models/CSV.js
 const readFile = filename => {
@@ -70,13 +74,28 @@ const readFile = filename => {
   outputObject.size = outputObject.vals.length
   outputObject.labelsRatio = outputObject.labels.length / outputObject.size
   
+  outputObject.isCategorical = isCategorical(outputObject.labels, outputObject.dataType)
+
   console.log(outputObject)
 
   return outputObject
 }
 
+const isCategorical = (labels) => {
+  if (findValsDataType(labels) === "boolean") return true // booleans are categorical by default
+
+  const uniqueCount = [...new Set(labels)].length
+  let categorical =
+    (uniqueCount > labels.length * CATEGORICAL_THRESHOLD)
+      ? false // if all labels are numbers but more than a constant ratio of the labels are unique, assume values
+      : true  // if all lavels are numbers and less than a constant ratio of the labels are unique, assume categories
+  
+  return categorical 
+}
+
 const parseBool = x => x === '1' ? true : false
 
+// helper function that return array of all indicies that match predicate f
 const findMatchingIndicies = f => xs => xs
   .map((x, i) => f(x) ? i : null)
   .filter(x => x !== null)
@@ -84,8 +103,9 @@ const findMatchingIndicies = f => xs => xs
 const findMissingIndicies = findMatchingIndicies(x => x === null)
 
 const findAnomalies = arr => {
+  // TODO: more robust anomaly checking
   const vals =
-     flatten(arr)            // flatten the input array
+    flatten(arr)             // flatten the input array
     .map(x => parseFloat(x)) // parse as numbers (this method will only be called with numbers)
     .filter(x => x !== null) // get rid of null values
     .sort((a,b) => a-b)      // sort lowest to highest
@@ -126,15 +146,30 @@ const findValsDataType = arr => {
 
   // if all numbers are 1 or 0, dataType is boolean
   const isBoolean = // values are boolean if all values are 1 or 0
-    isNumber &&
-    parsedNumbers.reduce((a, x) => a && (x === 1 || x === 0), true)
+      isNumber &&
+    ( parsedNumbers.every(x => x === 1 || x ===  0) ||
+      parsedNumbers.every(x => x === 1 || x === -1) )
+
   if (isBoolean) return "boolean"
   else if (isNumber) return "number"
   else return "string" // if not boolean, dataType is assumed to be a String
 }
 
-const isCategorical = obj => {
+const findComplexity = arr => {
+  // TODO: Shannon Entropy!! for complexity
+  // or ask the user
+  // how chaotic single values are
 
+  // average euclidian distance between each column
+  const square = power(2)
+  const sqrt   = power(0.5)
+
+  const columnTotals = arr.reduce((a, x, i, o) => a[i] += Math.abs(x, o[i-1]), [])
+}
+
+const findStructure = arr => {
+  // TODO: 1 / complexity
+  // how related two columns are
 }
 
 // send a POST request to the server on port declared in the config file
