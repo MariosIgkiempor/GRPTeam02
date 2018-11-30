@@ -187,20 +187,20 @@ const findStructure = arr => {
         .map((v, i2) => ([columns[i1], columns[i1 + 1 + i2]]))
     ], [])
   
-  // calculate sample coefficient of each pair of columns
-  // r = sum((X - Mx) * (Y - My)) / sqrt(sum(X - Mx)^2) * sqrt(sum(Y - My)^2)
+  // calculate population coefficient of each pair of columns
+  // r = mean((X - Mx) * (Y - My)) / (sqrt(mean((X - Mx)^2)) * sqrt(mean((Y - My)^2)))
   pairs.forEach(pair => {
-    const meanX        = mean(pair[0])                             // Mx
-    const meanY        = mean(pair[1])                             // My
-    const xs           = pair[0].map(x => x - meanX)               // X - Mx
-    const ys           = pair[1].map(y => y - meanY)               // Y - My
-    const xsys         = xs.map((x, i) => x * ys[i])               // (X - Mx)(Y - My)
-    const numerator    = sum(xsys)                                 // sum((X - Mx)(Y - My))
-    const xsSqared     = xs.map(x => power(2)(x))                  // (X - Mx) ^ 2
-    const ysSqared     = ys.map(y => power(2)(y))                  // (Y - My) ^ 2
-    const denominator1 = power(0.5)(sum(xsSqared))                 // sqrt(sum(X - Mx)^2)
-    const denominator2 = power(0.5)(sum(ysSqared))                 // sqrt(sum(Y - My)^2)
-    const r            = numerator / (denominator1 * denominator2) // correlation coefficient
+    const meanX     = mean(pair[0])                   // Mx
+    const meanY     = mean(pair[1])                   // My
+    const xs        = pair[0].map(x => x - meanX)     // X - Mx
+    const ys        = pair[1].map(y => y - meanY)     // Y - My
+    const xsys      = xs.map((x, i) => x * ys[i])     // (X - Mx)(Y - My)
+    const num       = mean(xsys)                      // mean((X - Mx)(Y - My))
+    const MxsSqared = mean(xs.map(x => power(2)(x)))  // mean((X - Mx) ^ 2)
+    const MysSqared = mean(ys.map(y => power(2)(y)))  // mean((Y - My) ^ 2)
+    const den1      = power(0.5)(MxsSqared)           // sqrt(sum(X - Mx)^2)
+    const den2      = power(0.5)(MysSqared)           // sqrt(sum(Y - My)^2)
+    const r         = num / (den1 * den2)             // correlation coefficient
     totalCorrelationCoefficient += r
   })
   
