@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.8)  28 NOV 2018 21:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.8)  30 NOV 2018 17:14
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -156,71 +156,86 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 \tf@toc=\write3
 \openout3 = `GRPTeam02-Interim.toc'.
 
- [1] [2] [3] [4] <./images/usecase.png, id=24, 1224.575pt x 682.55pt>
+ [1] [2]
+Missing character: There is no Ã in font cmbx10!
+Missing character: There is no ¯ in font cmbx10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¯ in font cmr10!
+Missing character: There is no â in font cmr10!
+Missing character: There is no € in font cmr10!
+Missing character: There is no ™ in font cmr10!
+Missing character: There is no Ã in font cmr10!
+Missing character: There is no ¯ in font cmr10!
+ [3] [4] [5] <./images/usecase.png, id=27, 1224.575pt x 682.55pt>
 File: ./images/usecase.png Graphic file (type png)
  <use ./images/usecase.png>
-Package pdftex.def Info: ./images/usecase.png used on input line 156.
+Package pdftex.def Info: ./images/usecase.png used on input line 191.
 (pdftex.def)             Requested size: 345.0pt x 192.28957pt.
- [5 <./images/usecase.png>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 171.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[6]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 206.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 171.
- [6] <./images/main-decision.png, id=35, 656.4525pt x 272.01625pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 206.
+ [7 <./images/usecase.png>] <./images/main-decision.png, id=38, 656.4525pt x 272.01625pt>
 File: ./images/main-decision.png Graphic file (type png)
  <use ./images/main-decision.png>
-Package pdftex.def Info: ./images/main-decision.png used on input line 197.
+Package pdftex.def Info: ./images/main-decision.png used on input line 232.
 (pdftex.def)             Requested size: 345.0pt x 142.96008pt.
- <./images/unsupervised-decision.png, id=36, 268.8444pt x 210.0648pt>
+ <./images/unsupervised-decision.png, id=39, 268.8444pt x 210.0648pt>
 File: ./images/unsupervised-decision.png Graphic file (type png)
  <use ./images/unsupervised-decision.png>
-Package pdftex.def Info: ./images/unsupervised-decision.png used on input line 206.
+Package pdftex.def Info: ./images/unsupervised-decision.png used on input line 241.
 (pdftex.def)             Requested size: 345.0pt x 269.56796pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
+[8 <./images/main-decision.png>]
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¯ in font cmr10!
 Missing character: There is no Ã in font cmr10!
 Missing character: There is no ¯ in font cmr10!
-[7 <./images/main-decision.png>] <./images/supervised-decision.png, id=41, 294.3798pt x 378.213pt>
+ <./images/supervised-decision.png, id=44, 294.3798pt x 378.213pt>
 File: ./images/supervised-decision.png Graphic file (type png)
  <use ./images/supervised-decision.png>
-Package pdftex.def Info: ./images/supervised-decision.png used on input line 219.
+Package pdftex.def Info: ./images/supervised-decision.png used on input line 254.
 (pdftex.def)             Requested size: 345.0pt x 443.25188pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-[8 <./images/unsupervised-decision.png>]
+[9 <./images/unsupervised-decision.png>]
 Overfull \vbox (16.0157pt too high) has occurred while \output is active []
 
- [9 <./images/supervised-decision.png>] [10]
+ [10 <./images/supervised-decision.png>] [11]
 Missing character: There is no â in font cmr10!
 Missing character: There is no € in font cmr10!
 Missing character: There is no ™ in font cmr10!
- [11] [12] (./GRPTeam02-Interim.bbl
+ [12] [13] (./GRPTeam02-Interim.bbl
 Underfull \hbox (badness 2285) in paragraph at lines 38--41
 []\OT1/cmr/m/n/10 ``Mongodb and mysql com-pared.'' [On-line]. Avail-able:
  []
 
-) [13] (./GRPTeam02-Interim.aux) ) 
+) [14] (./GRPTeam02-Interim.aux) ) 
 Here is how much of TeX's memory you used:
  2381 strings out of 492995
  34447 string characters out of 6132704
- 99185 words of memory out of 5000000
+ 99186 words of memory out of 5000000
  5918 multiletter control sequences out of 15000+600000
  7003 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 39i,10n,43p,988b,421s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 39i,11n,43p,1003b,419s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on GRPTeam02-Interim.pdf (14 pages, 274344 bytes).
+Output written on GRPTeam02-Interim.pdf (15 pages, 277070 bytes).
 PDF statistics:
- 91 PDF objects out of 1000 (max. 8388607)
- 58 compressed objects within 1 object stream
+ 94 PDF objects out of 1000 (max. 8388607)
+ 60 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  21 words of extra memory for PDF output out of 10000 (max. 10000000)
 

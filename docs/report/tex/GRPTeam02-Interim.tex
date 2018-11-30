@@ -60,14 +60,21 @@ Section \ref{pickingML} lists the machine learning algorithms that the system wi
 \subsubsection*{Principal Component Analysis}
 \subsubsection*{Linear Regression}
 \subsubsection*{Neural Network}
+Artificial Neural Network (ANN) is a machine learning method simulating information processing of a human brain to build a mathematic model. The model consists of processing elements (neurons) which each have an activation function. ANN a large amount of examples as training data and test data to complete the model, like the process of human learning. It has advantages in processing amounts of fuzzy nonlinear data.
 \subsubsection*{Multiclass Neural Network}
 \subsubsection*{Random Forest Regression}
 \subsubsection*{Logistic Regression}
+Logistic Regression is a method for binary prediction when the outputs are dichotomous (true or false). The weight of independent variables can be deduced by Logistic Regression when the binary outputs (dependent variable) are provided. The probability of output can also be predicted by the regression model. It is generally used for data mining, disease analysis and economic projection.
 \subsubsection*{Multiclass Logistic Regression}
-\subsubsection*{Naive Bayesian Network}
+\subsubsection*{Naïve Bayesian Network}
+Naïve Bayes is a sorting technique based on Bayes’ theorem. It sets characteristics of data as tags and assume that the tags are mutually independent on probability. Then the Naïve Bayes Classifier sort the objects and calculates probability according to these tags. And the objects can be sorted to known classes or demonstrate the probability of an object belonging to a class.
 \subsubsection*{Support Vector Machine}
+Support Vector Machine (SVM) is a method used to sort and regress. SVM is a development of binary liner classifier. For the nonlinearities, SVM transforms the sample into higher dimensions so that the sample can be linerly analyzed because of high dimensional features.
 \subsubsection*{Self-Training}
+Self-Training is a semi-supervised learning method. It divides first divides sample data into labelled and non-labelled subcategories. Because of high accuracy of classifier, the model can be used to label the unlabeled data sets. Then the unlabeled data can be deleted. The Algorithm will repeat these steps until the datasets not change any more.
 \subsubsection*{Forced Clustering}
+\subsubsection*{Anti-Learning}
+Anti-learning is used when the accuracy of a trained model's output is worse than random outputs even if no overfitting or over training occurred.
 
 \section{Requirements Specification}
 Following meeting with the client and discussing initial user requirements and system requirements specification, as well as subsequent meeting revising both requirements, the team and the client have agreed on a set of requirements.
@@ -75,24 +82,23 @@ Following meeting with the client and discussing initial user requirements and s
 \subsection{User Requirements}
 
 \begin{enumerate}
-  \item Parse datasets and suggests the best machine learning approaches for modeling that dataset
+  \item Parse datasets and suggests the best machine learning approaches for modeling that dataset.
 
-  \item The user will supply datasets to be analysed
+  \item The user will supply datasets to be analysed.
   
   \item The system will need to be appropriate for use as both a prefilter for machine learning and as a teaching aid.
   
-  \item The user requires a degree of data visualization in the front end
+  \item The user requires a degree of data visualization in the front end.
   
   \item The user requires a comprehensive, extendible database. The database should allow the user to:
   \begin{enumerate}
     \item upload datasets
-    \item modify existing datasets
     \item provide relevant information about the datasets
   \end{enumerate}
   
-  \item A rule-based approach will initially be sufficient to assertain what the ideal machine learning approach is for each dataset
+  \item A rule-based approach will initially be sufficient to assertain what the ideal machine learning approach is for each dataset.
   
-  \item The client has significant knowledge of machine learning methods and some of this knowledge will be captured to facilitate the decision making process
+  \item The client has significant knowledge of machine learning methods and some of this knowledge will be captured to facilitate the decision making process.
 \end{enumerate}
 
 \subsection{Functional System Requirements}
@@ -101,11 +107,11 @@ Following meeting with the client and discussing initial user requirements and s
   \item The system will require a database which can store the data in every dataset
   
   \begin{enumerate}
-    \item The user can upload the dataset
+    \item The user can upload the dataset.
   
-    \item The datasets are available for users to download
+    \item The datasets are available for users to download.
     
-    \item Information about the dataset (what type of data, whether or not there are missing values) can be provided by the user and stored as metadata with each dataset
+    \item Information about the dataset (what type of data, whether or not there are missing values) can be provided by the user and stored as metadata with each dataset.
     
     \item The datasets need preprocessing to find details about the data. These details must be stored as metadata with the dataset. Details will be characteristics of the datasets which help decide the best machine learning approach. Such details could include:
     \begin{enumerate}
@@ -120,12 +126,12 @@ Following meeting with the client and discussing initial user requirements and s
       \item Wether or not the dataset is structured
     \end{enumerate}
 
-    \item The customer needs to be able to add, delete or change information stored in the database
+    \item The customer needs to be able to add, delete or change information stored in the database.
   \end{enumerate}
   
-  \item The system must be able to analyze a dataset and provide the best machine learning approach to model the dataset
+  \item The system must be able to analyze a dataset and provide the best machine learning approach to model the dataset.
   \begin{enumerate}
-    \item The reason why that approach is best needs to be provided to the user
+    \item The reason why that approach is best needs to be provided to the user.
   
     \item The system will have different cataglogues of machine learning. Each cataglogue provides the algorithm for the machine learning and the sample datasets.
     
@@ -146,6 +152,35 @@ Following meeting with the client and discussing initial user requirements and s
     \item Deterministic mode
     \item Probabilistic mode
   \end{enumerate} 
+\end{enumerate}
+
+\subsection{Non-Functional System Requirements}
+\begin{enumerate}
+  \item Accessibility
+  \begin{enumerate}
+    \item The user should be able to upload data using multiple types of input, for example both the mouse and the keyboard.
+    \item The system should be accessible on multiple different platforms.
+  \end{enumerate}
+
+  \item Data integrity
+  
+  The original uploaded data should never be changed. If there are mechanisms in place which change the data, these should not affect the original data
+
+ \item Data Retention
+  
+  Data stored on the sever should only be kept there for 30 days as a limit.
+
+  \item Extensibility
+
+  The system should be able to cope with data of no more than 200MB.
+
+ \item Performance:
+
+  The system should be able to analyse new data sets in no longer than 1 minute.
+
+  \item Privacy and Security:
+
+  Data uploaded by a user must have the option to be kept private to the user who uploaded it.
 \end{enumerate}
 
 \subsection{Modelling Requirements}
