@@ -11,3 +11,9 @@ global.isFloat = x => !!(x % 1)
 global.power = x => y => Math.pow(y, x)
 
 global.log = x => console.log(x)
+
+global.sum = xs => xs.reduce((a, x) => a += x)
+
+global.mean = xs => global.sum(xs) / xs.length
+
+global.transpose = xs => xs[0].map((x,i) => xs.map(x => x[i]))

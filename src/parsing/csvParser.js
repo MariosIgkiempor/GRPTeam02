@@ -2,7 +2,7 @@ require('../misc/helpers')
 const fs = require('fs')
 const request = require('request')
 
-const CATEGORICAL_THRESHOLD = 0.25
+const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 
 // TODO: missing values - what to fill them with
 
@@ -74,14 +74,17 @@ const readFile = filename => {
   outputObject.size = outputObject.vals.length
   outputObject.labelsRatio = outputObject.labels.length / outputObject.size
   
-  outputObject.isCategorical = isCategorical(outputObject.labels, outputObject.dataType)
+  outputObject.isCategorical = isCategorical(outputObject.labels)
+  if (outputObject.isCategorical) outputObject.categories = findUnique(outputObject.labels)
+
+  outputObject.structure = findStructure(outputObject.vals)
 
   console.log(outputObject)
 
   return outputObject
 }
 
-const isCategorical = (labels) => {
+const isCategorical = labels => {
   if (findValsDataType(labels) === "boolean") return true // booleans are categorical by default
 
   const uniqueCount = [...new Set(labels)].length
@@ -92,6 +95,8 @@ const isCategorical = (labels) => {
   
   return categorical 
 }
+
+const findUnique = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
 
 const parseBool = x => x === '1' ? true : false
 
@@ -168,8 +173,40 @@ const findComplexity = arr => {
 }
 
 const findStructure = arr => {
-  // TODO: 1 / complexity
-  // how related two columns are
+  // TODO: missing values
+  // TODO: ignore anomalies
+  // "structure" is the correlation between all columns of a dataset
+  // average of correlation coefficients between all columns
+  let totalCorrelationCoefficient = 0
+  const columns = transpose(arr)
+
+  // cretae pairs of all columns
+  const pairs = columns.reduce((acc, val, i1) => [
+      ...acc,
+      ...new Array(columns.length - 1 - i1).fill(0)
+        .map((v, i2) => ([columns[i1], columns[i1 + 1 + i2]]))
+    ], [])
+  
+  // calculate sample coefficient of each pair of columns
+  // r = sum((X - Mx) * (Y - My)) / sqrt(sum(X - Mx)^2) * sqrt(sum(Y - My)^2)
+  pairs.forEach(pair => {
+    const meanX        = mean(pair[0])                             // Mx
+    const meanY        = mean(pair[1])                             // My
+    const xs           = pair[0].map(x => x - meanX)               // X - Mx
+    const ys           = pair[1].map(y => y - meanY)               // Y - My
+    const xsys         = xs.map((x, i) => x * ys[i])               // (X - Mx)(Y - My)
+    const numerator    = sum(xsys)                                 // sum((X - Mx)(Y - My))
+    const xsSqared     = xs.map(x => power(2)(x))                  // (X - Mx) ^ 2
+    const ysSqared     = ys.map(y => power(2)(y))                  // (Y - My) ^ 2
+    const denominator1 = power(0.5)(sum(xsSqared))                 // sqrt(sum(X - Mx)^2)
+    const denominator2 = power(0.5)(sum(ysSqared))                 // sqrt(sum(Y - My)^2)
+    const r            = numerator / (denominator1 * denominator2) // correlation coefficient
+    totalCorrelationCoefficient += r
+  })
+  
+  // high average correlation between columns means high structure in the dataset
+  const structure = totalCorrelationCoefficient / pairs.length
+  return structure
 }
 
 // send a POST request to the server on port declared in the config file
@@ -188,11 +225,12 @@ const sendData = elem => {
         "missingValues": elem.missingValues,
         "missingLabels": elem.missingLabels,
         "labelsRatio": elem.labelsRatio,
-        "categorical": elem.categorical,
+        "isCategorical": elem.isCategorical,
+        "categories": elem.categories ? elem.categories : null,
         "complexity": elem.complexity,
         "relations": elem.relations,
         "structure": elem.structure,
-        "anomalies": elem.anomalies
+        "anomalies": elem.anomalies,
       }
     }
 
