@@ -56,16 +56,23 @@ There is many Test suitability of open source machine learning toolkits such as 
 Section \ref{pickingML} lists the machine learning algorithms that the system will be able to produce as output. The team felt it would be beneficial to have a basic understanding of each algorithm and where it is most useful. Some background research was conducted into each algorithm:
 
 \subsubsection*{Self-Organising Map (SOM)}
+% A Self-Organising Map (SOM) is an unsupervised system is based on competitive learning, in which competition between the output neurons is activated, with the result that only one neuron is activated at any time. This activated neuron is called the winner neuron (the winner is king-all neuron). This competition can be achieved by having a laterally suppressed connection (negative feedback path) between the neurons. The result is that neurons are forced to recombine themselves, such a network we call self-organizing maps (SOM).
 \subsubsection*{K-Means Clustering}
+% K-means clustering is an algorithm that classifies data into $k$ groups based on the characteristics of the data. $k$ is a positive integer. The grouping is assigned to the corresponding group based on the smallest square of the distance between the original data and the cluster centroid.
 \subsubsection*{Principal Component Analysis}
+% Principal Component Analysis (PCA) transforms the original data into a set of linearly independent representations of each dimension through linear transformation, which can be used to extract the main feature components of the data, which is often used for dimensionality reduction of high-dimensional data.
 \subsubsection*{Linear Regression}
+% Linear regression is a statistical analysis method that uses the regression analysis in mathematical statistics to determine the quantitative relationship between two or more variables. Its expression is $y = w'x+e$, where $e$ is a normal distribution with an error obeying a mean of $0$.
 \subsubsection*{Neural Network}
 Artificial Neural Network (ANN) is a machine learning method simulating information processing of a human brain to build a mathematic model. The model consists of processing elements (neurons) which each have an activation function. ANN a large amount of examples as training data and test data to complete the model, like the process of human learning. It has advantages in processing amounts of fuzzy nonlinear data.
 \subsubsection*{Multiclass Neural Network}
+% Firstly, using Logistic Regression to do Multi-Category classification. With one-to-many logistic regression, in order to make training more efficient, it needs to be vectorized to avoid loop operations. For each input data, there is a 1*10 vector, which corresponds to a probability of 0~9. Then add a Hidden layer between the input and output layer, which is Multiclass Neural Network.
 \subsubsection*{Random Forest Regression}
+% It performs many times of sampling back to the original data set, and each time extracts the same number of observations as the sample size. Since it is put back into the sample, some observations are not drawn each time, and some observations are repeatedly drawn. You get a lot of different data sets and then build a decision tree for each data set, thus generating a large number of decision trees.
 \subsubsection*{Logistic Regression}
 Logistic Regression is a method for binary prediction when the outputs are dichotomous (true or false). The weight of independent variables can be deduced by Logistic Regression when the binary outputs (dependent variable) are provided. The probability of output can also be predicted by the regression model. It is generally used for data mining, disease analysis and economic projection.
 \subsubsection*{Multiclass Logistic Regression}
+% Firstly, using Logistic Regression to do Multi-Category classification. With one-to-many logistic regression, in order to make training more efficient, it needs to be vectorized to avoid loop operations. For each input data, there is a 1*10 vector, which corresponds to a probability of 0~9. Then add a Hidden layer between the input and output layer, which is Multiclass Neural Network.
 \subsubsection*{Naïve Bayesian Network}
 Naïve Bayes is a sorting technique based on Bayes’ theorem. It sets characteristics of data as tags and assume that the tags are mutually independent on probability. Then the Naïve Bayes Classifier sort the objects and calculates probability according to these tags. And the objects can be sorted to known classes or demonstrate the probability of an object belonging to a class.
 \subsubsection*{Support Vector Machine}
@@ -96,7 +103,7 @@ Following meeting with the client and discussing initial user requirements and s
     \item provide relevant information about the datasets
   \end{enumerate}
   
-  \item A rule-based approach will initially be sufficient to assertain what the ideal machine learning approach is for each dataset.
+  \item A rule-based approach will initially be sufficient to assertain what the ideal machine learning approach is for each dataset. The user should be able to affect the decisions made by the rule based system by providing additional information on the structure and complexity of the data.
   
   \item The client has significant knowledge of machine learning methods and some of this knowledge will be captured to facilitate the decision making process.
 \end{enumerate}
@@ -126,7 +133,9 @@ Following meeting with the client and discussing initial user requirements and s
       \item Wether or not the dataset is structured
     \end{enumerate}
 
-    \item The customer needs to be able to add, delete or change information stored in the database.
+    \item The customer needs to be able to add and delete information stored in the database.
+    
+    \item The original data must never be altered. Any pre-processing or analysis may be available to the user, but the user must also have access to the original data they provided.
   \end{enumerate}
   
   \item The system must be able to analyze a dataset and provide the best machine learning approach to model the dataset.
@@ -152,6 +161,8 @@ Following meeting with the client and discussing initial user requirements and s
     \item Deterministic mode
     \item Probabilistic mode
   \end{enumerate} 
+
+  \item As a long-term goal, the system could actually model the data using the decided machine learning tool and provide a visual output of the model for the user.
 \end{enumerate}
 
 \subsection{Non-Functional System Requirements}
