@@ -170,6 +170,8 @@ const findValsDataType = arr => {
 
 const findComplexity = arr => {
   // TODO: Shannon Entropy!! for complexity
+  // TODO: missing values
+  // TODO: anomalies
   // or ask the user
   // how chaotic single values are
 
