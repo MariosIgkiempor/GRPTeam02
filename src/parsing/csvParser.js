@@ -77,9 +77,17 @@ const readFile = filename => {
   outputObject.isCategorical = isCategorical(outputObject.labels)
   if (outputObject.isCategorical) outputObject.categories = findUnique(outputObject.labels)
 
-  outputObject.structure = findStructure(outputObject.vals)
+  // measure of structure is a number -1 to 1, where -1 is little/no structure and 1 is very structured
+  // structure here means how the values of the features increase relative to each other
+  // ie the average correlation coefficient between all pairs of columns in dataset
 
-  console.log(outputObject)
+  // measure of complexity is an average of the bias-corrected sample variances of each column
+  if (outputObject.dataType === "number") { // complexity/structure can only be detected for numbers
+    outputObject.structure  = findStructure(outputObject.vals)
+    outputObject.complexity = findComplexity(outputObject.vals)
+  }
+
+  // console.log(outputObject)
 
   return outputObject
 }
@@ -165,11 +173,21 @@ const findComplexity = arr => {
   // or ask the user
   // how chaotic single values are
 
-  // average euclidian distance between each column
-  const square = power(2)
-  const sqrt   = power(0.5)
+  let totalVariance = 0
+  // s = (1/N-1)(sum((X-Mx)^2))
+  const columns = transpose(arr)
+  const means   = columns.map(mean)
+  columns.forEach((xs,i) => {
+    const diff        = xs.map(x => x - means[i])  // X - Mx
+    const diffSquared = diff.map(x => power(2)(x)) // (X - Mx)^2
+    const sumXs       = sum(diffSquared)           // sum((X - Mx)^2)
+    const s           = sumXs / (xs.length - 1)    // bias-corrected variance
+    totalVariance += s
+  })
 
-  const columnTotals = arr.reduce((a, x, i, o) => a[i] += Math.abs(x, o[i-1]), [])
+  const averageVariance = totalVariance / columns.length
+  // log(averageVariance)
+  return averageVariance
 }
 
 const findStructure = arr => {
@@ -181,7 +199,8 @@ const findStructure = arr => {
   const columns = transpose(arr)
 
   // cretae pairs of all columns
-  const pairs = columns.reduce((acc, val, i1) => [
+  const pairs = columns.reduce((acc, val, i1) => 
+    [
       ...acc,
       ...new Array(columns.length - 1 - i1).fill(0)
         .map((v, i2) => ([columns[i1], columns[i1 + 1 + i2]]))
@@ -189,18 +208,20 @@ const findStructure = arr => {
   
   // calculate population coefficient of each pair of columns
   // r = mean((X - Mx) * (Y - My)) / (sqrt(mean((X - Mx)^2)) * sqrt(mean((Y - My)^2)))
+  // where X  and Y  are the values in each column
+  //   and Mx and My are the means of each column
   pairs.forEach(pair => {
-    const meanX     = mean(pair[0])                   // Mx
-    const meanY     = mean(pair[1])                   // My
-    const xs        = pair[0].map(x => x - meanX)     // X - Mx
-    const ys        = pair[1].map(y => y - meanY)     // Y - My
-    const xsys      = xs.map((x, i) => x * ys[i])     // (X - Mx)(Y - My)
-    const num       = mean(xsys)                      // mean((X - Mx)(Y - My))
-    const MxsSqared = mean(xs.map(x => power(2)(x)))  // mean((X - Mx) ^ 2)
-    const MysSqared = mean(ys.map(y => power(2)(y)))  // mean((Y - My) ^ 2)
-    const den1      = power(0.5)(MxsSqared)           // sqrt(sum(X - Mx)^2)
-    const den2      = power(0.5)(MysSqared)           // sqrt(sum(Y - My)^2)
-    const r         = num / (den1 * den2)             // correlation coefficient
+    const meanX     = mean(pair[0])                  // Mx
+    const meanY     = mean(pair[1])                  // My
+    const xs        = pair[0].map(x => x - meanX)    // X - Mx
+    const ys        = pair[1].map(y => y - meanY)    // Y - My
+    const xsys      = xs.map((x, i) => x * ys[i])    // (X - Mx)(Y - My)
+    const num       = mean(xsys)                     // mean((X - Mx)(Y - My))
+    const MxsSqared = mean(xs.map(x => power(2)(x))) // mean((X - Mx) ^ 2)
+    const MysSqared = mean(ys.map(y => power(2)(y))) // mean((Y - My) ^ 2)
+    const den1      = power(0.5)(MxsSqared)          // sqrt(sum(X - Mx)^2)
+    const den2      = power(0.5)(MysSqared)          // sqrt(sum(Y - My)^2)
+    const r         = num / (den1 * den2)            // correlation coefficient
     totalCorrelationCoefficient += r
   })
   
