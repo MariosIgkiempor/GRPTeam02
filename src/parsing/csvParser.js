@@ -32,8 +32,8 @@ const readFile = filename => {
   // array of the headers of the csv files
   // type: [String]
   const headings = rawDataArray
-    .splice(0, 1)[0]
-    .slice(0, -1)
+    .splice(0, 1)[0] // get the first row of the data (headings)
+    .slice(0, -1)    // get rid of the labels heading
   outputObject.headings = headings
   outputObject.numFeatures = outputObject.headings.length
   
@@ -74,7 +74,7 @@ const readFile = filename => {
   outputObject.size = outputObject.vals.length
   outputObject.labelsRatio = outputObject.labels.length / outputObject.size
   
-  outputObject.isCategorical = isCategorical(outputObject.labels)
+  outputObject.isCategorical = isCategorical(outputObject.labels, CATEGORICAL_THRESHOLD)
   if (outputObject.isCategorical) outputObject.categories = findUnique(outputObject.labels)
 
   // measure of structure is a number -1 to 1, where -1 is little/no structure and 1 is very structured
@@ -92,12 +92,12 @@ const readFile = filename => {
   return outputObject
 }
 
-const isCategorical = labels => {
+const isCategorical = (labels, threshold) => {
   if (findValsDataType(labels) === "boolean") return true // booleans are categorical by default
 
-  const uniqueCount = [...new Set(labels)].length
+  const uniqueCount = findUnique(labels).length
   let categorical =
-    (uniqueCount > labels.length * CATEGORICAL_THRESHOLD)
+    (uniqueCount > labels.length * threshold)
       ? false // if all labels are numbers but more than a constant ratio of the labels are unique, assume values
       : true  // if all lavels are numbers and less than a constant ratio of the labels are unique, assume categories
   
@@ -106,7 +106,7 @@ const isCategorical = labels => {
 
 const findUnique = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
 
-const parseBool = x => x === '1' ? true : false
+const parseBool = x => x === '1' ? true : false // assume 
 
 // helper function that return array of all indicies that match predicate f
 const findMatchingIndicies = f => xs => xs
