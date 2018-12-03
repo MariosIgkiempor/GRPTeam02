@@ -102,7 +102,7 @@ const isCategorical = (labels, threshold) => {
 
 const findUnique = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
 
-const parseBool = x => x === '1' ? true : false // assume 
+const parseBool = x => x === '1' ? true : false // assuming only numbers
 
 // helper function that return array of all indicies that match predicate f
 const findMatchingIndicies = f => xs => xs
@@ -112,7 +112,7 @@ const findMatchingIndicies = f => xs => xs
 const findMissingIndicies = findMatchingIndicies(x => x === null)
 
 const findAnomalies = arr => {
-  // TODO: more robust anomaly checking
+  // TODO: anomalies per columns rather than overall values
   const vals =
     flatten(arr)             // flatten the input array
     .map(x => parseFloat(x)) // parse as numbers (this method will only be called with numbers)
