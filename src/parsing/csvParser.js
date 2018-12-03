@@ -16,10 +16,6 @@ const readFile = filename => {
   // schema example in data-model.txt
   const outputObject = {}
 
-  // values in the CSV file
-  // type: [[Value (Number/String)]]
-  outputObject.vals = []
-
   outputObject.labels = []
 
   // raw data from the file, including headings and labels
