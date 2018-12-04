@@ -1,10 +1,10 @@
 require('../misc/helpers')
 const fs = require('fs')
 const request = require('request')
+const R = require('ramda')
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
-
-// TODO: missing values - what to fill them with
+const IMPUTE_ON = true
 
 // takes the file out of the datasets folder and converts it to an object
 // with the schema defined in ../models/CSV.js
@@ -48,7 +48,7 @@ const readFile = filename => {
   // if empty, no missing values
   // missing values represented by { row:Number, col:Number }
   outputObject.missingValues = []
-  rawDataArray.map((xs, row) => 
+  rawDataArray.forEach((xs, row) => 
     findNullIndicies(xs)
       .forEach(col => outputObject.missingValues.push({ row, col }))
   )
@@ -56,14 +56,25 @@ const readFile = filename => {
   // TODO: Detect data type for labels
   outputObject.dataType = findValsDataType(rawDataArray)
 
+  console.log(rawDataArray)
+
   // parse the object's values depending on the data type
-  if      (outputObject.dataType === "number") 
+  if      (outputObject.dataType === 'number') 
     outputObject.vals = rawDataArray.map(xs => xs.map(parseFloat))
-  else if (outputObject.dataType === "boolean")
+  else if (outputObject.dataType === 'boolean')
     outputObject.vals = rawDataArray.map(xs => xs.map(parseBool))
-  else if (outputObject.dataType === "string")
+  else if (outputObject.dataType === 'string')
     outputObject.vals = rawDataArray
-    
+
+  // impute numbers if impute flag is toggled to true and there are missing values
+  if (IMPUTE_ON && 
+      outputObject.missingValues.length > 0 && 
+      outputObject.dataType === 'number') {
+    outputObject.originalVals = outputObject.vals
+    outputObject.imputedVals  = impute(outputObject.originalVals, outputObject.missingValues)
+    outputObject.vals         = outputObject.imputedVals
+  }
+
   outputObject.size = outputObject.vals.length
   outputObject.labelsRatio = outputObject.labels.length / outputObject.size
   
@@ -81,7 +92,7 @@ const readFile = filename => {
     outputObject.anomalies  = findAnomalies(outputObject.vals)
   }
 
-  // console.log(outputObject)
+  console.log(outputObject)
 
   return outputObject
 }
@@ -132,7 +143,7 @@ const findAnomalies = arr => {
     return { q1, q3, iqr }
   }
 
-  const cols          = transpose(arr)
+  const cols          = R.transpose(arr)
   const colsSorted    = cols.map(qSort)
   const colsQuartlies = colsSorted.map(quartiles)
   let anomalies       = []
@@ -176,7 +187,7 @@ const findComplexity = arr => {
 
   let totalVariance = 0
   // s = (1/N-1)(sum((X-Mx)^2))
-  const columns = transpose(arr)
+  const columns = R.transpose(arr)
   const means   = columns.map(mean)
   columns.forEach((xs,i) => {
     const diff        = xs.map(x => x - means[i])  // X - Mx
@@ -197,7 +208,7 @@ const findStructure = arr => {
   // "structure" is the correlation between all columns of a dataset
   // average of correlation coefficients between all columns
   let totalCorrelationCoefficient = 0
-  const columns = transpose(arr)
+  const columns = R.transpose(arr)
 
   // cretae pairs of all columns
   const pairs = columns.reduce((acc, val, i1) => 
@@ -229,6 +240,15 @@ const findStructure = arr => {
   // high average correlation between columns means high structure in the dataset
   const structure = totalCorrelationCoefficient / pairs.length
   return structure
+}
+
+const impute = (arr, missingIndicies) => {
+  const cols   = R.transpose(arr)
+  const means  = cols.map(xs => mean(xs))
+  const filled = arr.map((xs, row, o) => 
+    xs.map((_, col) => R.contains({ row, col }, missingIndicies) ? means[col] : o[row][col])
+  )
+  return filled
 }
 
 // send a POST request to the server on port declared in the config file

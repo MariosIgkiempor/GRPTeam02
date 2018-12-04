@@ -1,5 +1,3 @@
-global.pipe = (...fns) => x => fns.reduce((v, f) => f(v), x)
-
 global.notNull = x => x !== null && x !== undefined
 
 global.flatten = a => [].concat(...a)
@@ -12,11 +10,9 @@ global.power = x => y => Math.pow(y, x)
 
 global.log = x => console.log(x)
 
-global.sum = xs => xs.reduce((a, x) => a += x)
+global.sum = xs => xs.reduce((a, x) => a = x ? a + x : a, 0)
 
 global.mean = xs => global.sum(xs) / xs.length
-
-global.transpose = xs => xs[0].map((x,i) => xs.map(x => x[i]))
 
 // quick sort implementation
 global.qSort = xs => {
