@@ -42,22 +42,19 @@ const readFile = filename => {
   outputObject.labels = rawDataArray.map(row => row.pop())
 
   // array of row index of missing labels (if any)
-  outputObject.missingLabels = findMissingIndicies(outputObject.labels)
+  outputObject.missingLabels = findNullIndicies(outputObject.labels)
   
   // array of indecies of missing values
   // if empty, no missing values
   // missing values represented by { row:Number, col:Number }
   outputObject.missingValues = []
   rawDataArray.map((xs, row) => 
-    findMissingIndicies(xs)
+    findNullIndicies(xs)
       .forEach(col => outputObject.missingValues.push({ row, col }))
   )
 
   // TODO: Detect data type for labels
   outputObject.dataType = findValsDataType(rawDataArray)
-  
-  if (outputObject.dataType === "number") // only find anomalies if data is numbers
-    outputObject.anomalies = findAnomalies(rawDataArray)
 
   // parse the object's values depending on the data type
   if (outputObject.dataType === "number") 
@@ -78,9 +75,10 @@ const readFile = filename => {
   // ie the average correlation coefficient between all pairs of columns in dataset
 
   // measure of complexity is an average of the bias-corrected sample variances of each column
-  if (outputObject.dataType === "number") { // complexity/structure can only be detected for numbers
+  if (outputObject.dataType === "number") { // complexity/structure/anomalies can only be detected for numbers
     outputObject.structure  = findStructure(outputObject.vals)
     outputObject.complexity = findComplexity(outputObject.vals)
+    outputObject.anomalies = findAnomalies(outputObject.vals)
   }
 
   // console.log(outputObject)
@@ -109,40 +107,53 @@ const findMatchingIndicies = f => xs => xs
   .map((x, i) => f(x) ? i : null)
   .filter(x => x !== null)
 
-const findMissingIndicies = findMatchingIndicies(x => x === null)
+const findNullIndicies = findMatchingIndicies(x => x === null)
 
+// finds and returns the indicies of anomalous data
+// anomalies are found on a per-feature basis (ie anomalies are found down a column)
 const findAnomalies = arr => {
-  // TODO: anomalies per columns rather than overall values
-  const vals =
-    flatten(arr)             // flatten the input array
-    .map(x => parseFloat(x)) // parse as numbers (this method will only be called with numbers)
-    .filter(x => x !== null) // get rid of null values
-    .sort((a,b) => a-b)      // sort lowest to highest
-
-  // ------------ find interquartile range ------------
-  let n = vals.length
   const median = (l, r) => // median of a sorted array is the element in the middle
     Math.floor(((r - l + 1) + 1) / 2 - 1)
-  const medianIndex = median(0, n)
-  const q1Arr       = vals.slice(0, medianIndex)     // first half of sorted values
-  const q3Arr       = vals.slice(medianIndex + 1)    // last half of sorted vals
-  const q1          = q1Arr[median(0, q1Arr.length)] // first quartile
-  const q3          = q3Arr[median(0, q3Arr.length)] // third quartile
-  const iqr         = q3 - q1                        // interquartile range
 
   // anomaly is any value less than 1.5 times the IQR
   //                   or more than 1.5 times the IQR
   const isAnomaly = (q1, q3, iqr, x) => x < (q1 - 1.5 * iqr) || x > (q3 + 1.5 * iqr)
 
+  const quartiles = xs => {
+    // ------------ find interquartile range ------------
+    let n = xs.length
+    const medianIndex = median(0, n)
+    const q1Arr       = xs.slice(0, medianIndex)       // first half of sorted values
+    const q3Arr       = xs.slice(medianIndex + 1)      // last half of sorted values
+    const q1          = q1Arr[median(0, q1Arr.length)] // first quartile
+    const q3          = q3Arr[median(0, q3Arr.length)] // third quartile
+    const iqr         = q3 - q1                        // interquartile range
+    return { q1, q3, iqr }
+  }
+
+  const cols          = transpose(arr)
+  const colsSorted    = cols.map(qSort)
+  const colsQuartlies = colsSorted.map(quartiles)
+  // const vals =
+  //   flatten(arr)             // flatten the input array
+  //   .map(x => parseFloat(x)) // parse as numbers (this method will only be called with numbers)
+  //   .filter(x => x !== null) // get rid of null values
+  //   .sort((a,b) => a-b)      // sort lowest to highest
+
   let anomalies = []
 
+  let q1, q3, iqr
   arr
-    .map(xs => xs.map(ys => parseFloat(ys)))                 // read all input values as numbers
-    .forEach((xs, row) =>                                    // for each row of input values
-      xs.map((x, i) => isAnomaly(q1, q3, iqr, x) ? i : null) // check which indecies are anomalies
-        .filter(x => x != null)                              // filter out indecies that aren't anomalies
-        .forEach(col => anomalies.push({ row, col })))       // push to anomalies array the row and col its found on in the input array
-
+    .forEach((xs, row) => {
+      xs.forEach((x, col) => {
+        ({ q1, q3, iqr } = colsQuartlies[col]);
+        if (isAnomaly(q1, q3, iqr, x)) {
+          anomalies.push({ row, col })
+        }
+      })
+    })
+      
+  console.log(anomalies)
   return anomalies
 }
 

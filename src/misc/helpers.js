@@ -17,3 +17,18 @@ global.sum = xs => xs.reduce((a, x) => a += x)
 global.mean = xs => global.sum(xs) / xs.length
 
 global.transpose = xs => xs[0].map((x,i) => xs.map(x => x[i]))
+
+// quick sort implementation
+global.qSort = xs => {
+  if (xs.length < 2) return xs
+  const pivot  = xs[Math.floor(xs.length / 2)]
+  const lower  = []
+  const equal  = []
+  const higher = []
+  for (let i = 0, length = xs.length; i < length; i++) {
+    if      (xs[i] < pivot)   lower.push(xs[i])
+    else if (xs[i] === pivot) equal.push(xs[i])
+    else                      higher.push(xs[i])
+  }
+  return [ ...qSort(lower), ...equal, ...qSort(higher) ]
+}
