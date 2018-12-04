@@ -39,7 +39,7 @@
 \pagebreak
 
 \section{Description of the Problem}
-Our team's project is centered around a system that classifies datasets by the best type of machine learning approach to take in order to best analyse the data. It is proposed that the system will be able to parse a dataset, analyse its features and propose a type of learning (supervised, semi-supervised and unsupervised) that can best model the dataset based on the analysed features.
+Team02's project is centered around a system that classifies datasets by the best type of machine learning approach to take in order to best analyse the data. It is proposed that the system will be able to parse a dataset, analyse its features and propose a type of machine learning (supervised, semi-supervised and unsupervised) that can best model the dataset based on the analysed features.
 
 The client intends to use the project as both a prefilter for machine learning and as a teaching aid, and so the program should be able to provide useful information as to how the machine learning approach was derived.
 
@@ -195,7 +195,7 @@ Following meeting with the client and discussing initial user requirements and s
 \end{enumerate}
 
 \subsection{Modelling Requirements}
-Following the elicitation of user and system requirements, the team decided it was useful to model both. We began by making a simple use case diagram, shown in figure \ref{usecase}.
+Following the elicitation of user and system requirements, the team decided it was useful to model both. A simple use case diagram was created first, shown in figure \ref{usecase}.
 
 \begin{figure}[h!]
   \centering
@@ -234,9 +234,9 @@ The team decide to provide 17 potential machine learning tools:
 \end{itemize}
 The best suitable tool will be suggested from these machine learning tools by using decision algorithm in the second iteration of the project, after the prototype.
 
-The website will display the selected most suitable machine learning tool for each dataset uploaded by client. In the long term, the team hopes that the website will be able to analyze the dataset by using the best machine learning tool and visualize the output. However, we are aware that given time constraints, it may not be possible to implement all 17 algorithms, and as such we have agreed with the client that although it would be useful to have, it is not part of the core functionality.
+The website will display the selected most suitable machine learning tool for each dataset uploaded by client. In the long term, the team hopes that the website will be able to analyze the dataset by using the best machine learning tool and visualize the output. However, the team and client are both aware that given time constraints, it may not be possible to implement all 17 algorithms, and as such it was agreed with the client that although it would be useful to have, it is not part of the core functionality.
 
-The decision algorithm will be used to determine which is the best analyzing algorithm for datasets. First of all, the algorithm will determine whether the dataset is supervised; according to whether there is output data in the dataset, we divide the dataset into three categories: Unsupervised Learning, Semi-supervised Learning and Supervised Learning, as can be seen in figure \ref{main-decision}.
+The decision algorithm will be used to determine which is the best analyzing algorithm for datasets. First of all, the algorithm will determine whether the dataset is supervised; according to whether there is output data in the dataset, the dataset will be divided into three categories: Unsupervised Learning, Semi-supervised Learning and Supervised Learning, as can be seen in figure \ref{main-decision}.
 
 \begin{figure}[h!]
   \centering
@@ -271,9 +271,9 @@ If the dataset is composed of values (regression), also determine the dataset si
 \subsection{Database Design}
 
 \subsubsection{NoSQL vs SQL}
-Heterogenous big data benefits from NoSQL for a few reasons. Firstly, there is no predefined schema that the data has to conform to, which is useful for our application as we have to save data from a multitude of different data sources in the same data store. We cannot index all the data efficiently beforehand, and therefore cannot define a large schema that all datasets will conform to. Even if we could, a large schema would waste a lot of space, as most datasets would only use a small subset of the schema. This would also make searching the database very inefficient, as we would have to search through potentially hundreds of unused fields.
+Heterogenous big data benefits from NoSQL for a few reasons. Firstly, there is no predefined schema that the data has to conform to, which is useful for our application as it will have to save data from a multitude of different data sources in the same data store. It is not possible to index all the data efficiently beforehand, and therefore a large schema that all datasets will conform to cannot be defined. Even if this was easily possible, a large schema would waste a lot of space, as most datasets would only use a small subset of the schema. This would also make searching the database very inefficient, as it would be resource inefficient to have to search through potentially hundreds of unused fields.
 
-Removing schemas also makes the database faster to query \cite{sqlvsnosql}. Because each dataset is stored in one document rather than spread across multiple tables, the program knows exactly where to look for the data set rather than having to search through multiple tables. This helps when we are having to search through hundred of datasets to find the data set we are interested in.
+Removing schemas also makes the database faster to query \cite{sqlvsnosql}. Because each dataset is stored in one document rather than spread across multiple tables, the program knows exactly where to look for the data set rather than having to search through multiple tables. This helps when having to search through a lot of datasets to find the data set of interest.
 
 \subsubsection{Lack of Relations Between Datasets}
 The data sets that our program will use contain almost no relations. As such, using a relational database would waste a lot of the functionality associated with relations, and cause a lot of uneccessary overhead. Instead, a non-relational database will just store data sets independently of each other. Querying the database will simply involve returning a JSON object, with no links to other data sets.
@@ -291,7 +291,7 @@ At the very start of the project, time planning was discussed but was not follow
   
 \end{figure}
 
-Alongside the Gantt chart, we have a Kanban board which is hosted on Trello.com \cite{trello}. Scrum was discussed as an alternative approach, but Kanban was chosen for some reasons outlined below:
+Alongside the Gantt chart, the team has a Kanban board which is hosted on Trello.com \cite{trello}. Scrum was discussed as an alternative approach, but Kanban was chosen for some reasons outlined below:
 
 \begin{itemize}
 % \item For a little team like ours which has only 5 members, agile provides a more suitable framework for software development.
@@ -303,14 +303,14 @@ Alongside the Gantt chart, we have a Kanban board which is hosted on Trello.com 
 \item Scrum needs to declare a Product Owner, Scrum manager and Team which might cause confusion in an inexperienced team. Kanban can make team members focus on their work and research.
 \end{itemize}
 
-After agreeing that Kanban would be more suitable to our team's needs, we made a Kanban board on Trello. Trello was chosen as it makes collaboration a lot easier. Being a web based tool, it made it easy for us to manage our workflow from all of our devices, as well as accomodating remote work and management. It also allows team collaboration as it allows people to join the Trello board, which was an essential feature we needed in order to be able to manage our work collaboratively.
+After agreeing that Kanban would be more suitable to our team's needs, a Kanban board was created on Trello. Trello was chosen as it makes collaboration a lot easier. Being a web based tool, it made it easy for us to manage our workflow from all of our devices, as well as accomodating remote work and management. It also allows team collaboration as it allows people to join the Trello board, which was an essential feature the team needed in order to be able to manage its work collaboratively.
 
 \subsection{Division of Work}
-Rather than everyone playing a role in every aspect of the project, we decided it would be easier to divide the work into three distinct subgroups. We decided that the project can clearly be divided into three main sections: \textit{Front-End Development}, \textit{Machine Learning} and \textit{Data Pre-processing and Database Development}. It was decided that Hao and Xinyang would be responsible for Front-End Development, Boyan and Xinjie for Machine Learning and Marios for the Data Processing and Database. The division was made based on both past experience with technologies needed for that area, as well as personal preference. As such, there was no conflict in deciding who would be responsible for what area.
+Rather than everyone playing a role in every aspect of the project, it was decided it would be easier to divide the work into three distinct subgroups. The project was divided into three main sections: \textit{Front-End Development}, \textit{Machine Learning} and \textit{Data Pre-processing and Database Development}. It was decided that Hao and Xinyang would be responsible for Front-End Development, Boyan and Xinjie for Machine Learning and Marios for the Data Processing and Database. The division was made based on both past experience with technologies needed for that area, as well as personal preference. As such, there was no conflict in deciding who would be responsible for what area.
 
-Dividing the project in this fashion allowed the team to be able to divide workload more efficiently, as we could categorise any task into one of the three areas of the project and assign the task to the correct person(s).
+Dividing the project in this fashion allowed the team to be able to divide workload more efficiently, as any task could be categorised into one of the three areas of the project and assign the task to the correct person(s).
 
-Following this division of labour, we decided our Kanban board would be better organised if there was a list for each section. Therefore, we decided to have three lists ("To Do", "Doing" and "Done") for each are of the project, as well as one set of lists for "Other" tasks that had to be done (for example, adding a section to the report, drawing diagrams). This project management workflow kept everything atomic, where everyone was only responsible for a small subset of tasks. It also kept people focused, as everyone could find the correct list for their section and pick up "To Do" tasks that correspond to their section of the project.
+Following this division of labour, it was decided that the Kanban board would be better organised if there was a list for each section. Therefore, three lists ("To Do", "Doing" and "Done") were created for each are of the project, as well as one set of lists for "Other" tasks that had to be done (for example, adding a section to the report, drawing diagrams). This project management workflow kept everything atomic, where everyone was only responsible for a small subset of tasks. It also kept people focused, as everyone could find the correct list for their section and pick up "To Do" tasks that correspond to their section of the project.
 
 \pagebreak
 \bibliography{bibliography}{}
