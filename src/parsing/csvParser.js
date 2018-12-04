@@ -252,27 +252,29 @@ const impute = (arr, missingIndicies) => {
 }
 
 // send a POST request to the server on port declared in the config file
-const sendData = elem => {
+const sendData = o => {
   const port = require('../config/config').port
     const options = {
       uri: `http://localhost:${port}/api/csv`,
       method: 'POST',
       json: {
-        "headings": elem.headings,
-        "vals": elem.vals,
-        "labels": elem.labels,
-        "dataType": elem.dataType,
-        "size": elem.size,
-        "numFeatures": elem.numFeatures,
-        "missingValues": elem.missingValues,
-        "missingLabels": elem.missingLabels,
-        "labelsRatio": elem.labelsRatio,
-        "isCategorical": elem.isCategorical,
-        "categories": elem.categories ? elem.categories : null,
-        "complexity": elem.complexity,
-        "relations": elem.relations,
-        "structure": elem.structure,
-        "anomalies": elem.anomalies,
+        "headings":      o.headings,
+        "vals":          o.vals,
+        "originalVals":  o.originalVals ? o.originalVals : null,
+        "imputedVals":   o.imputedVals ? o.imputedVals : null,
+        "labels":        o.labels,
+        "dataType":      o.dataType,
+        "size":          o.size,
+        "numFeatures":   o.numFeatures,
+        "missingValues": o.missingValues,
+        "missingLabels": o.missingLabels,
+        "labelsRatio":   o.labelsRatio,
+        "isCategorical": o.isCategorical,
+        "categories":    o.categories ? o.categories : null,
+        "complexity":    o.complexity ? o.complexity : null,
+        "relations":     o.relations ? o.relations : null,
+        "structure":     o.structure ? o.structure : null,
+        "anomalies":     o.anomalies ? o.anomalies : null,
       }
     }
 
@@ -287,6 +289,6 @@ const sendData = elem => {
 module.exports = {
   parseFile: filename => {
     const fileArray = readFile(filename)
-    // sendData(fileArray)
+    sendData(fileArray)
   }
 }
