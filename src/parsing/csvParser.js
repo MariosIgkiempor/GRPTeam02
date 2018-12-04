@@ -57,7 +57,7 @@ const readFile = filename => {
   outputObject.dataType = findValsDataType(rawDataArray)
 
   // parse the object's values depending on the data type
-  if (outputObject.dataType === "number") 
+  if      (outputObject.dataType === "number") 
     outputObject.vals = rawDataArray.map(xs => xs.map(parseFloat))
   else if (outputObject.dataType === "boolean")
     outputObject.vals = rawDataArray.map(xs => xs.map(parseBool))
@@ -78,7 +78,7 @@ const readFile = filename => {
   if (outputObject.dataType === "number") { // complexity/structure/anomalies can only be detected for numbers
     outputObject.structure  = findStructure(outputObject.vals)
     outputObject.complexity = findComplexity(outputObject.vals)
-    outputObject.anomalies = findAnomalies(outputObject.vals)
+    outputObject.anomalies  = findAnomalies(outputObject.vals)
   }
 
   // console.log(outputObject)
@@ -119,8 +119,9 @@ const findAnomalies = arr => {
   //                   or more than 1.5 times the IQR
   const isAnomaly = (q1, q3, iqr, x) => x < (q1 - 1.5 * iqr) || x > (q3 + 1.5 * iqr)
 
+  // finds the first and third quartiles and the interquartile range
+  // and returns the values as an object
   const quartiles = xs => {
-    // ------------ find interquartile range ------------
     let n = xs.length
     const medianIndex = median(0, n)
     const q1Arr       = xs.slice(0, medianIndex)       // first half of sorted values
@@ -134,26 +135,17 @@ const findAnomalies = arr => {
   const cols          = transpose(arr)
   const colsSorted    = cols.map(qSort)
   const colsQuartlies = colsSorted.map(quartiles)
-  // const vals =
-  //   flatten(arr)             // flatten the input array
-  //   .map(x => parseFloat(x)) // parse as numbers (this method will only be called with numbers)
-  //   .filter(x => x !== null) // get rid of null values
-  //   .sort((a,b) => a-b)      // sort lowest to highest
-
-  let anomalies = []
+  let anomalies       = []
 
   let q1, q3, iqr
-  arr
-    .forEach((xs, row) => {
-      xs.forEach((x, col) => {
-        ({ q1, q3, iqr } = colsQuartlies[col]);
-        if (isAnomaly(q1, q3, iqr, x)) {
-          anomalies.push({ row, col })
-        }
-      })
+  arr.forEach((xs, row) => {                  // for each row of data
+    xs.forEach((x, col) => {                  // for each column of a row
+      ({ q1, q3, iqr } = colsQuartlies[col]); // get the quartiles and inter-quartile range for that column
+      if (isAnomaly(q1, q3, iqr, x))          // if the value is an anomaly
+        anomalies.push({ row, col })          // add it to the anomalies list
     })
+  })
       
-  console.log(anomalies)
   return anomalies
 }
 
