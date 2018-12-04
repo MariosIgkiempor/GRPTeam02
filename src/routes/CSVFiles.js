@@ -1,9 +1,6 @@
 const express = require('express')
-const router = express.Router()
-
-
-// bring in the CSVFile model
-const CSVFile = require('../models/CSV')
+const CSVFile = require('../models/CSV') // bring in the CSVFile model
+const router  = express.Router()
 
 // route to fetch all saved CSVFiles
 router.get('/', (req, res) => {
@@ -14,8 +11,11 @@ router.get('/', (req, res) => {
 // route to add a CSVFiles
 router.post('/', (req, res) => {
   const newFile = new CSVFile({
+    name: req.body.name,
     headings: req.body.headings,
     vals: req.body.vals,
+    originalVals: req.body.originalVals,
+    imputedVals: req.body.imputedVals,
     labels: req.body.labels,
     dataType: req.body.dataType,
     size: req.body.size,
@@ -23,7 +23,8 @@ router.post('/', (req, res) => {
     missingValues: req.body.missingValues,
     missingLabels: req.body.missingLabels,
     labelsRatio: req.body.labelsRatio,
-    categorical: req.body.categorical,
+    isCategorical: req.body.isCategorical,
+    categories: req.body.categories,
     complexity: req.body.complexity,
     relations: req.body.relations,
     structure: req.body.structure,
@@ -33,6 +34,14 @@ router.post('/', (req, res) => {
   newFile.save()
     .then(_ => res.json())
     // .then(json => console.log(json))
+})
+
+router.get('/names/', (req, res) => {
+  CSVFile.find({}, (err, files) => {
+    let names = { list: [] }
+    files.forEach(file => names.list.push(file.name))
+    res.json(names)
+  })
 })
 
 module.exports = router

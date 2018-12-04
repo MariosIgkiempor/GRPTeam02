@@ -1,7 +1,7 @@
 require('../misc/helpers')
-const fs = require('fs')
+const fs      = require('fs')
 const request = require('request')
-const R = require('ramda')
+const R       = require('ramda')
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 const IMPUTE_ON = true
@@ -15,6 +15,8 @@ const readFile = filename => {
   // schema defined in ../models/CSV.js
   // schema example in data-model.txt
   const outputObject = {}
+
+  outputObject.name = filename
 
   outputObject.labels = []
 
@@ -255,9 +257,10 @@ const impute = (arr, missingIndicies) => {
 const sendData = o => {
   const port = require('../config/config').port
     const options = {
-      uri: `http://localhost:${port}/api/csv`,
+      uri:    `http://localhost:${port}/api/csv`,
       method: 'POST',
       json: {
+        "name":          o.name,
         "headings":      o.headings,
         "vals":          o.vals,
         "originalVals":  o.originalVals ? o.originalVals : null,
@@ -288,7 +291,7 @@ const sendData = o => {
 
 module.exports = {
   parseFile: filename => {
-    const fileArray = readFile(filename)
-    sendData(fileArray)
+    const fileObject = readFile(filename)
+    sendData(fileObject)
   }
 }

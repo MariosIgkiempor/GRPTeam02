@@ -1,13 +1,17 @@
-const express = require('express')
-const mongoose = require('mongoose')
-
-const csvFiles = require('./routes/CSVFiles')
+const express     = require('express')
+const mongoose    = require('mongoose')
+const bodyParser  = require('body-parser')
+const request     = require('request')
+const csvFiles    = require('./routes/CSVFiles')
+const fs          = require('fs')
+const util        = require('util');
 
 // initialise express
 const app = express()
 
 // add express middleware to parse json requests
-app.use(express.json())
+app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
+app.use(bodyParser())
 
 // bring in database config
 const db = require('./config/config.js').mongoURI
@@ -36,5 +40,32 @@ const parseFile = require('./parsing/csvParser').parseFile
 // csv files should have a header line, followed by an array of numbers,
 // the last column of the CSV should be a boolean true/false
 
-parseFile('testing.csv')
+const getFileNames = util.promisify(request)
+const filesToParse = fs.readdirSync('./parsing/datasets/')
+
+getFileNames(
+  {
+    uri:    `http://localhost:${port}/api/csv/names/`,
+    method: 'GET'
+  }
+)
+.then(res => {
+  parseMissingFiles(filesToParse, res.body.list)
+})
+.catch(err => console.log(`Server error: failed to get file; ${err}`))
+
+const parseMissingFiles = (filesToParse, dbFiles) => {
+  if (dbFiles && dbFiles.length > 0) {
+    filesToParse.forEach(x => {
+      if (dbFiles.indexOf(x) === -1) { 
+        console.log(`Parsing ${x}...`)
+        parseFile(x)
+        console.log(`Successfully parsed ${x}`)
+      }
+    })
+  }
+  else filesToParse.map(x => parseFile(x))
+}
+
+// parseFile('datatest2_parsed_135.csv')
 // console.log(parsedArray)
