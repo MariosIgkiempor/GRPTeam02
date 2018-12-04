@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.8)  4 DEC 2018 09:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.11.8)  4 DEC 2018 09:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -169,23 +169,23 @@ Missing character: There is no ¯ in font cmr10!
  [3] [4] [5] <./images/usecase.png, id=27, 1224.575pt x 682.55pt>
 File: ./images/usecase.png Graphic file (type png)
  <use ./images/usecase.png>
-Package pdftex.def Info: ./images/usecase.png used on input line 202.
+Package pdftex.def Info: ./images/usecase.png used on input line 200.
 (pdftex.def)             Requested size: 345.0pt x 192.28957pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 [6]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 217.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 215.
  (/usr/local/texlive/2017/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 217.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 215.
  [7 <./images/usecase.png>] <./images/main-decision.png, id=38, 656.4525pt x 272.01625pt>
 File: ./images/main-decision.png Graphic file (type png)
  <use ./images/main-decision.png>
-Package pdftex.def Info: ./images/main-decision.png used on input line 243.
+Package pdftex.def Info: ./images/main-decision.png used on input line 241.
 (pdftex.def)             Requested size: 345.0pt x 142.96008pt.
 
 
@@ -194,7 +194,7 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 <./images/unsupervised-decision.png, id=39, 268.8444pt x 210.0648pt>
 File: ./images/unsupervised-decision.png Graphic file (type png)
  <use ./images/unsupervised-decision.png>
-Package pdftex.def Info: ./images/unsupervised-decision.png used on input line 252.
+Package pdftex.def Info: ./images/unsupervised-decision.png used on input line 250.
 (pdftex.def)             Requested size: 345.0pt x 269.56796pt.
 
 
@@ -208,7 +208,7 @@ Missing character: There is no ¯ in font cmr10!
  <./images/supervised-decision.png, id=48, 294.3798pt x 378.213pt>
 File: ./images/supervised-decision.png Graphic file (type png)
  <use ./images/supervised-decision.png>
-Package pdftex.def Info: ./images/supervised-decision.png used on input line 265.
+Package pdftex.def Info: ./images/supervised-decision.png used on input line 263.
 (pdftex.def)             Requested size: 345.0pt x 443.25188pt.
 
 
@@ -236,7 +236,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  39i,11n,43p,1003b,417s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb>
-Output written on GRPTeam02-Interim.pdf (16 pages, 277707 bytes).
+Output written on GRPTeam02-Interim.pdf (16 pages, 277843 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  62 compressed objects within 1 object stream

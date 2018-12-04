@@ -39,21 +39,19 @@
 \pagebreak
 
 \section{Description of the Problem}
-Team02's project is centered around a system that classifies datasets by the best type of machine learning approach to take in order to best analyse the data. It is proposed that the system will be able to parse a dataset, analyse its features and propose a type of machine learning (supervised, semi-supervised and unsupervised) that can best model the dataset based on the analysed features.
+Team02's project is centered around a system that classifies datasets by the best type of machine learning approach to take in order to best analyse the data. It is proposed that the system will be able to parse a dataset, analyse its features and propose a type of machine learning (supervised, semi-supervised and unsupervised), as well as a more specific algorithm, that can best model the dataset based on the analysed features.
 
-The client intends to use the project as both a prefilter for machine learning and as a teaching aid, and so the program should be able to provide useful information as to how the machine learning approach was derived.
+The client intends to use the project as both a prefilter for machine learning and as a teaching aid, and so the program should be able to provide useful information as to how the machine learning approach was derived. However, it should be noted that being an expert in the field, the client expects his knowledge to be captured in the system. As such, any useful information provided by the system would be used to aid the teaching of students and should therefore be suitable for someone that is not an expert in the field.
 
-Datasets that the program will analyse will be provided by the client. The possibility of analysing new datasets will be a target that the team will strive for, however it is not essential for the core functionality required by the client.
-
-In essense, the project will take a dataset and tell the user the most optimal machine learning strategy with which to analyse the data.
+Datasets that the program will analyse will be provided by the client, however the system should be able to parse and analyse newly uploaded datasets with the same level of accuracy.
 
 \section{Background Information and \\Relevant Research}
 \subsection{Machine Learning}
 The team has to figure out how many machine learning methods would be provided in our website, their respective principles, and how and when to use each one.
-There is many Test suitability of open source machine learning toolkits such as H2o \cite{h2o.ai}, Weka \cite{weka} and various Python and R packages. These machine learning toolkits could be used to analyze different datasets. In this early stage of the project, the team has chosen to use Weka to understand each machine learning method.
+There exist many open source machine learning toolkits such as H2o \cite{h2o.ai}, Weka \cite{weka} and various Python and R packages. These machine learning toolkits could be used to analyze different datasets. In this early stage of the project, the team has chosen to use Weka to understand each machine learning method.
 
 \subsection{Understanding Machine Learning Algorithms}
-Section \ref{pickingML} lists the machine learning algorithms that the system will be able to produce as output. The team felt it would be beneficial to have a basic understanding of each algorithm and where it is most useful. Some background research was conducted into each algorithm:
+Section \ref{pickingML} lists the machine learning algorithms that the system will be able to produce as output. The team felt it would be beneficial to have a basic understanding of each algorithm and where it is most useful. Some background research was conducted into each algorithm.
 
 \subsubsection*{Self-Organising Map (SOM)}
 % A Self-Organising Map (SOM) is an unsupervised system is based on competitive learning, in which competition between the output neurons is activated, with the result that only one neuron is activated at any time. This activated neuron is called the winner neuron (the winner is king-all neuron). This competition can be achieved by having a laterally suppressed connection (negative feedback path) between the neurons. The result is that neurons are forced to recombine themselves, such a network we call self-organizing maps (SOM).
@@ -232,7 +230,7 @@ The team decide to provide 17 potential machine learning tools:
   \item Time Delay Neural Network
   \item Feature Selection Principal Component Analysis
 \end{itemize}
-The best suitable tool will be suggested from these machine learning tools by using decision algorithm in the second iteration of the project, after the prototype.
+The most suitable tool will be suggested from this list of machine learning methods by using decision algorithm in the second iteration of the project, after the prototype.
 
 The website will display the selected most suitable machine learning tool for each dataset uploaded by client. In the long term, the team hopes that the website will be able to analyze the dataset by using the best machine learning tool and visualize the output. However, the team and client are both aware that given time constraints, it may not be possible to implement all 17 algorithms, and as such it was agreed with the client that although it would be useful to have, it is not part of the core functionality.
 
