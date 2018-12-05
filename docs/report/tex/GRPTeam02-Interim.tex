@@ -290,6 +290,19 @@ Apart from HTML and CSS, both of which are essential to any web application, a f
 
 Due to both convenience and functionality, as described above, the group decided the main language used to implement the system would be JavaScript. It should be noted that due to limitation in its ability to perform machine learning algorithms on large datasets (a task that languages such as Python and R are very well established in), the group may have to incorporate other languages. However, JavaScript proves both convenient and capable enough for the first iterations of the system. Due to its low learning curve and past experience in the group, it will not be too difficult for everyone who needs to use it to learn enough to produce a capable system.
 
+\subsection{Design Pattern}
+As outlined in section \ref{work_division}, the group has divided the workload into three parts: Machine Learning, Database Implementation and Front End Development. These three elements of the system match the description of the \textit{Model-View-Controller} (MVC) design pattern \cite{google_mvc}. This allows for better code organisation and maintainability \cite{google_mvc} by seperating responsibilities within the codebase. The three key components of the MVC design pattern are outlined below:
+\begin{itemize}
+  \item Model
+  This is where the data of the system is stored. The Model has no access to the View or the Controller, and is only responsible for storing the data. This is essentialy the Database part of the project.
+  \item View
+  The View is what is presented to the user. This is how the user inteacts with the system: the Front-End. Although the user interacts with the View, the View has no responsibilities apart from to display the data in the Model.
+  \item Controller
+  The Controller acts as the bridge between the Model and the View; it updates the View when changes happen to the Model, and updates the Model when the user interacts with the View. This is the Machine Learning section of the group's work division. The controller is responsible for all logic in the system.
+\end{itemize}
+
+As well as the productivity improvements outlined in section \ref{work_division}, using this design pattern increases the maintainability of the code base, as it is easier to identify where bugs occur if code with different responsibilities is seperated out. It also helps minimise the number of dependencies within the code, which makes the code more testable.
+
 \subsection{Database Design\label{dbdesign}}
 \subsubsection{NoSQL vs SQL}
 Heterogenous big data benefits from NoSQL for a few reasons. Firstly, there is no predefined schema that the data has to conform to, which is useful for our application as it will have to save data from a multitude of different data sources in the same data store. It is not possible to index all the data efficiently beforehand, and therefore a large schema that all datasets will conform to cannot be defined. Even if this was easily possible, a large schema would waste a lot of space, as most datasets would only use a small subset of the schema. This would also make searching the database very inefficient, as it would be resource inefficient to have to search through potentially hundreds of unused fields.
@@ -304,6 +317,8 @@ The data sets that our program will use contain almost no relations. As such, us
 When studying Weka, the team found that there are many file types that machine learning tools could use, for instance Arff data files, CSV data files, XRFF data files, amongst others. After some research into the UCI Machine Learning Repository \cite{uci}, the team decided to use CSV data files to store datasets into the database and to be used by the machine learning tools. This is because CSV files make it convenient for the team to transform the .data files and .name files found on the UCI repository into a single file. CSV files are also easy to store in the NoSQL database. Knowing the format of the data is useful for data pre-processing and analysing.
 
 \section{Problems Encountered}
+
+\subsection{Testing}
 
 \section{Time Planning and Project Management}
 At the very start of the project, time planning was discussed but was not followed or enforced as much as it should have been. As such, a Gantt Chart was devised and is shown in figure \ref{ganttchart}. This Gantt chart has helped us stick to deadlines and structure our work.
@@ -326,7 +341,7 @@ Alongside the Gantt chart, the team has a Kanban board which is hosted on Trello
 
 After agreeing that Kanban would be more suitable to our team's needs, a Kanban board was created on Trello. Trello was chosen as it makes collaboration a lot easier. Being a web based tool, it made it easy for us to manage our workflow from all of our devices, as well as accomodating remote work and management. It also allows team collaboration as it allows people to join the Trello board, which was an essential feature the team needed in order to be able to manage its work collaboratively.
 
-\subsection{Division of Work}
+\subsection{Division of Work\label{work_division}}
 Rather than everyone playing a role in every aspect of the project, it was decided it would be easier to divide the work into three distinct subgroups. The project was divided into three main sections: \textit{Front-End Development}, \textit{Machine Learning} and \textit{Data Pre-processing and Database Development}. It was decided that Hao and Xinyang would be responsible for Front-End Development, Boyan and Xinjie for Machine Learning and Marios for the Data Processing and Database. The division was made based on both past experience with technologies needed for that area, as well as personal preference. As such, there was no conflict in deciding who would be responsible for what area.
 
 Dividing the project in this fashion allowed the team to be able to divide workload more efficiently, as any task could be categorised into one of the three areas of the project and assign the task to the correct person(s).
