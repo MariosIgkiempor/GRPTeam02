@@ -1,19 +1,24 @@
 \documentclass[titlepage]{article}
+
 \usepackage[
   sorting=none,
   citestyle=ieee,
   style=ieee]{biblatex}
 \addbibresource{bibliography.bib}
-\usepackage{fancyhdr}
-\usepackage{enumitem}
-\setlist[enumerate]{label*=\arabic*.} 
-\usepackage{graphicx}
-\graphicspath{ {./images/} }
 
+\usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 \rhead{COMP2043.GRP Interim Group Report}
 \lhead{Team02}
+
+\usepackage{enumitem}
+\setlist[enumerate]{label*=\arabic*.} 
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+\usepackage{alltt}
 
 \begin{document}
 
@@ -267,7 +272,44 @@ If the dataset is composed of values (regression), also determine the dataset si
   \includegraphics[width=\textwidth]{supervised-decision}
   \caption{Deciding which supervised learning technique to suggest}
   \label{supervised-decision}
-\end{figure} \pagebreak
+\end{figure} 
+\pagebreak
+
+\subsection{Data Representation}
+Section \ref{csvchoice} outlines the allowed file types in the system. However, data preprocessing is needed in order to choose the most suitable machine learning algorithm, as it is required that information about the dataset (such as whether or not there are missing labels, its complexity, whether the output is categorical or not) is available for the decision based algorithm. As such, before data are uploaded to the database, a pre-processing script extracts features and stores them, alongside the data, in an Object. The object has the following fields holding the specified data types:
+
+\begin{alltt}
+  dataset: \{
+    name: string,
+    headings: list of strings,
+    number-of-features: integer,
+    values: matrix of values,
+    missing-values: list of coordinates,
+    original-values\footnotemark: matrix of values,\footnotetext{This field will only exist if there are missing values, where the missing values are imputed in the "values" field, but a copy of the original values is kept in the "original-values" field}
+    anomalies: list of coordinates,
+    labels: list of strings,
+    missing-labels: list of integers,
+    data-type: string,
+    size: integer,
+    labels-ratio: number \((0 \leq x \leq 1)\),
+    is-categorical: true / false,
+    categories\footnotemark: list of strings,
+    complexity: number,
+    structure: number \((-1 \leq x \leq 1)\),
+    relations: list of features
+  \}
+\end{alltt}
+\footnotetext{This will only exist if the data is deemed categorical}
+
+A short explanation of each field is provided below where the name-value pair does not make it obvious:
+\begin{itemize}
+  \item \verb|values, original-values|: the original data (and potentially imputed data) from the input CSV file, stored as a matrix
+  \item \verb|missing-values, anomalies|: the coordinate into the \verb|values| or \\\verb|original-values| matrices where missing or anomalous values can be found
+  \item \verb|labels-ratio|: the total number of rows of data divided by the number of missing labels
+  \item \verb|complexity|: a numerical score of the complexity of the dataset, based on the average bias-corrected variance of each column
+  \item \verb|structure|: a numerical score of the average correlation coefficient of each column
+  \item \verb|relations|: list of columns that could be related, determined by pairs of columns with high correlation coefficients
+\end{itemize}
 
 \section{Key Implementation Decisions}
 \subsection{Programming Languages}
@@ -312,9 +354,11 @@ Removing schemas also makes the database faster to query \cite{sqlvsnosql}. Beca
 \subsubsection{Lack of Relations Between Datasets}
 The data sets that our program will use contain almost no relations. As such, using a relational database would waste a lot of the functionality associated with relations, and cause a lot of uneccessary overhead. Instead, a non-relational database will just store data sets independently of each other. Querying the database will simply involve returning a JSON object, with no links to other data sets.
 
-\subsection{Accepted File Types in the System}
+\subsection{Accepted File Types in the System\label{csvchoice}}
 
-When studying Weka, the team found that there are many file types that machine learning tools could use, for instance Arff data files, CSV data files, XRFF data files, amongst others. After some research into the UCI Machine Learning Repository \cite{uci}, the team decided to use CSV data files to store datasets into the database and to be used by the machine learning tools. This is because CSV files make it convenient for the team to transform the .data files and .name files found on the UCI repository into a single file. CSV files are also easy to store in the NoSQL database. Knowing the format of the data is useful for data pre-processing and analysing.
+When studying Weka, the team found that there are many file types that machine learning tools could use, for instance Arff data files, CSV data files, XRFF data files, amongst others. After some research into the UCI Machine Learning Repository \cite{uci}, the team decided to use CSV data files to store datasets into the database and to be used by the machine learning tools. This decision was also agreed upon by the client, who stated that CSV file types would suffice for the core functionality of the system. Other file types were welcomed, but not required.
+
+CSV files were chosen as they make it convenient for the team to transform the .data files and .name files found on the UCI repository into a single file. CSV files are also easy to store in the NoSQL database. Knowing the format of the data is useful for data pre-processing and analysing.
 
 \section{Problems Encountered}
 
