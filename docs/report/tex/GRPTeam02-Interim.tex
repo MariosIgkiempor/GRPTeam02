@@ -291,7 +291,7 @@ Apart from HTML and CSS, both of which are essential to any web application, a f
 Due to both convenience and functionality, as described above, the group decided the main language used to implement the system would be JavaScript. It should be noted that due to limitation in its ability to perform machine learning algorithms on large datasets (a task that languages such as Python and R are very well established in), the group may have to incorporate other languages. However, JavaScript proves both convenient and capable enough for the first iterations of the system. Due to its low learning curve and past experience in the group, it will not be too difficult for everyone who needs to use it to learn enough to produce a capable system.
 
 \subsection{Design Pattern}
-As outlined in section \ref{work_division}, the group has divided the workload into three parts: Machine Learning, Database Implementation and Front End Development. These three elements of the system match the description of the \textit{Model-View-Controller} (MVC) design pattern \cite{google_mvc}. This allows for better code organisation and maintainability \cite{google_mvc} by seperating responsibilities within the codebase. The three key components of the MVC design pattern are outlined below:
+As outlined in section \ref{work_division}, the group has divided the workload into three parts: Machine Learning, Database Implementation and Front End Development. These three elements of the system loosely fit the description of the \textit{Model-View-Controller} (MVC) design pattern \cite{google_mvc}. This allows for better code organisation and maintainability \cite{google_mvc} by seperating responsibilities within the codebase. The three key components of the MVC design pattern are outlined below:
 \begin{itemize}
   \item Model
   This is where the data of the system is stored. The Model has no access to the View or the Controller, and is only responsible for storing the data. This is essentialy the Database part of the project.
@@ -301,7 +301,7 @@ As outlined in section \ref{work_division}, the group has divided the workload i
   The Controller acts as the bridge between the Model and the View; it updates the View when changes happen to the Model, and updates the Model when the user interacts with the View. This is the Machine Learning section of the group's work division. The controller is responsible for all logic in the system.
 \end{itemize}
 
-As well as the productivity improvements outlined in section \ref{work_division}, using this design pattern increases the maintainability of the code base, as it is easier to identify where bugs occur if code with different responsibilities is seperated out. It also helps minimise the number of dependencies within the code, which makes the code more testable.
+Although the MVC design pattern is being employed in this project, the project need not adhere strictly to it. Its ideas and philosophies are useful in that they allow seperation of concerns thus creating more maintainable code, however the project does not lend itself well to a strict implementation of the pattern given that its main concern is data processing.
 
 \subsection{Database Design\label{dbdesign}}
 \subsubsection{NoSQL vs SQL}
