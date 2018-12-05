@@ -1,6 +1,9 @@
 \documentclass[titlepage]{article}
-\usepackage{cite}
-\usepackage[numbers]{natbib}
+\usepackage[
+  sorting=none,
+  citestyle=ieee,
+  style=ieee]{biblatex}
+\addbibresource{bibliography.bib}
 \usepackage{fancyhdr}
 \usepackage{enumitem}
 \setlist[enumerate]{label*=\arabic*.} 
@@ -57,12 +60,13 @@ Section \ref{pickingML} lists the machine learning algorithms that the system wi
 % A Self-Organising Map (SOM) is an unsupervised system is based on competitive learning, in which competition between the output neurons is activated, with the result that only one neuron is activated at any time. This activated neuron is called the winner neuron (the winner is king-all neuron). This competition can be achieved by having a laterally suppressed connection (negative feedback path) between the neurons. The result is that neurons are forced to recombine themselves, such a network we call self-organizing maps (SOM).
 \subsubsection*{K-Means Clustering}
 % K-means clustering is an algorithm that classifies data into $k$ groups based on the characteristics of the data. $k$ is a positive integer. The grouping is assigned to the corresponding group based on the smallest square of the distance between the original data and the cluster centroid.
+K-means clustering classifies a set of data into $k$ clusters (where $k > 0$) by assigning it to a centroid (central location of a cluster). This is achieved by assigning it to the nearest centroid. When each data point has been assigned, $k$ centroids are recalculated and the datapoints are reassigned. This process of defining and assigning to new centroids is repeated until no data points move.\cite{kmeans}
 \subsubsection*{Principal Component Analysis}
 % Principal Component Analysis (PCA) transforms the original data into a set of linearly independent representations of each dimension through linear transformation, which can be used to extract the main feature components of the data, which is often used for dimensionality reduction of high-dimensional data.
 \subsubsection*{Linear Regression}
 % Linear regression is a statistical analysis method that uses the regression analysis in mathematical statistics to determine the quantitative relationship between two or more variables. Its expression is $y = w'x+e$, where $e$ is a normal distribution with an error obeying a mean of $0$.
 \subsubsection*{Neural Network}
-Artificial Neural Network (ANN) is a machine learning method simulating information processing of a human brain to build a mathematic model. The model consists of processing elements (neurons) which each have an activation function. ANN a large amount of examples as training data and test data to complete the model, like the process of human learning. It has advantages in processing amounts of fuzzy nonlinear data.
+Artificial Neural Network (ANN) is a machine learning method simulating information processing of a human brain to build a mathematic model. The model consists of processing elements (neurons) which each have an activation function. ANNs require a large amount of examples as training data and test data to complete the model, like the process of human learning. It has advantages in processing amounts of fuzzy nonlinear data.
 \subsubsection*{Multiclass Neural Network}
 % Firstly, using Logistic Regression to do Multi-Category classification. With one-to-many logistic regression, in order to make training more efficient, it needs to be vectorized to avoid loop operations. For each input data, there is a 1*10 vector, which corresponds to a probability of 0~9. Then add a Hidden layer between the input and output layer, which is Multiclass Neural Network.
 \subsubsection*{Random Forest Regression}
@@ -266,8 +270,27 @@ If the dataset is composed of values (regression), also determine the dataset si
 \end{figure} \pagebreak
 
 \section{Key Implementation Decisions}
-\subsection{Database Design}
+\subsection{Programming Languages}
+When deciding which languages would be most suitable for the project, a few aspects that were considered were functionality, familiarity  and convenience. Functionality was the main concern, given that the system is a web-based project. Therefore, the group needed to choose a language that could interface easily with a web application. Familiarity made this decision more difficult, as only one group member was familiar with JavaScript, which is the main language used on the web. As such, the group had to pick a range of languages that accomodated both the functionality needed as well as the experience level of the group members. Convenience therefore became an issue, as all group members had to ensure that code in one language could easily interface with code from another language.
 
+Apart from HTML and CSS, both of which are essential to any web application, a few languages discussed are listed below.
+\begin{enumerate}
+  \item JavaScript
+  JavaScript is a web scripting language. JavaScript enables interactive web pages and thus is an essential part of web applications. It is a dynamic\cite{js_datatypes} weakly typed language. Its primary purpose is to provide interactivity and have programatic control over elements on a web-page \cite{jsWhatIsJavascript}. As a simple web-based project, most functionality needed at this stage can be implement by JavaScript. JavaScript also has an extensive collection of libraries, as well as a server-side runtime environment (Node.js \cite{nodejs}), which makes it suitable to use in the back-end of a web application. As discussed in section \ref{dbdesign}, a NoSQL MongoDB database was chosen, and Node.js contains a library (Mongoose \cite{mongoose}) which makes implementing the database easy with a Node.js framework.
+
+  \item PHP
+  PHP is a scripting language tailored for the web \cite{php}. PHP code can be integrated into Java, C and Perl and can be embedded into HTML code. It is weakly typed\cite{php_datatypes} and has a high developing efficiency to complete an activity web page. It is easy to learn, the source code can be found easily on webpages. It also can connect MongoDB. It could be used to develop server-side functionality of the project.
+
+  \item Java
+  Java is the language the group is most familiar with. There exist good Integrated Development Environments (IDEs) such as Eclipse and IntelliJ which we have all used before. It has a security structure and easy to debug. But the code would be more verbose than other languages and it is more difficult to make connection with HTML webpage. In other words, Java is suitable for some big projects that need precise design. Java code could be implemented on webpages with Java Server Pages \cite{jsp}, but this would add a lot of uneccessary overhead.
+
+  \item Python
+  Python is a language with simple structure. It is easy to master and can implement functions in fewer lines code. The shortcoming is that it is unfamiliar to the group, and so choosing it might cause unpredictable problems such as environment building which lead to the work goes slowly. Python code can be implemented on webpages via the Common Gateway Interface (CGI) \cite{python_web}.
+\end{enumerate}
+
+Due to both convenience and functionality, as described above, the group decided the main language used to implement the system would be JavaScript. It should be noted that due to limitation in its ability to perform machine learning algorithms on large datasets (a task that languages such as Python and R are very well established in), the group may have to incorporate other languages. However, JavaScript proves both convenient and capable enough for the first iterations of the system. Due to its low learning curve and past experience in the group, it will not be too difficult for everyone who needs to use it to learn enough to produce a capable system.
+
+\subsection{Database Design\label{dbdesign}}
 \subsubsection{NoSQL vs SQL}
 Heterogenous big data benefits from NoSQL for a few reasons. Firstly, there is no predefined schema that the data has to conform to, which is useful for our application as it will have to save data from a multitude of different data sources in the same data store. It is not possible to index all the data efficiently beforehand, and therefore a large schema that all datasets will conform to cannot be defined. Even if this was easily possible, a large schema would waste a lot of space, as most datasets would only use a small subset of the schema. This would also make searching the database very inefficient, as it would be resource inefficient to have to search through potentially hundreds of unused fields.
 
@@ -311,7 +334,6 @@ Dividing the project in this fashion allowed the team to be able to divide workl
 Following this division of labour, it was decided that the Kanban board would be better organised if there was a list for each section. Therefore, three lists ("To Do", "Doing" and "Done") were created for each are of the project, as well as one set of lists for "Other" tasks that had to be done (for example, adding a section to the report, drawing diagrams). This project management workflow kept everything atomic, where everyone was only responsible for a small subset of tasks. It also kept people focused, as everyone could find the correct list for their section and pick up "To Do" tasks that correspond to their section of the project.
 
 \pagebreak
-\bibliography{bibliography}{}
-\bibliographystyle{IEEEtranN} 
+\printbibliography
 
 \end{document}
