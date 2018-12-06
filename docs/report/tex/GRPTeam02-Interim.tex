@@ -214,6 +214,43 @@ Following the elicitation of user and system requirements, the team decided it w
 The use case diagram clearly shows how the user will interact with the system. Due to the nature of the system, much of its complexity is hidden from the user and therefore the user does not have many use cases. Regardless, the use case diagram is an important part of the requirements gathering process as it makes it easier for the client to visualise their interactions with the system.
 
 \section{Initial Design Ideas}
+\subsection{Front End Design}
+The user interface prototype is designed to accomodate the user requirements. The home page will contain some information about the project, what it does, and how to use the tool. The navigation bar, available on all pages of the site, contains links back to the home page, as well as to a page where users can see a list of datasets and analysis of a dataset. From the home page, the user can choose to log in, see a list of the datasets in the system or upload a new dataset. New users need an account to log in if they want to keep datasets private or delete datasets they have uploaded. This feature will not be present in the first iteration of the project as it is not part of the core functionality, however the button will be in the front end, although not functional.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{introduction_page}
+  \caption{The Home Page of the system}
+  \label{homepage}
+\end{figure}
+
+Clicking on the Datasets link takes the user to the Datasets page. In the left part of the page, all files in the database list can be seen. Double clicking on a dataset takes the user to the visualisation page for that dataset. From the Datasets page, the user may also choose to upload a new dataset for analysis. There exists a search bar, clearly visible in the top right corner, where the user can search for datasets in the databse by name.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{datasets_page}
+  \caption{The Datasets Page of the system}
+  \label{datasets_page}
+\end{figure}
+
+When a user double clicks on a dataset, they are taken to a page where the dataset is analysed. The main function of the Analysis page for a dataset is to show the best machine learning algorithm for that dataset. The dataset's name can clearly be seen at the top of the page. More information about the dataset is available on the page, such as the features extracted by the data pre-processing routines outlined in section \ref{datarepresentation}. Moreover, the user can see the decision tree and the route taken through the decision tree to get to the machine leanring algorithm that was chosen. This is helpful for when the system is being used as a teaching aid, as it shows how the machine learnign algorithm was decided. The user can also influence the decision made by changing the features that were extracted using the Edit button. A download and delete button are also available, however the delete button will only be available to the user who uploaded the data set in futute iterations. Clicking the download button will download the raw data, in CSV format (see section \ref{csvchoice}). From the analysis page, the user can go to a page where the datasets are visualised.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{analysis_page}
+  \caption{The Analysis Page of the system}
+  \label{analysis_page}
+\end{figure}
+
+In the Visualisation page, the name of the dataset being visualised is shown at the top. The user can choose different types of visualisation for the dataset, such as the raw tabular data, bar charts or scatter graphs. The user can swap between these modes of visualisation, depending on the type of data that the dataset contains. At the bottom of the visualisation page, the user can choose to show the analysis page for that dataset. As data visualisation is not part of the core functionality, this feature will also not be present in the first iteration, but the group has accomodated for it in the design.
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=\textwidth]{visualisation_page}
+  \caption{The Visualisation Page of the system}
+  \label{visualisation_page}
+\end{figure}
+
 \subsection{Picking the Machine Learning Approach} \label{pickingML}
 The final goal of the project is to analyze datasets and automatically suggest the best machine learning tools by using our machine learning analyzer. The analyzer will initially be composed of a Decision Tree, which will identify the best machine learning approach based on features of a given dataset.
 
@@ -275,7 +312,7 @@ If the dataset is composed of values (regression), also determine the dataset si
 \end{figure} 
 \pagebreak
 
-\subsection{Data Representation}
+\subsection{Data Representation\label{datarepresentation}}
 Section \ref{csvchoice} outlines the allowed file types in the system. However, data preprocessing is needed in order to choose the most suitable machine learning algorithm, as it is required that information about the dataset (such as whether or not there are missing labels, its complexity, whether the output is categorical or not) is available for the decision based algorithm. As such, before data are uploaded to the database, a pre-processing script extracts features and stores them, alongside the data, in an Object. The object has the following fields holding the specified data types:
 
 \begin{alltt}
@@ -317,17 +354,13 @@ When deciding which languages would be most suitable for the project, a few aspe
 
 Apart from HTML and CSS, both of which are essential to any web application, a few languages discussed are listed below.
 \begin{enumerate}
-  \item JavaScript
-  JavaScript is a web scripting language. JavaScript enables interactive web pages and thus is an essential part of web applications. It is a dynamic\cite{js_datatypes} weakly typed language. Its primary purpose is to provide interactivity and have programatic control over elements on a web-page \cite{jsWhatIsJavascript}. As a simple web-based project, most functionality needed at this stage can be implement by JavaScript. JavaScript also has an extensive collection of libraries, as well as a server-side runtime environment (Node.js \cite{nodejs}), which makes it suitable to use in the back-end of a web application. As discussed in section \ref{dbdesign}, a NoSQL MongoDB database was chosen, and Node.js contains a library (Mongoose \cite{mongoose}) which makes implementing the database easy with a Node.js framework.
+  \item \textbf{JavaScript} is a web scripting language. JavaScript enables interactive web pages and thus is an essential part of web applications. It is a dynamic\cite{js_datatypes} weakly typed language. Its primary purpose is to provide interactivity and have programatic control over elements on a web-page \cite{jsWhatIsJavascript}. As a simple web-based project, most functionality needed at this stage can be implement by JavaScript. JavaScript also has an extensive collection of libraries, as well as a server-side runtime environment (Node.js \cite{nodejs}), which makes it suitable to use in the back-end of a web application. As discussed in section \ref{dbdesign}, a NoSQL MongoDB database was chosen, and Node.js contains a library (Mongoose \cite{mongoose}) which makes implementing the database easy with a Node.js framework.
 
-  \item PHP
-  PHP is a scripting language tailored for the web \cite{php}. PHP code can be integrated into Java, C and Perl and can be embedded into HTML code. It is weakly typed\cite{php_datatypes} and has a high developing efficiency to complete an activity web page. It is easy to learn, the source code can be found easily on webpages. It also can connect MongoDB. It could be used to develop server-side functionality of the project.
+  \item \textbf{PHP} is a scripting language tailored for the web \cite{php}. PHP code can be integrated into Java, C and Perl and can be embedded into HTML code. It is weakly typed\cite{php_datatypes} and has a high developing efficiency to complete an activity web page. It is easy to learn, the source code can be found easily on webpages. It also can connect MongoDB. It could be used to develop server-side functionality of the project.
 
-  \item Java
-  Java is the language the group is most familiar with. There exist good Integrated Development Environments (IDEs) such as Eclipse and IntelliJ which we have all used before. It has a security structure and easy to debug. But the code would be more verbose than other languages and it is more difficult to make connection with HTML webpage. In other words, Java is suitable for some big projects that need precise design. Java code could be implemented on webpages with Java Server Pages \cite{jsp}, but this would add a lot of uneccessary overhead.
+  \item \textbf{Java} is the language the group is most familiar with. There exist good Integrated Development Environments (IDEs) such as Eclipse and IntelliJ which we have all used before. It has a security structure and easy to debug. But the code would be more verbose than other languages and it is more difficult to make connection with HTML webpage. In other words, Java is suitable for some big projects that need precise design. Java code could be implemented on webpages with Java Server Pages \cite{jsp}, but this would add a lot of uneccessary overhead.
 
-  \item Python
-  Python is a language with simple structure. It is easy to master and can implement functions in fewer lines code. The shortcoming is that it is unfamiliar to the group, and so choosing it might cause unpredictable problems such as environment building which lead to the work goes slowly. Python code can be implemented on webpages via the Common Gateway Interface (CGI) \cite{python_web}.
+  \item \textbf{Python} is a language with simple structure. It is easy to master and can implement functions in fewer lines code. The shortcoming is that it is unfamiliar to the group, and so choosing it might cause unpredictable problems such as environment building which lead to the work goes slowly. Python code can be implemented on webpages via the Common Gateway Interface (CGI) \cite{python_web}.
 \end{enumerate}
 
 Due to both convenience and functionality, as described above, the group decided the main language used to implement the system would be JavaScript. It should be noted that due to limitation in its ability to perform machine learning algorithms on large datasets (a task that languages such as Python and R are very well established in), the group may have to incorporate other languages. However, JavaScript proves both convenient and capable enough for the first iterations of the system. Due to its low learning curve and past experience in the group, it will not be too difficult for everyone who needs to use it to learn enough to produce a capable system.
