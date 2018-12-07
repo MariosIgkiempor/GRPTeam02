@@ -2,13 +2,13 @@
   "name": "grp02-machine-learning-datasets",
   "version": "0.0.1",
   "description": "An app to identify the best machine learning method to model a given dataset",
-  "main": "server.js",
+  "main": "./src/server.js",
   "engines": {
     "node": "8.x"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon src/server.js"
+    "server": "nodemon ./src/server.js"
   },
   "repository": {
     "type": "git",
