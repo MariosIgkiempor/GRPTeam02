@@ -26,7 +26,8 @@
     "express": "^4.16.4",
     "mongoose": "^5.3.7",
     "ramda": "^0.26.1",
-    "sync-request": "^6.0.0"
+    "sync-request": "^6.0.0",
+    "request": "^2.88.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.5",
