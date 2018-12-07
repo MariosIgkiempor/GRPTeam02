@@ -253,11 +253,13 @@ const impute = (arr, missingIndicies) => {
   return filled
 }
 
+const serverURI = require('../config/config').sevrerURI
+
 // send a POST request to the server on port declared in the config file
 const sendData = o => {
   const port = require('../config/config').port
     const options = {
-      uri:    `http://localhost:${port}/api/csv`,
+      uri:    `${serverURI}:${port}/api/csv`,
       method: 'POST',
       json: {
         "name":          o.name,
