@@ -3,5 +3,5 @@
 
 module.exports = {
   mongoURI: 'mongodb://admin:password1@ds219832.mlab.com:19832/grpteam02-db',
-  port: 5000
+  port: process.env.PORT ? process.env.PORT : 8000
 }
