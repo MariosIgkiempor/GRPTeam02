@@ -67,5 +67,4 @@ const parseFile = require('./parsing/csvParser').parseFile
 //   else filesToParse.map(x => parseFile(x))
 // }
 
-// parseFile('datatest2_parsed_135.csv')
-// console.log(parsedArray)
+parseFile('testing.csv')

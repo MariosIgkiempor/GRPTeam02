@@ -22,26 +22,27 @@ const readFile = filename => {
 
   // raw data from the file, including headings and labels
   // type: [[String]]
-  let rawDataArray = fileData
-    .trim()
-    .split('\r\n')
-    .map(e => e.split(','))
+  let rawDataArray = R.pipe(
+    R.trim,
+    R.split('\r\n'),
+    R.map(R.split(','))
+  )(fileData)
 
   // array of the headers of the csv files
   // type: [String]
   const headings = rawDataArray
     .splice(0, 1)[0] // get the first row of the data (headings)
     .slice(0, -1)    // get rid of the labels heading
+  
   outputObject.headings = headings
   outputObject.numFeatures = outputObject.headings.length
   
   // replace missing values with null
-  rawDataArray = rawDataArray.map(row => 
-    row.map(x => x === '' ? null : x)
-  )
+  rawDataArray = R.map(R.map(x => x === '' ? null : x))(rawDataArray)
 
   // array of labels
-  outputObject.labels = rawDataArray.map(row => row.pop())
+  // TODO: change pop() because it's mutating
+  outputObject.labels = R.map(row => row.pop())(rawDataArray)
 
   // array of row index of missing labels (if any)
   outputObject.missingLabels = findNullIndicies(outputObject.labels)
@@ -58,13 +59,11 @@ const readFile = filename => {
   // TODO: Detect data type for labels
   outputObject.dataType = findValsDataType(rawDataArray)
 
-  console.log(rawDataArray)
-
   // parse the object's values depending on the data type
   if      (outputObject.dataType === 'number') 
-    outputObject.vals = rawDataArray.map(xs => xs.map(parseFloat))
+    outputObject.vals = R.map(R.map(parseFloat))(rawDataArray)
   else if (outputObject.dataType === 'boolean')
-    outputObject.vals = rawDataArray.map(xs => xs.map(parseBool))
+    outputObject.vals = R.map(R.map(parseBool))(rawDataArray)
   else if (outputObject.dataType === 'string')
     outputObject.vals = rawDataArray
 
@@ -86,7 +85,6 @@ const readFile = filename => {
   // measure of structure is a number -1 to 1, where -1 is little/no structure and 1 is very structured
   // structure here means how the values of the features increase relative to each other
   // ie the average correlation coefficient between all pairs of columns in dataset
-
   // measure of complexity is an average of the bias-corrected sample variances of each column
   if (outputObject.dataType === "number") { // complexity/structure/anomalies can only be detected for numbers
     outputObject.structure  = findStructure(outputObject.vals)
@@ -102,7 +100,7 @@ const readFile = filename => {
 const isCategorical = (labels, threshold) => {
   if (findValsDataType(labels) === "boolean") return true // booleans are categorical by default
 
-  const uniqueCount = findUnique(labels).length
+  const uniqueCount = R.length(findUnique(labels))
   let categorical =
     (uniqueCount > labels.length * threshold)
       ? false // if all labels are numbers but more than a constant ratio of the labels are unique, assume values
@@ -146,10 +144,10 @@ const findAnomalies = arr => {
   }
 
   const cols          = R.transpose(arr)
-  const colsSorted    = cols.map(qSort)
-  const colsQuartlies = colsSorted.map(quartiles)
+  const colsSorted    = R.map(qSort)(cols)
+  const colsQuartlies = R.map(quartiles)(colsSorted)
+  
   let anomalies       = []
-
   let q1, q3, iqr
   arr.forEach((xs, row) => {                  // for each row of data
     xs.forEach((x, col) => {                  // for each column of a row
@@ -163,21 +161,21 @@ const findAnomalies = arr => {
 }
 
 const findValsDataType = arr => {
-  const vals = flatten(arr).filter(x => x !== null)
+  const vals = R.flatten(arr).filter(x => x !== null)
   if (vals.length === 0) return "empty"
 
-  const parsedNumbers = vals.map(x => parseFloat(x))
+  const parsedNumbers = R.map(parseFloat)(vals)
   const isNumber = parsedNumbers.every(x => !isNaN(x))
 
   // if all numbers are 1 or 0, dataType is boolean
-  const isBoolean = // values are boolean if all values are 1 or 0
+  const isBoolean = // values are boolean if all values are all (1 or 0) or (1 or -1)
       isNumber &&
-    ( parsedNumbers.every(x => x === 1 || x ===  0) ||
-      parsedNumbers.every(x => x === 1 || x === -1) )
+    ( R.all(R.either(R.equals(1), R.equals(0)))(parsedNumbers) ||
+      R.all(R.either(R.equals(1), R.equals(-1)))(parsedNumbers) )
 
-  if (isBoolean) return "boolean"
+  if (isBoolean)     return "boolean"
   else if (isNumber) return "number"
-  else return "string" // if not boolean, dataType is assumed to be a String
+  else               return "string" // if not boolean, dataType is assumed to be a String
 }
 
 const findComplexity = arr => {
@@ -190,17 +188,16 @@ const findComplexity = arr => {
   let totalVariance = 0
   // s = (1/N-1)(sum((X-Mx)^2))
   const columns = R.transpose(arr)
-  const means   = columns.map(mean)
+  const means   = R.map(R.mean)(columns)
   columns.forEach((xs,i) => {
-    const diff        = xs.map(x => x - means[i])  // X - Mx
-    const diffSquared = diff.map(x => power(2)(x)) // (X - Mx)^2
-    const sumXs       = sum(diffSquared)           // sum((X - Mx)^2)
-    const s           = sumXs / (xs.length - 1)    // bias-corrected variance
+    const diff        = R.map(x => x - means[i])(xs) // X - Mx
+    const diffSquared = R.map(power(2))(diff)        // (X - Mx)^2
+    const sumXs       = R.sum(diffSquared)           // sum((X - Mx)^2)
+    const s           = sumXs / (xs.length - 1)      // bias-corrected variance
     totalVariance += s
   })
 
   const averageVariance = totalVariance / columns.length
-  // log(averageVariance)
   return averageVariance
 }
 
@@ -225,14 +222,14 @@ const findStructure = arr => {
   // where X  and Y  are the values in each column
   //   and Mx and My are the means of each column
   pairs.forEach(pair => {
-    const meanX     = mean(pair[0])                  // Mx
-    const meanY     = mean(pair[1])                  // My
-    const xs        = pair[0].map(x => x - meanX)    // X - Mx
-    const ys        = pair[1].map(y => y - meanY)    // Y - My
+    const meanX     = R.mean(pair[0])                // Mx
+    const meanY     = R.mean(pair[1])                // My
+    const xs        = R.map(x => x - meanX)(pair[0]) // X - Mx
+    const ys        = R.map(y => y - meanY)(pair[1]) // Y - My
     const xsys      = xs.map((x, i) => x * ys[i])    // (X - Mx)(Y - My)
-    const num       = mean(xsys)                     // mean((X - Mx)(Y - My))
-    const MxsSqared = mean(xs.map(x => power(2)(x))) // mean((X - Mx) ^ 2)
-    const MysSqared = mean(ys.map(y => power(2)(y))) // mean((Y - My) ^ 2)
+    const num       = R.mean(xsys)                   // mean((X - Mx)(Y - My))
+    const MxsSqared = R.mean(R.map(power(2))(xs))    // mean((X - Mx) ^ 2)
+    const MysSqared = R.mean(R.map(power(2))(ys))    // mean((Y - My) ^ 2)
     const den1      = power(0.5)(MxsSqared)          // sqrt(sum(X - Mx)^2)
     const den2      = power(0.5)(MysSqared)          // sqrt(sum(Y - My)^2)
     const r         = num / (den1 * den2)            // correlation coefficient
@@ -294,6 +291,6 @@ const sendData = o => {
 module.exports = {
   parseFile: filename => {
     const fileObject = readFile(filename)
-    sendData(fileObject)
+    // sendData(fileObject)
   }
 }
