@@ -37,35 +37,35 @@ const parseFile = require('./parsing/csvParser').parseFile
 
 // read and send the data to the database from a csv file
 // csv files should be put in the ./parsing/datasets directory
-// csv files should have a header line, followed by an array of numbers,
-// the last column of the CSV should be a boolean true/false
+// csv files should have a header line, followed by an array of values,
+// the last column of the CSV should be the label
 
-const getFileNames = util.promisify(request)
-const filesToParse = fs.readdirSync('./parsing/datasets/')
+// const getFileNames = util.promisify(request)
+// const filesToParse = fs.readdirSync('./parsing/datasets/')
 
-getFileNames(
-  {
-    uri:    `http://localhost:${port}/api/csv/names/`,
-    method: 'GET'
-  }
-)
-.then(res => {
-  parseMissingFiles(filesToParse, res.body.list)
-})
-.catch(err => console.log(`Server error: failed to get file; ${err}`))
+// getFileNames(
+//   {
+//     uri:    `http://localhost:${port}/api/csv/names/`,
+//     method: 'GET'
+//   }
+// )
+// .then(res => {
+//   parseMissingFiles(filesToParse, res.body.list)
+// })
+// .catch(err => console.log(`Server error: failed to get file; ${err}`))
 
-const parseMissingFiles = (filesToParse, dbFiles) => {
-  if (dbFiles && dbFiles.length > 0) {
-    filesToParse.forEach(x => {
-      if (dbFiles.indexOf(x) === -1) { 
-        console.log(`Parsing ${x}...`)
-        parseFile(x)
-        console.log(`Successfully parsed ${x}`)
-      }
-    })
-  }
-  else filesToParse.map(x => parseFile(x))
-}
+// const parseMissingFiles = (filesToParse, dbFiles) => {
+//   if (dbFiles && dbFiles.length > 0) {
+//     filesToParse.forEach(x => {
+//       if (dbFiles.indexOf(x) === -1) { 
+//         console.log(`Parsing ${x}...`)
+//         parseFile(x)
+//         console.log(`Successfully parsed ${x}`)
+//       }
+//     })
+//   }
+//   else filesToParse.map(x => parseFile(x))
+// }
 
 // parseFile('datatest2_parsed_135.csv')
 // console.log(parsedArray)

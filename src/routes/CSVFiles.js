@@ -44,4 +44,12 @@ router.get('/names/', (req, res) => {
   })
 })
 
+router.get('/:name', (req,res) => {
+  CSVFile.find({ "name": req.params.name }, (err, file) => {
+    if (err) { console.log(err); return; }
+    console.log(file)
+    res.json(file)
+  })
+})
+
 module.exports = router
