@@ -2136,7 +2136,8 @@
     <bcf:citekey order="13">google_mvc</bcf:citekey>
     <bcf:citekey order="14">sqlvsnosql</bcf:citekey>
     <bcf:citekey order="15">uci</bcf:citekey>
-    <bcf:citekey order="16">trello</bcf:citekey>
+    <bcf:citekey order="16">agilemanifesto</bcf:citekey>
+    <bcf:citekey order="17">trello</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="none/global/" type="entry" sortscheme="none" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>

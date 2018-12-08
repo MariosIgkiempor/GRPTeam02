@@ -112,7 +112,9 @@ Following meeting with the client and discussing initial user requirements and s
   
   \item A rule-based approach will initially be sufficient to assertain what the ideal machine learning approach is for each dataset. The user should be able to affect the decisions made by the rule based system by providing additional information on the structure and complexity of the data.
   
-  \item The client has significant knowledge of machine learning methods and some of this knowledge will be captured to facilitate the decision making process.
+  \item The system should be deterministic rather than probabilistic, meaning that it provides a machine learning method that it is sure is the best, as opposed to a percentage chance that the method could be the best. The same datasets should always map to the same machine learning method.
+  
+  \item The client has significant knowledge of machine learning methods and some of this knowledge will need to be captured to facilitate the decision making process.
 \end{enumerate}
 
 \subsection{Functional System Requirements}
@@ -300,7 +302,7 @@ If the dataset has no output data, it is classed as an Unsupervised Learning pro
 
 If the dataset is completely labelled with output data, divide it into Supervised Learning. If the outputs are categories divide the dataset to Classification. Else if the outputs are continuous values, divide the dataset to Regression.
 
-If the dataset is best modelled by classification, determine how many categories the dataset contains. If dataset contains 3 or more categories, determine if the dataset is simple or not. For small complex datasets, suggest Multiclass Neural Network or Random Forest Regression. For simple large dataset, suggest using Multiclass Logistic Regression to analyze. If the dataset only contains less than 3 categories, determine whether the relation in the dataset is simple. If the dataset has simple relations, suggest Logistic Regression. Otherwise determine how many features in the dataset. If the dataset has less than 100 features, suggest Neural Network, otherwise suggest Naïve Bayesian Classifier or Support Vector Machine. If, after modelling the data using a Naïve Bayesian Classifier or Support Vector Machine, the output is worse than a guess, suggest Anti-learning.
+If the dataset is best modelled by classification, determine how many categories the dataset contains. If dataset contains 3 or more categories, determine if the dataset is simple or not. For small complex datasets, suggest Multiclass Neural Network or Random Forest Regression. For simple large dataset, suggest using Multiclass Logistic Regression to analyze. If the dataset only contains less than 3 categories, determine whether the relation in the dataset is simple. If the dataset has simple relations, suggest Logistic Regression. Otherwise determine how many features in the dataset. If the dataset has less than 100 features, suggest Neural Network, otherwise suggest Naïve Bayesian Classifier or Support Vector Machine. If, after modelling the data using a Naïve Bayesian Classifier or Support Vector Machine, the output is worse than guessing, suggest Anti-learning.
 
 If the dataset is composed of values (regression), also determine the dataset simple or not, if it is a simple large dataset, suggest Linear Regression. Else if a complex small dataset, suggest Random Forest Regression and Sum Regression. Figure \ref{supervised-decision} vizualises this set of decisions.
 
@@ -330,13 +332,12 @@ Section \ref{csvchoice} outlines the allowed file types in the system. However, 
     size: integer,
     labels-ratio: number \((0 \leq x \leq 1)\),
     is-categorical: true / false,
-    categories\footnotemark: list of strings,
+    categories\footnotemark: list of strings, \footnotetext{This will only exist if the data is deemed categorical}
     complexity: number,
     structure: number \((-1 \leq x \leq 1)\),
     relations: list of features
   \}
 \end{alltt}
-\footnotetext{This will only exist if the data is deemed categorical}
 
 A short explanation of each field is provided below where the name-value pair does not make it obvious:
 \begin{itemize}
@@ -363,7 +364,7 @@ Apart from HTML and CSS, both of which are essential to any web application, a f
   \item \textbf{Python} is a language with simple structure. It is easy to master and can implement functions in fewer lines code. The shortcoming is that it is unfamiliar to the group, and so choosing it might cause unpredictable problems such as environment building which lead to the work goes slowly. Python code can be implemented on webpages via the Common Gateway Interface (CGI) \cite{python_web}.
 \end{enumerate}
 
-Due to both convenience and functionality, as described above, the group decided the main language used to implement the system would be JavaScript. It should be noted that due to limitation in its ability to perform machine learning algorithms on large datasets (a task that languages such as Python and R are very well established in), the group may have to incorporate other languages. However, JavaScript proves both convenient and capable enough for the first iterations of the system. Due to its low learning curve and past experience in the group, it will not be too difficult for everyone who needs to use it to learn enough to produce a capable system.
+Due to both convenience and functionality, as described above, the group decided the main language used to implement the system would be JavaScript. JavaScript can also run both in the browser client-side, or in the server, meaning that the system can be more universally accessible on all devices with a web browser. It should be noted that due to limitation in its ability to perform machine learning algorithms on large datasets (a task that languages such as Python and R are very well established in), the group may have to incorporate other languages. However, JavaScript proves both convenient and capable enough for the first iterations of the system. Due to its low learning curve and past experience in the group, it will not be too difficult for everyone who needs to use it to learn enough to produce a capable system.
 
 \subsection{Design Pattern}
 As outlined in section \ref{work_division}, the group has divided the workload into three parts: Machine Learning, Database Implementation and Front End Development. These three elements of the system loosely fit the description of the \textit{Model-View-Controller} (MVC) design pattern \cite{google_mvc}. This allows for better code organisation and maintainability \cite{google_mvc} by seperating responsibilities within the codebase. The three key components of the MVC design pattern are outlined below:
@@ -395,19 +396,27 @@ CSV files were chosen as they make it convenient for the team to transform the .
 
 \section{Problems Encountered}
 
+\subsection{Time and Project Management}
+Although in theory our Agile time planning workflow outlined in section \ref{timeplanning} was solid and fitted the needs of both the client and team, in practice the team found some flaws. Firstly, due to there being no planned strict deadlines apart from those imposed in the GRP Handbook, deliverables were not always completed on time. Although things would get planned and discussed in the meetings, group members often forgot or did not check the minutes of the meetings to find what they needed to do. This would have not been the case had there been a formalised time plan set out near the start of the project. Moreover, even though the team set out some soft deadlines, for example having a working first version of the application by the report deadline, there was no real incentive to actually acomplish this goal and so it was not completed. Had the team set out a Gantt chart, for example, everyone would have deadlines to work towards and the incentive of having other team members rely on their part to be done would have been made clearer.
+
+Moreover, the Kanban board that was set up was only used for the first few weeks of the project. After that, most tasks that needed to be done were discussed through the meetings and on instant messaging, and while that did work, there was no centralised place where people could remind themselves of what needed to be done.
+
+\subsection{Programming Language Inexperience}
+Since it was decided that Javascript would be the most convenient language to use for a web-based application, it became obvious that some members of the group would have to first learn the language. Although it is a relatively easy language to learn, Javascript has enough complexity to make tasks such as implementing the decision tree quite challenging for beginners. However, the group feels Javascript removes enough overhead when connecting the front and back ends to make it worth learning.
+
 \subsection{Testing}
+Before starting initial implementations, the group did not discuss a testing formalised plan. This meant all group members had to informally test their own code by themselves, and even then no documentation was produced on the progress of the testing. Test-driven development should be incorporated into the workflow of the team for the rest of the development cycle so as to ensure that testing is happening consistently. 
 
-\section{Time Planning and Project Management}
-At the very start of the project, time planning was discussed but was not followed or enforced as much as it should have been. As such, a Gantt Chart was devised and is shown in figure \ref{ganttchart}. This Gantt chart has helped us stick to deadlines and structure our work.
+However, due to the nature of the application, testing proves quite challenging. A lot of the functionality of the system has to be mocked when unit testing as it is designed to work on larger datasets, which would take too long to test with in an efficient workflow. Moreover, a lot of the units in the system are designed to work together, so testing them independently is difficult. Maintaining a functional programming style as much as possible, especially when pre-processing datasets, increases testability as the functions are pure and provide predictable outputs.
 
-\begin{figure}\label{ganttchart}
-  
-\end{figure}
+\section{Time Planning and Project Management\label{timeplanning}}
+\subsection{Time Planning}
+For time planning, the team never formulated a rigid time plan like a Gantt chart, although this was discussed. The idea behind not having a rigid time plan was that it would not be adhered to given other responsibilities the team has, potential changes to requirements and underestimation of the time needed to perform a task. Instead, the team's time planning was dictated primarily through the weekly formal and informal meetings, where deliverables were agreed on with the supervisor on a weekly basis. This allowed the team to have a more agile workflow by respecting the Agile Manifesto's `Responding to change over following a plan' and `Individuals and interactions over processes and tools' values \cite{agilemanifesto}. Communication was a key component of this workflow, as the team had to regularly discuss and show progress made. It also meant that the team was consistently and incrementally working on the project, as opposed to leaving tasks unfinished for long periods of time.
 
-Alongside the Gantt chart, the team has a Kanban board which is hosted on Trello.com \cite{trello}. Scrum was discussed as an alternative approach, but Kanban was chosen for some reasons outlined below:
+\subsection{Project Management}
+The team decided to use Kanban as its main form of project management. The Kanban board is hosted on Trello.com \cite{trello}. Scrum was discussed as an alternative approach, but Kanban was chosen for some reasons outlined below:
 
 \begin{itemize}
-% \item For a little team like ours which has only 5 members, agile provides a more suitable framework for software development.
 \item Teams using Kanban can cope with mutable requirements flexibly. Teamwork will continue with changing project environment.
 \item Formal and informal meetings can be held as frequently as needed and agile working process can be pushed favorably by team communication.
 \item Due to the main process of the project having been decided, Kanban is a good system as it allows us to vizualise every stage of work and everyone’s processing.
