@@ -23,10 +23,10 @@ const readFile = filename => {
   // raw data from the file, including headings and labels
   // type: [[String]]
   let rawDataArray = R.pipe(
-    R.trim,
-    R.split('\r\n'),
-    R.map(R.split(','))
-  )(fileData)
+      R.trim,
+      R.split('\r\n'),
+      R.map(R.split(','))
+    )(fileData)
 
   // array of the headers of the csv files
   // type: [String]
@@ -209,7 +209,7 @@ const findStructure = arr => {
   let totalCorrelationCoefficient = 0
   const columns = R.transpose(arr)
 
-  // cretae pairs of all columns
+  // create pairs of all columns
   const pairs = columns.reduce((acc, val, i1) => 
     [
       ...acc,
