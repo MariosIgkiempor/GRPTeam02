@@ -1,4 +1,6 @@
-\documentclass[titlepage]{article}
+\documentclass[a4paper,titlepage]{article}
+
+\usepackage[utf8]{inputenc}
 
 \usepackage[
   sorting=none,
@@ -71,15 +73,16 @@ Some background research was conducted into each algorithm.
 \subsubsection*{Self-Organising Map (SOM)}
 % A Self-Organising Map (SOM) is an unsupervised system is based on competitive learning, in which competition between the output neurons is activated, with the result that only one neuron is activated at any time. This activated neuron is called the winner neuron (the winner is king-all neuron). This competition can be achieved by having a laterally suppressed connection (negative feedback path) between the neurons. The result is that neurons are forced to recombine themselves, such a network we call self-organizing maps (SOM).
 \subsubsection*{K-Means Clustering}
-% K-means clustering is an algorithm that classifies data into $k$ groups based on the characteristics of the data. $k$ is a positive integer. The grouping is assigned to the corresponding group based on the smallest square of the distance between the original data and the cluster centroid.
 K-means clustering classifies a set of data into $k$ clusters (where $k > 0$) by assigning it to a centroid (central location of a cluster). 
 This is achieved by assigning it to the nearest centroid. 
 When each data point has been assigned, $k$ centroids are recalculated and the datapoints are reassigned. 
-This process of defining and assigning to new centroids is repeated until no data points move.\cite{kmeans}
+This process of defining and assigning to new centroids is repeated until no data points move \cite{kmeans}.
 \subsubsection*{Principal Component Analysis}
-% Principal Component Analysis (PCA) transforms the original data into a set of linearly independent representations of each dimension through linear transformation, which can be used to extract the main feature components of the data, which is often used for dimensionality reduction of high-dimensional data.
+Principal Component Analysis (PCA) finds a small subset of combinations of correlated parameters which have the most influence on variation within the dataset.
+The data is mapped on a new coordinate systen, where the first axis indicates the component which contributes the most to variance (the principal component), the second axis indicates the second most influencial, and this pattern continues for all parameters \cite{einasto2011}. 
 \subsubsection*{Linear Regression}
 % Linear regression is a statistical analysis method that uses the regression analysis in mathematical statistics to determine the quantitative relationship between two or more variables. Its expression is $y = w'x+e$, where $e$ is a normal distribution with an error obeying a mean of $0$.
+Linear Regression is a form of predictive analysis where the values of an independent variable are used to predict future values of a dependent variable by fitting a line through the values of two or more variables \cite{davison2003}.
 \subsubsection*{Neural Network}
 Artificial Neural Network (ANN) is a machine learning method simulating information processing of a human brain to build a mathematic model. 
 The model consists of processing elements (neurons) which each have an activation function. 
