@@ -2121,25 +2121,37 @@
     <bcf:datasource type="file" datatype="bibtex">bibliography.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1">h2o.ai</bcf:citekey>
-    <bcf:citekey order="2">weka</bcf:citekey>
-    <bcf:citekey order="3">kmeans</bcf:citekey>
-    <bcf:citekey order="4">einasto2011</bcf:citekey>
-    <bcf:citekey order="5">davison2003</bcf:citekey>
-    <bcf:citekey order="6">js_datatypes</bcf:citekey>
-    <bcf:citekey order="7">jsWhatIsJavascript</bcf:citekey>
-    <bcf:citekey order="8">nodejs</bcf:citekey>
-    <bcf:citekey order="9">mongoose</bcf:citekey>
-    <bcf:citekey order="10">php</bcf:citekey>
-    <bcf:citekey order="11">php_datatypes</bcf:citekey>
-    <bcf:citekey order="12">jsp</bcf:citekey>
-    <bcf:citekey order="13">python_web</bcf:citekey>
-    <bcf:citekey order="14">google_mvc</bcf:citekey>
-    <bcf:citekey order="15">google_mvc</bcf:citekey>
-    <bcf:citekey order="16">sqlvsnosql</bcf:citekey>
-    <bcf:citekey order="17">uci</bcf:citekey>
-    <bcf:citekey order="18">agilemanifesto</bcf:citekey>
-    <bcf:citekey order="19">trello</bcf:citekey>
+    <bcf:citekey order="1">scikit-learn</bcf:citekey>
+    <bcf:citekey order="2">pandas</bcf:citekey>
+    <bcf:citekey order="3">weka</bcf:citekey>
+    <bcf:citekey order="4">h2o.ai</bcf:citekey>
+    <bcf:citekey order="5">kohonen2005</bcf:citekey>
+    <bcf:citekey order="6">kmeans</bcf:citekey>
+    <bcf:citekey order="7">einasto2011</bcf:citekey>
+    <bcf:citekey order="8">davison2003</bcf:citekey>
+    <bcf:citekey order="9">hardesty2017</bcf:citekey>
+    <bcf:citekey order="10">multiclassnn</bcf:citekey>
+    <bcf:citekey order="11">hastie2017</bcf:citekey>
+    <bcf:citekey order="12">logisticregression</bcf:citekey>
+    <bcf:citekey order="13">greene2012</bcf:citekey>
+    <bcf:citekey order="14">friedman1997bayesian</bcf:citekey>
+    <bcf:citekey order="15">cortes1995support</bcf:citekey>
+    <bcf:citekey order="16">fazakis2016</bcf:citekey>
+    <bcf:citekey order="17">roadknight2015antilearning</bcf:citekey>
+    <bcf:citekey order="18">js_datatypes</bcf:citekey>
+    <bcf:citekey order="19">jsWhatIsJavascript</bcf:citekey>
+    <bcf:citekey order="20">nodejs</bcf:citekey>
+    <bcf:citekey order="21">mongoose</bcf:citekey>
+    <bcf:citekey order="22">php</bcf:citekey>
+    <bcf:citekey order="23">php_datatypes</bcf:citekey>
+    <bcf:citekey order="24">jsp</bcf:citekey>
+    <bcf:citekey order="25">python_web</bcf:citekey>
+    <bcf:citekey order="26">google_mvc</bcf:citekey>
+    <bcf:citekey order="27">google_mvc</bcf:citekey>
+    <bcf:citekey order="28">sqlvsnosql</bcf:citekey>
+    <bcf:citekey order="29">uci</bcf:citekey>
+    <bcf:citekey order="30">agilemanifesto</bcf:citekey>
+    <bcf:citekey order="31">trello</bcf:citekey>
   </bcf:section>
   <bcf:sortlist section="0" name="none/global/" type="entry" sortscheme="none" sortnamekeyscheme="global" labelprefix="">
   <bcf:sorting>

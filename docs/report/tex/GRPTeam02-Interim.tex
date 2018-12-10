@@ -3,7 +3,6 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[
-  sorting=none,
   citestyle=ieee,
   style=ieee]{biblatex}
 \addbibresource{bibliography.bib}
@@ -20,7 +19,7 @@
 \usepackage{graphicx}
 \graphicspath{ {./images/} }
 
-\usepackage{alltt}
+\usepackage{alltt, float, multicol}
 
 \begin{document}
 
@@ -59,64 +58,72 @@ As such, any useful information provided by the system would be used to aid the 
 Datasets that the program will analyse will be provided by the client, however the system should be able to parse and analyse newly uploaded datasets with the same level of accuracy.
 
 \section{Background Information and \\Relevant Research}
-\subsection{Machine Learning}
-The team has to figure out how many machine learning methods would be provided in our website, their respective principles, and how and when to use each one.
-There exist many open source machine learning toolkits such as H2o \cite{h2o.ai}, Weka \cite{weka} and various Python and R packages. 
-These machine learning toolkits could be used to analyze different datasets. 
-In this early stage of the project, the team has chosen to use Weka to understand each machine learning method.
+
+\subsection{Similar Tools}
+Although there exist many platforms and libraries for performing machine learning, there does not appear to be any tools to help a user choose the appropriate machine learning methods.
+A lot of libraries discovered are implementations of machine learning algorithms, for example \verb|scikit-learn| \cite{scikit-learn} and \verb|Pandas| \cite{pandas} for Python.
+There also exist platforms for performing machine learning, such as Weka \cite{weka} and H2o \cite{h2o.ai}.
+Although all of these tools are useful for actually performing machine learning, they do not provide the user with any indication as to which machine learning method to use.
+They simply abstract the details of each machine learning method.
+Given this research, the project seems to be the only one of its kind.
 
 \subsection{Understanding Machine Learning Algorithms}
 Section \ref{pickingML} lists the machine learning algorithms that the system will be able to produce as output. 
-The team felt it would be beneficial to have a basic understanding of each algorithm and where it is most useful. 
+The team felt it would be beneficial to have a basic understanding of each algorithm, their respective principles, and how and when to use each one.. 
 Some background research was conducted into each algorithm.
 
-\subsubsection*{Self-Organising Map (SOM)}
-% A Self-Organising Map (SOM) is an unsupervised system is based on competitive learning, in which competition between the output neurons is activated, with the result that only one neuron is activated at any time. This activated neuron is called the winner neuron (the winner is king-all neuron). This competition can be achieved by having a laterally suppressed connection (negative feedback path) between the neurons. The result is that neurons are forced to recombine themselves, such a network we call self-organizing maps (SOM).
+\subsubsection*{Self-Organising Map}
+A Self-Organising Map (SOM) converts complex relationships within data of high dimensions into simple relationships in lower dimensions, all while preserving the most important relationships of the starting data \cite{kohonen2005}.
 \subsubsection*{K-Means Clustering}
 K-means clustering classifies a set of data into $k$ clusters (where $k > 0$) by assigning it to a centroid (central location of a cluster). 
 This is achieved by assigning it to the nearest centroid. 
 When each data point has been assigned, $k$ centroids are recalculated and the datapoints are reassigned. 
 This process of defining and assigning to new centroids is repeated until no data points move \cite{kmeans}.
 \subsubsection*{Principal Component Analysis}
-Principal Component Analysis (PCA) finds a small subset of combinations of correlated parameters which have the most influence on variation within the dataset.
-The data is mapped on a new coordinate systen, where the first axis indicates the component which contributes the most to variance (the principal component), the second axis indicates the second most influencial, and this pattern continues for all parameters \cite{einasto2011}. 
+Principal Component Analysis (PCA) finds a small subset of combinations of correlated parameters which have the most influence on variation within the dataset \cite{einasto2011}.
+% The data is mapped on a new coordinate systen, where the first axis indicates the component which contributes the most to variance (the principal component), the second axis indicates the second most influencial, and this pattern continues for all parameters. 
 \subsubsection*{Linear Regression}
-% Linear regression is a statistical analysis method that uses the regression analysis in mathematical statistics to determine the quantitative relationship between two or more variables. Its expression is $y = w'x+e$, where $e$ is a normal distribution with an error obeying a mean of $0$.
 Linear Regression is a form of predictive analysis where the values of an independent variable are used to predict future values of a dependent variable by fitting a line through the values of two or more variables \cite{davison2003}.
 \subsubsection*{Neural Network}
-Artificial Neural Network (ANN) is a machine learning method simulating information processing of a human brain to build a mathematic model. 
-The model consists of processing elements (neurons) which each have an activation function. 
-ANNs require a large amount of examples as training data and test data to complete the model, like the process of human learning. 
-It has advantages in processing amounts of fuzzy nonlinear data.
+% Artificial Neural Network (ANN) is a machine learning method simulating information processing of a human brain to build a mathematic model. 
+% The model consists of processing elements (neurons), each of which have an activation function. 
+% ANNs require a large amount of examples as training data and test data to complete the model, like the process of human learning. 
+% It has advantages in processing amounts of fuzzy nonlinear data.
+Artificial Neural Networks are networks of processing nodes, each connected via a weight.
+The weighted sum of all input values into a node is ran through an activation function.
+If the function outputs a number higher than a threshold, its weighted sum is propagated into the input of all nodes connected to its output \cite{hardesty2017}.
 \subsubsection*{Multiclass Neural Network}
-% Firstly, using Logistic Regression to do Multi-Category classification. With one-to-many logistic regression, in order to make training more efficient, it needs to be vectorized to avoid loop operations. For each input data, there is a 1*10 vector, which corresponds to a probability of 0~9. Then add a Hidden layer between the input and output layer, which is Multiclass Neural Network.
+A Multiclass Neural Network extends on a neural network by providing one output neuron for each possible output class of a given problem \cite{multiclassnn}.
 \subsubsection*{Random Forest Regression}
 % It performs many times of sampling back to the original data set, and each time extracts the same number of observations as the sample size. Since it is put back into the sample, some observations are not drawn each time, and some observations are repeatedly drawn. You get a lot of different data sets and then build a decision tree for each data set, thus generating a large number of decision trees.
+Random Forests select a random subset of features, observe their outputs, and generate a decision tree based on the features selected.
+This process is repeates lots of times (hundreds to thousands), and each tree is averaged into the final decision tree. \cite{hastie2017}
 \subsubsection*{Logistic Regression}
 Logistic Regression is a method for binary prediction when the outputs are dichotomous (true or false). 
-The weight of independent variables can be deduced by Logistic Regression when the binary outputs (dependent variable) are provided. 
-The probability of output can also be predicted by the regression model. 
-It is generally used for data mining, disease analysis and economic projection.
+It is used to find the relationship of one dichotomous variable, and one or more other independent variable. \cite{logisticregression}
 \subsubsection*{Multiclass Logistic Regression}
-% Firstly, using Logistic Regression to do Multi-Category classification. With one-to-many logistic regression, in order to make training more efficient, it needs to be vectorized to avoid loop operations. For each input data, there is a 1*10 vector, which corresponds to a probability of 0~9. Then add a Hidden layer between the input and output layer, which is Multiclass Neural Network.
+A generalisation of Logistic Regression, which can identify more than two possible outcomes. \cite{greene2012}
 \subsubsection*{Naïve Bayesian Network}
-Naïve Bayes is a sorting technique based on Bayes’ theorem. 
-It sets characteristics of data as tags and assume that the tags are mutually independent on probability. 
-Then the Naïve Bayes Classifier sort the objects and calculates probability according to these tags. 
-And the objects can be sorted to known classes or demonstrate the probability of an object belonging to a class.
+% Naïve Bayes is a sorting technique based on Bayes’ theorem. 
+% It sets characteristics of data as tags and assume that the tags are mutually independent on probability. 
+% Then the Naïve Bayes Classifier sort the objects and calculates probability according to these tags. 
+% And the objects can be sorted to known classes or demonstrate the probability of an object belonging to a class.
+A Naïve Bayesian Network calculates the conditional probability of each attribute of a class given its label.
+By applying Bayes rule, labels are classified based on the instances of each attribute.
+Its naïvety stems from the fact that it assumes that all attributes are conditionally independent on the class. \cite{friedman1997bayesian}
 \subsubsection*{Support Vector Machine}
-Support Vector Machine (SVM) is a method used to sort and regress. 
-SVM is a development of binary liner classifier. 
-For the nonlinearities, SVM transforms the sample into higher dimensions so that the sample can be linerly analyzed because of high dimensional features.
+% Support Vector Machine (SVM) is a method used to sort and regress. 
+% SVM is a development of binary liner classifier. 
+% For the nonlinearities, SVM transforms the sample into higher dimensions so that the sample can be linerly analyzed because of high dimensional features.
+Support Vector Machines take an input vector and map it, non-linearly, into a higher dimension feature space, in which a linear decision surface is created.
+The decision surface ensures high generalisability. \cite{cortes1995support}
 \subsubsection*{Self-Training}
-Self-Training is a semi-supervised learning method. 
-It divides first divides sample data into labelled and non-labelled subcategories. 
-Because of high accuracy of classifier, the model can be used to label the unlabeled data sets. 
-Then the unlabeled data can be deleted. 
-The Algorithm will repeat these steps until the datasets not change any more.
-\subsubsection*{Forced Clustering}
+Self training trains a model with labeled data, which is used to classify unlabeled data.
+The unlabeled data that the model classified with the highest confidence are added back to the set of labeled data \cite{fazakis2016}.
+% \subsubsection*{Forced Clustering}
 \subsubsection*{Anti-Learning}
-Anti-learning is used when the accuracy of a trained model's output is worse than random outputs even if no overfitting or over training occurred.
+% Anti-learning is used when the accuracy of a trained model's output is worse than random outputs even if no overfitting or over training occurred.
+Anti-learning is the situation where a trained model is outperformed by randomly guessing, in the absence overfitting or overtraining \cite{roadknight2015antilearning}.
 
 \section{Requirements Specification}
 Following meeting with the client and discussing initial user requirements and system requirements specification, as well as subsequent meeting revising both requirements, the team and the client have agreed on a set of requirements.
@@ -261,7 +268,7 @@ From the home page, the user can choose to log in, see a list of the datasets in
 New users need an account to log in if they want to keep datasets private or delete datasets they have uploaded. 
 This feature will not be present in the first iteration of the project as it is not part of the core functionality, however the button will be in the front end, although not functional.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{introduction_page}
   \caption{The Home Page of the system}
@@ -273,7 +280,7 @@ In the left part of the page, all files in the database list can be seen. Double
 From the Datasets page, the user may also choose to upload a new dataset for analysis. 
 There exists a search bar, clearly visible in the top right corner, where the user can search for datasets in the databse by name.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{datasets_page}
   \caption{The Datasets Page of the system}
@@ -291,7 +298,7 @@ A download and delete button are also available, however the delete button will 
 Clicking the download button will download the raw data, in CSV format (see section \ref{csvchoice}). 
 From the analysis page, the user can go to a page where the datasets are visualised.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{analysis_page}
   \caption{The Analysis Page of the system}
@@ -304,7 +311,7 @@ The user can swap between these modes of visualisation, depending on the type of
 At the bottom of the visualisation page, the user can choose to show the analysis page for that dataset. 
 As data visualisation is not part of the core functionality, this feature will also not be present in the first iteration, but the group has accomodated for it in the design.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{visualisation_page}
   \caption{The Visualisation Page of the system}
@@ -320,6 +327,8 @@ In order to provide a prototype to the client, the system will pick a random mac
 This will let the client have an idea of what a working system would function like.
 
 The team decide to provide 17 potential machine learning tools:
+% \setlength{\columnsep}{-2.1in}
+\begin{multicols}{2}
 \begin{itemize}
   \item Multiclass Neural Network
   \item Linear Regression
@@ -339,7 +348,9 @@ The team decide to provide 17 potential machine learning tools:
   \item Time Delay Neural Network
   \item Feature Selection Principal Component Analysis
 \end{itemize}
-The most suitable tool will be suggested from this list of machine learning methods by using decision algorithm in the second iteration of the project, after the prototype.
+\end{multicols}
+
+The most suitable tool will be suggested from this list of machine learning methods by using decision algorithm outlined below.
 
 The website will display the selected most suitable machine learning tool for each dataset uploaded by client. 
 In the long term, the team hopes that the website will be able to analyze the dataset by using the best machine learning tool and visualize the output. 
@@ -348,7 +359,7 @@ However, the team and client are both aware that given time constraints, it may 
 The decision algorithm will be used to determine which is the best analyzing algorithm for datasets. 
 First of all, the algorithm will determine whether the dataset is supervised; according to whether there is output data in the dataset, the dataset will be divided into three categories: Unsupervised Learning, Semi-supervised Learning and Supervised Learning, as can be seen in figure \ref{main-decision}.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{main-decision}
   \caption{Deciding the class of machine learning to use}
@@ -360,37 +371,49 @@ Within Unsupervised Learning, if there are lots of features in the dataset, sugg
 If they have structure, suggest K-means Clustering to analyze, otherwise suggest using Principal Component Analysis. 
 This deicion is modelled in figure \ref{unsupervised-decision}.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{unsupervised-decision}
   \caption{Deciding which unsupervised learning technique to suggest}
   \label{unsupervised-decision}
 \end{figure}
 
+
 If the dataset is completely labelled with output data, divide it into Supervised Learning. 
 If the outputs are categories divide the dataset to Classification. 
-Else if the outputs are continuous values, divide the dataset to Regression.
+Otherwise if the outputs are continuous values, divide the dataset into Regression.
 
 If the dataset is best modelled by classification, determine how many categories the dataset contains. 
-If dataset contains 3 or more categories, determine if the dataset is simple or not. 
+For a dataset with 3 or more categories, determine if the dataset is simple or not. 
 For small complex datasets, suggest Multiclass Neural Network or Random Forest Regression. 
 For simple large dataset, suggest using Multiclass Logistic Regression to analyze. 
-If the dataset only contains less than 3 categories, determine whether the relation in the dataset is simple. 
+For datasets with less than 3 categories, determine whether the relations in the dataset are simple. 
 If the dataset has simple relations, suggest Logistic Regression. Otherwise determine how many features in the dataset. 
 If the dataset has less than 100 features, suggest Neural Network, otherwise suggest Naïve Bayesian Classifier or Support Vector Machine. 
 If, after modelling the data using a Naïve Bayesian Classifier or Support Vector Machine, the output is worse than guessing, suggest Anti-learning.
 
-If the dataset is composed of values (regression), also determine the dataset simple or not, if it is a simple large dataset, suggest Linear Regression. 
-Else if it is a complex small dataset, suggest Random Forest Regression and Sum Regression. 
+If the dataset is composed of values (regression), also determine the dataset simple or not. For a simple large dataset, suggest Linear Regression, conversely suggest Random Forest Regression and Sum Regression for a complex small dataset. 
 Figure \ref{supervised-decision} vizualises this set of decisions.
 
-\begin{figure}[h!]
+\begin{figure}[H]
   \centering
   \includegraphics[width=\textwidth]{supervised-decision}
   \caption{Deciding which supervised learning technique to suggest}
   \label{supervised-decision}
 \end{figure} 
-\pagebreak
+
+
+Semi-Supervised Learning is a class of machine learning tasks and techniques that also makes use of unlabeled data for training – typically a small amount of labeled data with a large amount of unlabeled data.
+If only 33\% or fewer of the entries in the dataset are labelled, suggest Self-Training.
+Otherwise suggest using self-Training to analyze.
+The semi-supervised decision is shown in figure \ref{semisupervised-decision}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=\textwidth]{semi-supervised}
+  \caption{Deciding which semi-supervised learning technique to suggest}
+  \label{semisupervised-decision}
+\end{figure}
 
 \subsection{Data Representation\label{datarepresentation}}
 Section \ref{csvchoice} outlines the allowed file types in the system. 
@@ -480,12 +503,17 @@ These three elements of the system loosely fit the description of the \textit{Mo
 This allows for better code organisation and maintainability \cite{google_mvc} by seperating responsibilities within the codebase. 
 The three key components of the MVC design pattern are outlined below:
 \begin{itemize}
-  \item Model
-  This is where the data of the system is stored. The Model has no access to the View or the Controller, and is only responsible for storing the data. This is essentialy the Database part of the project.
-  \item View
-  The View is what is presented to the user. This is how the user inteacts with the system: the Front-End. Although the user interacts with the View, the View has no responsibilities apart from to display the data in the Model.
-  \item Controller
-  The Controller acts as the bridge between the Model and the View; it updates the View when changes happen to the Model, and updates the Model when the user interacts with the View. This is the Machine Learning section of the group's work division. The controller is responsible for all logic in the system.
+  \item \textbf{Model}: 
+  This is where the data of the system is stored.
+  The Model has no access to the View or the Controller, and is only responsible for storing the data.
+  This is essentialy the Database of the project.
+  \item \textbf{View}:
+  This is how the user inteacts with the system, and how the system presents data to the user: the Front-End.
+  Although the user interacts with the View, the View has no responsibilities apart from to display the data in the Model.
+  \item \textbf{Controller}:
+  The Controller acts as the bridge between the Model and the View; it updates the View when changes happen to the Model, and updates the Model when the user interacts with the View.
+  This is the Machine Learning section of the group's work division.
+  The controller is responsible for all logic in the system.
 \end{itemize}
 
 Although the MVC design pattern is being employed in this project, the project need not adhere strictly to it. 
@@ -533,6 +561,15 @@ Had the team set out a Gantt chart, for example, everyone would have deadlines t
 Moreover, the Kanban board that was set up was only used for the first few weeks of the project. 
 After that, most tasks that needed to be done were discussed through the meetings and on instant messaging, and while that did work, there was no centralised place where people could remind themselves of what needed to be done.
 
+\subsection{Visualising the Output}
+A few problems arose when deciding how to visualise the output of the data processing. 
+Firstly, choosing a suitable graph for each data set will be very difficult, given the nature of a data set cannot be known. 
+As such, a general form of visualisation has to be devised. 
+
+Moreover, due to the requirement that the system be used for a teaching aid, all visual indication of any analysis the system conducted had to be both educational and clear. 
+A textual analysis may have been educational, but not very clear, and as such the team decided to visualise the decision tree in the output.
+However, visualising the tree proves difficult, as a technique for dynamically generating the tree must be devised.
+
 \subsection{Programming Language Inexperience}
 Since it was decided that Javascript would be the most convenient language to use for a web-based application, it became obvious that some members of the group would have to first learn the language. 
 Although it is a relatively easy language to learn, Javascript has enough complexity to make tasks such as implementing the decision tree quite challenging for beginners. 
@@ -548,14 +585,24 @@ A lot of the functionality of the system has to be mocked when unit testing as i
 Moreover, a lot of the units in the system are designed to work together, so testing them independently is difficult. 
 Maintaining a functional programming style as much as possible, especially when pre-processing datasets, increases testability as the functions are pure and provide predictable outputs.
 
-\section{Time Planning and Project Management\label{timeplanning}}
-\subsection{Time Planning}
+\section{Time Planning and Project Management}
+\subsection{Time Planning\label{timeplanning}}
 For time planning, the team never formulated a rigid time plan like a Gantt chart, although this was discussed. 
 The idea behind not having a rigid time plan was that it would not be adhered to given other responsibilities the team has, potential changes to requirements and underestimation of the time needed to perform a task. 
 Instead, the team's time planning was dictated primarily through the weekly formal and informal meetings, where deliverables were agreed on with the supervisor on a weekly basis. 
 This allowed the team to have a more agile workflow by respecting the Agile Manifesto's `Responding to change over following a plan' and `Individuals and interactions over processes and tools' values \cite{agilemanifesto}. 
 Communication was a key component of this workflow, as the team had to regularly discuss and show progress made. 
 It also meant that the team was consistently and incrementally working on the project, as opposed to leaving tasks unfinished for long periods of time.
+
+Regardless of not having a rigid time plan, the team set out some soft deadlines for major deliverables of the project.
+This soft time plan is outlined below.
+
+\begin{enumerate}
+  \item \textbf{2018/12/14}: The report deadline. It was planned that the initial prototype would be finished by this date.
+  \item \textbf{2018/02/18}: It was planned that by the start of the second term, the prototype would be further developed into a working first version.
+  \item \textbf{2018/03/18}: The system will be able to fully visualise a given dataset. The decision making algorithm would be fully implemented and refined.
+  \item \textbf{2018/04/11}: Final report deadline. The system will be complete and the final report written.
+\end{enumerate}
 
 \subsection{Project Management}
 The team decided to use Kanban as its main form of project management. The Kanban board is hosted on Trello.com \cite{trello}. 
