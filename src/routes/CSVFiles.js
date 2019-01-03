@@ -1,6 +1,6 @@
 const express = require('express')
 const CSVFile = require('../models/CSV') // bring in the CSVFile model
-const router  = express.Router()
+const router = express.Router()
 
 // route to fetch all saved CSVFiles
 router.get('/', (req, res) => {
@@ -33,7 +33,7 @@ router.post('/', (req, res) => {
 
   newFile.save()
     .then(_ => res.json())
-    // .then(json => console.log(json))
+  // .then(json => console.log(json))
 })
 
 router.get('/names/', (req, res) => {
@@ -44,10 +44,10 @@ router.get('/names/', (req, res) => {
   })
 })
 
-router.get('/:name', (req,res) => {
+router.get('/:name', (req, res) => {
   CSVFile.find({ "name": req.params.name }, (err, file) => {
     if (err) { console.log(err); return; }
-    console.log(file)
+    console.log("found")
     res.json(file)
   })
 })
