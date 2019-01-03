@@ -1,16 +1,16 @@
-const express     = require('express')
-const mongoose    = require('mongoose')
-const bodyParser  = require('body-parser')
-const request     = require('request')
-const csvFiles    = require('./routes/CSVFiles')
-const fs          = require('fs')
-const util        = require('util');
+const express = require('express')
+const mongoose = require('mongoose')
+const bodyParser = require('body-parser')
+const request = require('request')
+const csvFiles = require('./routes/CSVFiles')
+const fs = require('fs')
+const util = require('util');
 
 // initialise express
 const app = express()
 
 // add express middleware to parse json requests
-app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
+app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }));
 app.use(bodyParser())
 
 // bring in database config
@@ -67,4 +67,4 @@ const parseFile = require('./parsing/csvParser').parseFile
 //   else filesToParse.map(x => parseFile(x))
 // }
 
-parseFile('testing.csv')
+// parseFile('testing.csv')
