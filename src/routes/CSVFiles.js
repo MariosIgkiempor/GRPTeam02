@@ -43,13 +43,13 @@ router.get("/names/", (req, res) => {
 });
 
 router.get("/:name", (req, res) => {
-  CSVFile.find({ name: req.params.name }, (err, file) => {
+  CSVFile.find({ name: req.params.name.substring(1) }, (err, file) => {
     if (err) {
       console.log(err);
       return;
     }
     console.log("found");
-    res.json(req.params);
+    res.json({ req, file });
   });
 });
 
