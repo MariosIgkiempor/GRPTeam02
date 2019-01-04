@@ -49,7 +49,7 @@ router.get("/:name", (req, res) => {
       return;
     }
     console.log("found");
-    res.json({ req.params });
+    res.json(req.params);
   });
 });
 
