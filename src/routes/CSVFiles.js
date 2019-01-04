@@ -43,6 +43,7 @@ router.get("/names/", (req, res) => {
 });
 
 router.get("/:name", (req, res) => {
+  // Have to take the substring of name because the req.params.name field includes the semi-colon in the parameter
   CSVFile.find({ name: req.params.name.substring(1) }, (err, file) => {
     if (err) {
       console.log(err);
