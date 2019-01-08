@@ -1,31 +1,66 @@
-global.notNull = x => x !== null && x !== undefined;
+module.exports = {
+  notNull: x => x !== null && x !== undefined,
 
-global.flatten = a => [].concat(...a);
+  flatten: a => [].concat(...a),
 
-global.isInteger = x =>
-  typeof x === "number" && isFinite(x) && Math.floor(x) === x;
+  isInteger: x => typeof x === 'number' && isFinite(x) && Math.floor(x) === x,
 
-global.isFloat = x => !!(x % 1);
+  isFloat: x => !!(x % 1),
 
-global.power = x => y => Math.pow(y, x);
+  power: x => y => Math.pow(y, x),
 
-global.log = x => console.log(x);
+  log: x => console.log(x),
 
-global.sum = xs => xs.reduce((a, x) => (a = x ? a + x : a), 0);
+  sum: xs => xs.reduce((a, x) => (a = x ? a + x : a), 0),
 
-global.mean = xs => global.sum(xs) / xs.length;
+  mean: xs => this.sum(xs) / xs.length,
 
-// quick sort implementation
-global.qSort = xs => {
-  if (xs.length < 2) return xs;
-  const pivot = xs[Math.floor(xs.length / 2)];
-  const lower = [];
-  const equal = [];
-  const higher = [];
-  for (let i = 0, length = xs.length; i < length; i++) {
-    if (xs[i] < pivot) lower.push(xs[i]);
-    else if (xs[i] === pivot) equal.push(xs[i]);
-    else higher.push(xs[i]);
+  // quick sort implementation
+  qSort: function (xs) {
+    const partition = (array, low, high) => {
+      const pivot = array[high]
+      let i = low - 1
+      for (let j = low; j < high; j++) {
+        if (array[j] <= pivot) {
+          i++
+          const temp = array[i]
+          array[i] = array[j]
+          array[j] = temp
+        }
+      }
+
+      const temp = array[i + 1]
+      array[i] = array[high]
+      array[high] = temp
+
+      return i + 1
+    }
+
+    const qSortIterative = (array, low, high) => {
+      let stack = [] // auxiliary stack
+      let top = -1 // top of the stack index
+
+      stack[++top] = low
+      stack[++top] = high
+
+      while (top >= 0) {
+        high = stack[top--]
+        low = stack[top--]
+
+        let p = partition(array, low, high)
+
+        if (p - 1 > low) {
+          stack[++top] = low
+          stack[++top] = p - 1
+        }
+
+        if (p + 1 < high) {
+          stack[++top] = p + 1
+          stack[++top] = high
+        }
+      }
+    }
+
+    qSortIterative(xs, 0, xs.length - 1)
   }
-  return [...qSort(lower), ...equal, ...qSort(higher)];
-};
+}
