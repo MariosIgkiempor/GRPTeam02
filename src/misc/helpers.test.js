@@ -69,3 +69,26 @@ describe('flatten', () => {
     expect(answer).toEqual([1, 2, 3, 4, 5, 6, 7, 8, 9])
   })
 })
+
+describe('isInteger', () => {
+  test('returns true when passed 0', () => {
+    const answer = helpers.isInteger(0)
+    expect(answer).toBe(true)
+  })
+  test('returns true when passed a non-zero integer', () => {
+    const answer = helpers.isInteger(999)
+    expect(answer).toBe(true)
+  })
+  test('returns true when passed a negative integer', () => {
+    const answer = helpers.isInteger(-5)
+    expect(answer).toBe(true)
+  })
+  test('returns true when passed an integer with one leading 0', () => {
+    const answer = helpers.isInteger(012)
+    expect(answer).toBe(true)
+  })
+  test('returns true when passed an integer with multiple leading 0s', () => {
+    const answer = helpers.isInteger(00123)
+    expect(answer).toBe(true)
+  })
+})
