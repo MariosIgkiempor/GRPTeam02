@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 // create the schema for storing CSV Files (Had8.csv and Pyramid.csv)
 // vals can have any number of numbers in it
@@ -24,10 +24,10 @@ const CSVFileSchema = new Schema(
     anomalies: {}
   },
   { strict: false }
-);
+)
 
 // create the model from the schma
-const CSVFile = mongoose.model("CSVFile", CSVFileSchema);
+const CSVFile = mongoose.model('CSVFile', CSVFileSchema)
 
 // export CSVFile model
-module.exports = CSVFile;
+module.exports = CSVFile
