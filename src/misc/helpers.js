@@ -1,5 +1,5 @@
 module.exports = {
-  notNull: x => x !== null && x !== undefined,
+  isNull: x => x === null || x === undefined,
 
   flatten: a => [].concat(...a),
 
