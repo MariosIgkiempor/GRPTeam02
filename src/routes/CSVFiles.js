@@ -36,7 +36,10 @@ router.post('/', (req, res) => {
 
 router.get('/names/', (req, res) => {
   CSVFile.find({}, (err, files) => {
-    if (err) console.error(`Error getting files: \n${err}`)
+    if (err) {
+      console.error(`Error getting files: \n${err}`)
+      return
+    }
     let names = { list: [] }
     files.forEach(file => names.list.push(file.name))
     res.json(names)
