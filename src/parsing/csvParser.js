@@ -65,7 +65,9 @@ const readFile = filename => {
     outputObject.vals = R.map(R.map(parseFloat))(rawDataArray)
   } else if (outputObject.dataType === 'boolean') {
     outputObject.vals = R.map(R.map(parseBool))(rawDataArray)
-  } else if (outputObject.dataType === 'string') { outputObject.vals = rawDataArray }
+  } else if (outputObject.dataType === 'string') {
+    outputObject.vals = rawDataArray
+  }
 
   // impute numbers if impute flag is toggled to true and there are missing values
   if (
@@ -245,8 +247,8 @@ const findStructure = arr => {
     const num = R.mean(xsys) // mean((X - Mx)(Y - My))
     const MxsSqared = R.mean(R.map(helpers.power(2))(xs)) // mean((X - Mx) ^ 2)
     const MysSqared = R.mean(R.map(helpers.power(2))(ys)) // mean((Y - My) ^ 2)
-    const den1 = helpers.power(0.5)(MxsSqared) // sqrt(sum(X - Mx)^2)
-    const den2 = helpers.power(0.5)(MysSqared) // sqrt(sum(Y - My)^2)
+    const den1 = Math.power(MxsSqared, 0.5) // sqrt(sum(X - Mx)^2)
+    const den2 = Math.power(MysSqared, 0.5) // sqrt(sum(Y - My)^2)
     const r = num / (den1 * den2) // correlation coefficient
     totalCorrelationCoefficient += r
   })
