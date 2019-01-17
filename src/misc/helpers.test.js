@@ -83,12 +83,16 @@ describe('isInteger', () => {
     const answer = helpers.isInteger(-5)
     expect(answer).toBe(true)
   })
-  test('returns true when passed an integer with one leading 0', () => {
-    const answer = helpers.isInteger(012)
-    expect(answer).toBe(true)
+  test('returns false when passed a floating point number', () => {
+    const answer = helpers.isInteger(1.5)
+    expect(answer).toBe(false)
   })
-  test('returns true when passed an integer with multiple leading 0s', () => {
-    const answer = helpers.isInteger(00123)
-    expect(answer).toBe(true)
+  test('returns false when passed a negative floating point number', () => {
+    const answer = helpers.isInteger(-5.6)
+    expect(answer).toBe(false)
+  })
+  test('returns false when passed Math.PI', () => {
+    const answer = helpers.isInteger(Math.PI)
+    expect(answer).toBe(false)
   })
 })
