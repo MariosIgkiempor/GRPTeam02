@@ -1,6 +1,6 @@
 const helpers = require('./helpers')
 
-describe('power', () => {
+describe('helpers.power', () => {
   test('correctly exponentiates positive integers', () => {
     expect(helpers.power(2)(3)).toBe(9)
     expect(helpers.power(3)(9)).toBe(729)
@@ -37,13 +37,14 @@ describe('power', () => {
   })
 })
 
-describe('iterative quicksort', () => {
+describe('helpers.qSort', () => {
   test('empty array returns empty array', () => {
     expect(helpers.qSort([])).toEqual([])
   })
 
   test('singleton arrays return the same singleton array', () => {
     expect(helpers.qSort([1])).toEqual([1])
+    expect(helpers.qSort([0])).toEqual([0])
     expect(helpers.qSort([Math.PI])).toEqual([Math.PI])
   })
 
