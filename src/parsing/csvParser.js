@@ -91,7 +91,7 @@ const readFile = filename => {
     CATEGORICAL_THRESHOLD
   )
   if (outputObject.isCategorical) {
-    outputObject.categories = findUnique(outputObject.labels)
+    outputObject.categories = createUniqueArray(outputObject.labels)
   }
 
   // measure of structure is a number -1 to 1, where -1 is little/no structure and 1 is very structured
@@ -113,13 +113,13 @@ const readFile = filename => {
 const isCategorical = (labels, threshold) => {
   if (findValsDataType(labels) === 'boolean') return true // booleans are categorical by default
 
-  const uniqueCount = R.length(findUnique(labels))
+  const uniqueCount = R.length(createUniqueArray(labels))
   let categorical = !(uniqueCount > labels.length * threshold) // if all lavels are numbers and less than a constant ratio of the labels are unique, assume categories
 
   return categorical
 }
 
-const findUnique = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
+const createUniqueArray = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
 
 const parseBool = x => x === '1' // assuming only numbers
 
@@ -315,5 +315,11 @@ module.exports = {
   parseFile: filename => {
     const fileObject = readFile(filename)
     // sendData(fileObject)
-  }
+  },
+
+  // Export functions for testing purposes
+  isCategorical,
+  createUniqueArray,
+  findMatchingIndicies,
+  findAnomalies
 }
