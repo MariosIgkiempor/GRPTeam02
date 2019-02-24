@@ -28,10 +28,20 @@ An application is required that parses datasets and suggests the best machine le
 - [x] Register on Trello
 - [x] Create the Kanban board
 [Link to our Kanban board on Trello](https://trello.com/b/oPBUJWjp/grpteam02)
-- [ ] Document decision on using Kanban
+- [x] Document decision on using Kanban
 
 **Database design**
 - [x] Implement the database
-- [ ] Document decision on using a NoSQL databse
+- [x] Document decision on using a NoSQL databse
 - [x] Start importing/archiving data
 - [x] Start querying the database
+
+**Data Parsing**
+- [ ] Document Javascript vs Python difficulties
+- [ ] Find more in depth anomaly detection algorithm
+- [ ] Refactor existing sources to use more sohpisticated libraries
+
+**Front End**
+- [ ] Basic home page
+- [ ] List of all the data sets currently stored on the database
+- [ ] Page to allow data set to be uploaded to the server for parsin
