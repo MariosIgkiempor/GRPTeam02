@@ -2,6 +2,7 @@ const helpers = require('../misc/helpers')
 const fs = require('fs')
 const request = require('request')
 const R = require('ramda')
+const findDataType = require('./findDataType')
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 const IMPUTE_ON = true
@@ -58,7 +59,7 @@ const readFile = filename => {
   )
 
   // TODO: Detect data type for labels
-  outputObject.dataType = findValsDataType(rawDataArray)
+  outputObject.dataType = findDataType(rawDataArray)
 
   // parse the object's values depending on the data type
   if (outputObject.dataType === 'number') {
@@ -111,7 +112,7 @@ const readFile = filename => {
 }
 
 const isCategorical = (labels, threshold) => {
-  if (findValsDataType(labels) === 'boolean') return true // booleans are categorical by default
+  if (findDataType(labels) === 'boolean') return true // booleans are categorical by default
 
   const uniqueCount = R.length(helpers.createUniqueArray(labels))
   let categorical = !(uniqueCount > labels.length * threshold) // if all lavels are numbers and less than a constant ratio of the labels are unique, assume categories
@@ -171,24 +172,6 @@ const findAnomalies = arr => {
   })
 
   return anomalies
-}
-
-const findValsDataType = arr => {
-  const vals = R.flatten(arr).filter(x => x !== null)
-  if (vals.length === 0) return 'empty'
-
-  const parsedNumbers = R.map(parseFloat)(vals)
-  const isNumber = parsedNumbers.every(x => !isNaN(x))
-
-  // if all numbers are 1 or 0, dataType is boolean
-  const isBoolean = // values are boolean if all values are all (1 or 0) or (1 or -1)
-    isNumber &&
-    (R.all(R.either(R.equals(1), R.equals(0)))(parsedNumbers) ||
-      R.all(R.either(R.equals(1), R.equals(-1)))(parsedNumbers))
-
-  if (isBoolean) return 'boolean'
-  else if (isNumber) return 'number'
-  else return 'string' // if not boolean, dataType is assumed to be a String
 }
 
 const findComplexity = arr => {
