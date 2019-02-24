@@ -6,6 +6,7 @@ const findDataType = require('./findDataType')
 const isCategorical = require('./isCategorical')
 const findAnomalies = require('./findAnomalies')
 const findStructure = require('./findStructure')
+const findComplexity = require('./findComplexity')
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 const IMPUTE_ON = true
@@ -119,29 +120,6 @@ const findMatchingIndicies = f => xs =>
   xs.map((x, i) => (f(x) ? i : null)).filter(x => x !== null)
 
 const findNullIndicies = findMatchingIndicies(x => x === null)
-
-const findComplexity = arr => {
-  // TODO: Shannon Entropy!! for complexity
-  // TODO: missing values
-  // TODO: anomalies
-  // or ask the user
-  // how chaotic single values are
-
-  let totalVariance = 0
-  // s = (1/N-1)(sum((X-Mx)^2))
-  const columns = R.transpose(arr)
-  const means = R.map(R.mean)(columns)
-  columns.forEach((xs, i) => {
-    const diff = R.map(x => x - means[i])(xs) // X - Mx
-    const diffSquared = R.map(helpers.power(2))(diff) // (X - Mx)^2
-    const sumXs = R.sum(diffSquared) // sum((X - Mx)^2)
-    const s = sumXs / (xs.length - 1) // bias-corrected variance
-    totalVariance += s
-  })
-
-  const averageVariance = totalVariance / columns.length
-  return averageVariance
-}
 
 const impute = (arr, missingIndicies) => {
   const cols = R.transpose(arr)
