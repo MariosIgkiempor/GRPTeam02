@@ -3,6 +3,7 @@ const fs = require('fs')
 const request = require('request')
 const R = require('ramda')
 const findDataType = require('./findDataType')
+const isCategorical = require('./isCategorical')
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 const IMPUTE_ON = true
@@ -109,15 +110,6 @@ const readFile = filename => {
   console.log(outputObject)
 
   return outputObject
-}
-
-const isCategorical = (labels, threshold) => {
-  if (findDataType(labels) === 'boolean') return true // booleans are categorical by default
-
-  const uniqueCount = R.length(helpers.createUniqueArray(labels))
-  let categorical = !(uniqueCount > labels.length * threshold) // if all lavels are numbers and less than a constant ratio of the labels are unique, assume categories
-
-  return categorical
 }
 
 // helper function that return array of all indicies that match predicate f
