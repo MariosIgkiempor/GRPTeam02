@@ -131,6 +131,9 @@ const findNullIndicies = findMatchingIndicies(x => x === null)
 
 // finds and returns the indicies of anomalous data
 // anomalies are found on a per-feature basis (ie anomalies are found down a column)
+// TODO: Different algorithm for anomaly detection, this relies too much on the interquartile range
+// which may be too inaccurate (for example, set [1,2,3,90,2,4]), will have a high interquartile range
+// and so the anomaly which is obvious to the human will not be detected by this method
 const findAnomalies = arr => {
   const median = (
     l,
