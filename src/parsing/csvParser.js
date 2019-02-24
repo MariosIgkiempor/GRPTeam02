@@ -4,6 +4,7 @@ const request = require('request')
 const R = require('ramda')
 const findDataType = require('./findDataType')
 const isCategorical = require('./isCategorical')
+const findAnomalies = require('./findAnomalies')
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 const IMPUTE_ON = true
@@ -117,54 +118,6 @@ const findMatchingIndicies = f => xs =>
   xs.map((x, i) => (f(x) ? i : null)).filter(x => x !== null)
 
 const findNullIndicies = findMatchingIndicies(x => x === null)
-
-// finds and returns the indicies of anomalous data
-// anomalies are found on a per-feature basis (ie anomalies are found down a column)
-// TODO: Different algorithm for anomaly detection, this relies too much on the interquartile range
-// which may be too inaccurate (for example, set [1,2,3,90,2,4]), will have a high interquartile range
-// and so the anomaly which is obvious to the human will not be detected by this method
-const findAnomalies = arr => {
-  const median = (
-    l,
-    r // median of a sorted array is the element in the middle
-  ) => Math.floor((r - l + 1 + 1) / 2 - 1)
-
-  // anomaly is any value less than 1.5 times the IQR
-  //                   or more than 1.5 times the IQR
-  const isAnomaly = (q1, q3, iqr, x) => x < q1 - 1.5 * iqr || x > q3 + 1.5 * iqr
-
-  // finds the first and third quartiles and the interquartile range
-  // and returns the values as an object
-  const quartiles = xs => {
-    let n = xs.length
-    const medianIndex = median(0, n)
-    const q1Arr = xs.slice(0, medianIndex) // first half of sorted values
-    const q3Arr = xs.slice(medianIndex + 1) // last half of sorted values
-    const q1 = q1Arr[median(0, q1Arr.length)] // first quartile
-    const q3 = q3Arr[median(0, q3Arr.length)] // third quartile
-    const iqr = q3 - q1 // interquartile range
-    return { q1, q3, iqr }
-  }
-
-  const cols = R.transpose(arr)
-  const colsSorted = R.map(helpers.qSort)(cols)
-  const colsQuartlies = R.map(quartiles)(colsSorted)
-
-  let anomalies = []
-  let q1, q3, iqr
-  arr.forEach((xs, row) => {
-    // for each row of data
-    xs.forEach((x, col) => {
-      // for each column of a row
-      ;({ q1, q3, iqr } = colsQuartlies[col]) // get the quartiles and inter-quartile range for that column
-      if (isAnomaly(q1, q3, iqr, x)) {
-        anomalies.push({ row, col })
-      } // add it to the anomalies list
-    })
-  })
-
-  return anomalies
-}
 
 const findComplexity = arr => {
   // TODO: Shannon Entropy!! for complexity
