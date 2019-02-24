@@ -1,11 +1,14 @@
 const R = require('ramda')
 const { qSort } = require('../misc/helpers')
+const distance = require('euclidean-distance')
 
 // finds and returns the indicies of anomalous data
 // anomalies are found on a per-feature basis (ie anomalies are found down a column)
 // TODO: Different algorithm for anomaly detection, this relies too much on the interquartile range
 // which may be too inaccurate (for example, set [1,2,3,90,2,4]), will have a high interquartile range
 // and so the anomaly which is obvious to the human will not be detected by this method
+
+/*
 const findAnomalies = arr => {
   const median = (
     l,
@@ -47,6 +50,26 @@ const findAnomalies = arr => {
   })
 
   return anomalies
+}
+*/
+
+// Algorithm based on this research paper: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0152173
+const findAnomalies = function (arr) {
+  // Curry the distance function for easier use with map
+  let dist = R.curry(distance)
+  // Find the distance from each row in the data to each other row
+  let distances = []
+  for (let i = 0; i < arr.length; ++i) {
+    let row = arr[i]
+    let rowDistances = R.map(dist(row))(arr)
+    distances.push(rowDistances)
+    console.log(rowDistances)
+  }
+  // Sort the distances for each row
+
+  // Compute an abnormality score
+  // Based on the average distance to the top k nearest neighbours
+  // TODO: Experiment with different scores of k. Recommended 10 <= k <= 50
 }
 
 module.exports = findAnomalies
