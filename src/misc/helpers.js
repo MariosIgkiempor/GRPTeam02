@@ -50,11 +50,17 @@ const qSort = function (xs) {
   return output
 }
 
+const createUniqueArray = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
+
+const parseBool = x => x === '1' // assuming only numbers
+
 module.exports = {
   // Curried power function, for use with Rambda functional-style functions
   power,
 
   // iterative quick sort implementation,
   // removes stack overflow errors possible with a recursive implementation
-  qSort
+  qSort,
+  createUniqueArray,
+  parseBool
 }

@@ -64,7 +64,7 @@ const readFile = filename => {
   if (outputObject.dataType === 'number') {
     outputObject.vals = R.map(R.map(parseFloat))(rawDataArray)
   } else if (outputObject.dataType === 'boolean') {
-    outputObject.vals = R.map(R.map(parseBool))(rawDataArray)
+    outputObject.vals = R.map(R.map(helpers.parseBool))(rawDataArray)
   } else if (outputObject.dataType === 'string') {
     outputObject.vals = rawDataArray
   }
@@ -91,7 +91,7 @@ const readFile = filename => {
     CATEGORICAL_THRESHOLD
   )
   if (outputObject.isCategorical) {
-    outputObject.categories = createUniqueArray(outputObject.labels)
+    outputObject.categories = helpers.createUniqueArray(outputObject.labels)
   }
 
   // measure of structure is a number -1 to 1, where -1 is little/no structure and 1 is very structured
@@ -113,15 +113,11 @@ const readFile = filename => {
 const isCategorical = (labels, threshold) => {
   if (findValsDataType(labels) === 'boolean') return true // booleans are categorical by default
 
-  const uniqueCount = R.length(createUniqueArray(labels))
+  const uniqueCount = R.length(helpers.createUniqueArray(labels))
   let categorical = !(uniqueCount > labels.length * threshold) // if all lavels are numbers and less than a constant ratio of the labels are unique, assume categories
 
   return categorical
 }
-
-const createUniqueArray = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
-
-const parseBool = x => x === '1' // assuming only numbers
 
 // helper function that return array of all indicies that match predicate f
 const findMatchingIndicies = f => xs =>
@@ -322,7 +318,6 @@ module.exports = {
 
   // Export functions for testing purposes
   isCategorical,
-  createUniqueArray,
   findMatchingIndicies,
   findAnomalies
 }

@@ -1,6 +1,5 @@
 const {
   isCategorical,
-  createUniqueArray,
   findMatchingIndicies,
   findAnomalies
 } = require('./csvParser')
@@ -39,48 +38,6 @@ describe('csvParser.isCategorical', () => {
     expect(isCategorical(labels, 0.3)).toBe(true)
     expect(isCategorical(labels, 0.4)).toBe(true)
     expect(isCategorical(labels, 0.5)).toBe(true)
-  })
-})
-
-describe('csvParser.createUniqueArray', () => {
-  test('Creates unique array when input is numerical array', () => {
-    expect(createUniqueArray([1, 1, 1, 2, 3, 3, 2, 1, 2, 5, 5])).toEqual([
-      1,
-      2,
-      3,
-      5
-    ])
-    expect(createUniqueArray([1.1, 1.2, 1.2, 1.2, 1.2, 1.1, 1.3, 1.3])).toEqual(
-      [1.1, 1.2, 1.3]
-    )
-    expect(createUniqueArray([1.1, 1, 1.2, 1.2, 1.2, 1.1, 3, 1.3])).toEqual([
-      1.1,
-      1,
-      1.2,
-      3,
-      1.3
-    ])
-  })
-  test('Creates unique array when input is boolean array', () => {
-    expect(createUniqueArray([true, true, true, false, false, true])).toEqual([
-      true,
-      false
-    ])
-  })
-  test('Creates unique array when input is string array', () => {
-    expect(createUniqueArray(['a', 'b', 'c', 'c', 'a', 'a', 'c'])).toEqual([
-      'a',
-      'b',
-      'c'
-    ])
-  })
-  test('Singleton array input return the same array as output', () => {
-    expect(createUniqueArray([1])).toEqual([1])
-    expect(createUniqueArray([true])).toEqual([true])
-    expect(createUniqueArray(['hello'])).toEqual(['hello'])
-  })
-  test('Empty array input returns empty array as output', () => {
-    expect(createUniqueArray([])).toEqual([])
   })
 })
 
