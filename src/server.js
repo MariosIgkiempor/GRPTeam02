@@ -13,15 +13,22 @@ const app = express()
 app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }))
 app.use(bodyParser())
 
+// Allow Cross Origin Resource Sharing
+app.use(function (req, res, next) {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header(
+    'Access-Control-Allow-Headers',
+    'Origin, X-Requested-With, Content-Type, Accept'
+  )
+  next()
+})
+
 // bring in database config
 const db = require('./config/config.js').mongoURI
 
 // connect to the MongoDB databse
 mongoose
-  .connect(
-    db,
-    { useNewUrlParser: true }
-  )
+  .connect(db, { useNewUrlParser: true })
   .then(() => console.log('MongoDB connected'))
   .catch(error => console.log(`MongoDB connection error: ${error}`))
 
