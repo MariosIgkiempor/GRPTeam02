@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const express = require('express')
 const CSVFile = require('../models/CSV') // bring in the CSVFile model
 const router = express.Router()
@@ -7,16 +6,6 @@ const router = express.Router()
 router.get('/', (req, res) => {
   CSVFile.find().then(csvFiles => res.json(csvFiles))
 })
-=======
-const express = require("express");
-const CSVFile = require("../models/CSV"); // bring in the CSVFile model
-const router = express.Router();
-
-// route to fetch all saved CSVFiles
-router.get("/", (req, res) => {
-  CSVFile.find().then(csvFiles => res.json(csvFiles));
-});
->>>>>>> 2d85dc84b96e33b248ec2181863d7dc7823f5d3c
 
 // route to add a CSVFiles
 router.post("/", (req, res) => {
