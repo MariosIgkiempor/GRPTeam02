@@ -53,7 +53,12 @@ const findAnomalies = arr => {
 }
 */
 
-// Algorithm based on this research paper: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0152173
+// Algorithm based on this research paper:
+// https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0152173
+/*
+  Goldstein M, Uchida S (2016) A Comparative Evaluation of Unsupervised Anomaly Detection Algorithms for Multivariate Data.
+  PLoS ONE 11(4): e0152173. https://doi.org/10.1371/journal.pone.0152173
+*/
 const findAnomalies = function (arr) {
   // Curry the distance function for easier use with map
   let dist = R.curry(distance)
@@ -65,6 +70,7 @@ const findAnomalies = function (arr) {
     distances.push(rowDistances)
     console.log(rowDistances)
   }
+
   // Sort the distances for each row
 
   // Compute an abnormality score
