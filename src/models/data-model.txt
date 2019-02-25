@@ -1,0 +1,20 @@
+{
+  headings: [head1, head2, head3],
+  vals: [
+    [val01, val02, val03],
+    [val11, val12, ],
+    [val21, val22, val23],
+    [val31, val32, val33],
+  ],
+  labels: [label1, , label3],
+  dataType: "Numbers",
+  size: 4,
+  numFeatures: 3,
+  missingValues: [{ x:1, y:2 }],
+  missingLabels: [Number],
+  labelsRatio: 0.75,
+  categorical: true,
+  complexity: ??,
+  relations: ??,
+  structure: true
+}

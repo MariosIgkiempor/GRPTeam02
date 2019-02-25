@@ -4,13 +4,21 @@ const bodyParser = require('body-parser')
 const request = require('request')
 const csvFiles = require('./routes/CSVFiles')
 const fs = require('fs')
+<<<<<<< HEAD
 const util = require('util')
+=======
+const util = require('util');
+>>>>>>> 2d85dc84b96e33b248ec2181863d7dc7823f5d3c
 
 // initialise express
 const app = express()
 
 // add express middleware to parse json requests
+<<<<<<< HEAD
 app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }))
+=======
+app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }));
+>>>>>>> 2d85dc84b96e33b248ec2181863d7dc7823f5d3c
 app.use(bodyParser())
 
 // Allow Cross Origin Resource Sharing
