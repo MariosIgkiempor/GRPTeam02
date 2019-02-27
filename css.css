@@ -6,15 +6,15 @@ body{
     min-width: 1280px;
 }
 .header {
-    background-color: #1E90FF;
+    background-color: #007DCB;
     color: white;
-    height: 56px;
+    height: 106px;
     width: 100%;
     border: 1px solid white;
 }
 div.logo {
     float: left;
-    margin: 10px 50px;
+    margin: 45px 50px;
 }
 
 div.logo span {
@@ -34,25 +34,25 @@ ul img{
 }
 ul li {
     width: 110px;
-    height: 56px;
+    height: 106px;
     text-align: center;
     float: left;
 }
 ul li a {
     color: white;
     text-decoration: none;
-    line-height: 56px;
+    line-height: 106px;
 }
 ul a:hover{
     color: white;
 }
 .move{
-    height: 4px;
+    height: 20px;
     width: 110px;
     border-top: 4px solid white;
     position: absolute;
     left: 0;
-    top: 52px;
+    top: 100px;
     transition: left .2s ease-in-out 0s;/*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
     -webkit-transition: left .2s ease-in-out 0s;/*chrome and safari*/
     -moz-transition: left .2s ease-in-out 0s;/*firefox*/
@@ -82,20 +82,22 @@ li:nth-child(6):hover~ .move{
     vertical-align: middle;
     text-align: center;
     position: relative;
-    left: 100px;
+    left: -260px;
     top: 60px;
     font-size: 40px;
     font-weight: bold;
     color: #1E90FF;
 }
 .div1{
-    width: 350px;
+    width: 600px;
         height: 400px;
-        border: 1px solid #1E90FF;
         margin: 0px 10px;
         position: relative;
-        left: 100px;
+        left: 230px;
         top:100px;
+    font-family: Roboto;
+    font-size: 16px;
+    line-height: 22px;
 }
 .button1{
     background-color: #1E90FF;
@@ -105,11 +107,11 @@ li:nth-child(6):hover~ .move{
             text-align: center;
             text-decoration: none;
             display: inline-block;
-            font-size: 12px;
+            font-size: 14px;
             cursor: pointer;
-            border-radius: 12px;
+            border-radius: 24px;
             position: relative;
-            left: 100px;
+            left: 450px;
             top: 150px;
 }
 .button2{
@@ -122,8 +124,8 @@ li:nth-child(6):hover~ .move{
             display: inline-block;
             font-size: 12px;
             cursor: pointer;
-            border-radius: 12px;
+            border-radius: 24px;
             position: relative;
-            left: 130px;
+            left: 530px;
             top: 150px;
 }
