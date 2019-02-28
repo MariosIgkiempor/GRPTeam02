@@ -21,26 +21,16 @@
     cursor: pointer;
     border-radius: 24px;
     position: relative;
-    left: 530px;
+    left: 1000px;
     top: 10px;
 }
-.div1{
-    position: relative;
-    left: 250px;
-    top: 35px;
-    font-family: Roboto;
-    font-size: 14px;
-    line-height: 15px;
-}
-.div2{
+.box2{
+    text-align: center;
     width: 600px;
-    height: 400px;
+    height: 600px;
     margin: 0px 10px;
+    border: blcak;
     position: relative;
-    left: 230px;
-    top:50px;
-    border: 2px solid black;
-    font-family: Roboto;
-    font-size: 16px;
-    line-height: 22px;
+    left: 300px;
+    top: 100px;
 }
