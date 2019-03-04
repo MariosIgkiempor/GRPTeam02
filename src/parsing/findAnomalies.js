@@ -60,7 +60,6 @@ const findAnomalies = arr => {
   PLoS ONE 11(4): e0152173. https://doi.org/10.1371/journal.pone.0152173
 */
 
-const data = [[1, 0], [0, 0], [5, 4], [100, 4], [20, 3], [50, 2], [2, 1]]
 const findAnomalies = function (arr) {
   // Curry the distance function for easier use with map
   let dist = R.curry(distance)
