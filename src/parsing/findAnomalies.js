@@ -74,9 +74,7 @@ const findAnomalies = function (arr) {
 
   // Sort the distances for each row
   for (let i = 0; i < distances.length; ++i) {
-    distances[i] = qSort(distances[i]).filter(
-      x => x !== 0 /* Get rid of any 0 values */
-    )
+    distances[i] = R.filter(x => x !== 0, qSort(distances[i])) // Filter out 0 values (distance from a record to itself)
   }
 
   // Compute an abnormality score
@@ -94,13 +92,14 @@ const findAnomalies = function (arr) {
   }
 
   // Find average distance to K nearest neigbours
-  let averages = sums.map(x => x / K)
+  let averages = R.map(x => x / K, sums)
 
   // Return the index of top K records with highest average distances
-  let sortedAverages = qSort(averages).reverse() // Sort average score in reverse order
+  // TODO: Return the records with the highest abnormality score using IQR method
+  let sortedAverages = R.reverse(qSort(averages)) // Sort average score in reverse order
   let potentialAnomalies = []
   for (let i = 0; i < K; ++i) {
-    let index = averages.indexOf(sortedAverages[i]) // Find the index of record with the ith worst abnormality score
+    let index = R.indexOf(sortedAverages[i], averages) // Find the index of record with the ith worst abnormality score
     potentialAnomalies.push(index)
   }
   return potentialAnomalies
