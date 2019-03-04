@@ -59,6 +59,8 @@ const findAnomalies = arr => {
   Goldstein M, Uchida S (2016) A Comparative Evaluation of Unsupervised Anomaly Detection Algorithms for Multivariate Data.
   PLoS ONE 11(4): e0152173. https://doi.org/10.1371/journal.pone.0152173
 */
+
+const data = [[1, 0], [0, 0], [5, 4], [100, 4], [20, 3], [50, 2], [2, 1]]
 const findAnomalies = function (arr) {
   // Curry the distance function for easier use with map
   let dist = R.curry(distance)
@@ -68,14 +70,41 @@ const findAnomalies = function (arr) {
     let row = arr[i]
     let rowDistances = R.map(dist(row))(arr)
     distances.push(rowDistances)
-    console.log(rowDistances)
   }
 
   // Sort the distances for each row
+  for (let i = 0; i < distances.length; ++i) {
+    distances[i] = qSort(distances[i]).filter(
+      x => x !== 0 /* Get rid of any 0 values */
+    )
+  }
 
   // Compute an abnormality score
   // Based on the average distance to the top k nearest neighbours
   // TODO: Experiment with different scores of k. Recommended 10 <= k <= 50
+  // Because size of the dataset is not known, k should be a percentage of the total number of rows in the dataset
+  const K = distances.length / 4 < 1 ? 1 : distances.length / 4 // Give K a lower bound of 1
+
+  // Take the average of the top K nearest neighbours
+  let sums = Array(distances.length).fill(0)
+  for (let i = 0; i < distances.length; ++i) {
+    for (let j = 0; j < K; ++j) {
+      sums[i] += distances[i][j]
+    }
+  }
+
+  // Find average distance to K nearest neigbours
+  let averages = sums.map(x => x / K)
+
+  // Return the index of top K records with highest average distances
+  let sortedAverages = qSort(averages).reverse() // Sort average score in reverse order
+  let potentialAnomalies = []
+  for (let i = 0; i < K; ++i) {
+    let index = averages.indexOf(sortedAverages[i]) // Find the index of record with the ith worst abnormality score
+    potentialAnomalies.push(index)
+  }
+  return potentialAnomalies
 }
+console.log(findAnomalies(data))
 
 module.exports = findAnomalies
