@@ -104,6 +104,6 @@ const findAnomalies = function (arr) {
   }
   return potentialAnomalies
 }
-console.log(findAnomalies(data))
+// console.log(findAnomalies(data))
 
 module.exports = findAnomalies
