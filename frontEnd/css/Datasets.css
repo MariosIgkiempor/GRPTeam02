@@ -39,8 +39,13 @@
     position: relative;
     left: 230px;
     top:50px;
-    border: 2px solid black;
     font-family: Roboto;
-    font-size: 16px;
-    line-height: 22px;
+}
+
+div2.ul{
+  list-style-type: none;
+}
+
+.ulcss{
+  background:#CCC;
 }
