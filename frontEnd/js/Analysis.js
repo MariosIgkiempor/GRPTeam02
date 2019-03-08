@@ -119,10 +119,23 @@ client.get(
 
 
 // MACHINE LEARNING
+function getDatasetName(){
+  var url = location.search;
+  console.log(url);
+  if(url.indexOf("?") != -1) {
+    console.log(url.substr(1));
+    return url.substr(1);
+  } else {
+    console.log("no csv file!!");
+  }
+}
+
+
+
 
 client.get(
 
-  "https://protected-tundra-24167.herokuapp.com/api/:Had8.csv",
+  "https://protected-tundra-24167.herokuapp.com/api/:" + getDatasetName(),
 
   makeDecision
 
@@ -185,7 +198,7 @@ function makeDecision(response) {
   console.log(dataset);
   const resultValue = document.createElement("body");
   const features = document.createElement("body");
-  var res = "After analysis, the best Machine </br>learning algorithm of Dataset_2.csv is </br>"
+  var res = "After analysis, the best Machine </br>learning algorithm of " +getDatasetName() + " is </br>"
   var res2;
   //var features;
 //First of all we need to check: if(pattern != square(attributes), if 'if' return true, suggest user use Feature Selection Principal component Analysis):
