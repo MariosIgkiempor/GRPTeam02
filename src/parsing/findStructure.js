@@ -33,8 +33,8 @@ const findStructure = arr => {
     const num = R.mean(xsys) // mean((X - Mx)(Y - My))
     const MxsSqared = R.mean(R.map(power(2))(xs)) // mean((X - Mx) ^ 2)
     const MysSqared = R.mean(R.map(power(2))(ys)) // mean((Y - My) ^ 2)
-    const den1 = Math.power(MxsSqared, 0.5) // sqrt(sum(X - Mx)^2)
-    const den2 = Math.power(MysSqared, 0.5) // sqrt(sum(Y - My)^2)
+    const den1 = Math.pow(MxsSqared, 0.5) // sqrt(sum(X - Mx)^2)
+    const den2 = Math.pow(MysSqared, 0.5) // sqrt(sum(Y - My)^2)
     const r = num / (den1 * den2) // correlation coefficient
     totalCorrelationCoefficient += r
   })
