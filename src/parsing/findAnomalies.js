@@ -101,7 +101,7 @@ const findAnomalies = function (arr) {
     let index = R.indexOf(sortedAverages[i], averages) // Find the index of record with the ith worst abnormality score
     potentialAnomalies.push(index)
   }
-  return potentialAnomalies
+  return qSort(potentialAnomalies) // Return anomalous rows in order of index
 }
 // console.log(findAnomalies(data))
 
