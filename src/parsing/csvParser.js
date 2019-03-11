@@ -14,6 +14,7 @@ const IMPUTE_ON = true
 // takes the file out of the datasets folder and converts it to an object
 // with the schema defined in ../models/CSV.js
 const readFile = filename => {
+  console.log(`csvParser.readFile: Reading ${filename}`)
   const fileData = fs.readFileSync(`${__dirname}/datasets/${filename}`, 'utf8')
 
   // object representation of a CSV file,
@@ -110,7 +111,7 @@ const readFile = filename => {
     outputObject.anomalies = findAnomalies(outputObject.vals)
   }
 
-  console.log(outputObject)
+  // console.log(outputObject)
 
   return outputObject
 }
@@ -138,7 +139,7 @@ const serverURI = require('../config/config').sevrerURI
 const sendData = o => {
   const port = require('../config/config').port
   const options = {
-    uri: `${serverURI}:${port}/api/csv`,
+    uri: `${serverURI}:${port}/api/`,
     method: 'POST',
     json: {
       name: o.name,
@@ -159,11 +160,15 @@ const sendData = o => {
       relations: o.relations ? o.relations : null,
       structure: o.structure ? o.structure : null,
       anomalies: o.anomalies ? o.anomalies : null
+    },
+    headers: {
+      'User-Agent':
+        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
     }
   }
 
   request(options, (error, response, body) => {
-    if (error) console.log(`Error posting to the database: ${error}`)
+    if (error) console.log(error)
     else {
       console.log(
         `Posted to the database; response code ${response.statusCode}`
@@ -172,12 +177,11 @@ const sendData = o => {
   })
 }
 
-// const sendData = csvObject => console.log(JSON.stringify(csvObject, ' ', 2))
-
 module.exports = {
   parseFile: filename => {
+    console.log('csvParser.parseFile: Parsing ', filename)
     const fileObject = readFile(filename)
-    // sendData(fileObject)
+    sendData(fileObject)
   },
 
   // Export functions for testing purposes

@@ -1,14 +1,24 @@
 const express = require('express')
-const CSVFile = require('../models/CSV') // bring in the CSVFile model
 const router = express.Router()
+const CSVFile = require('../models/CSV') // bring in the CSVFile model
+const multer = require('multer')
+const upload = multer({ dest: '../parsing/datasets/' })
+const { parseFile } = require('../parsing/csvParser')
+
+// router.use(CSVFile)
 
 // route to fetch all saved CSVFiles
 router.get('/', (req, res) => {
   CSVFile.find().then(csvFiles => res.json(csvFiles))
 })
 
-// route to add a CSVFiles
-router.post('/', (req, res) => {
+// route to upload a new file
+router.post('/upload', upload.single('file'), (req, res) => {
+  parseFile(req.file.filename)
+})
+
+// route to save a CSVFile to the database
+router.post('/', upload.single('file'), (req, res) => {
   const newFile = new CSVFile({
     name: req.body.name,
     headings: req.body.headings,
@@ -29,12 +39,14 @@ router.post('/', (req, res) => {
     structure: req.body.structure,
     anomalies: req.body.anomalies
   })
-
-  newFile.save().then(_ => res.json())
-  // .then(json => console.log(json))
+  newFile
+    .save()
+    .then(_ => res.json())
+    .then(json => console.log(json))
 })
 
 router.get('/names/', (req, res) => {
+  console.log('Getting names...')
   CSVFile.find({}, (err, files) => {
     if (err) {
       console.error(`Error getting files: \n${err}`)

@@ -6,6 +6,7 @@ const csvFiles = require('./routes/CSVFiles')
 const fs = require('fs')
 const util = require('util')
 const cors = require('cors')
+const path = require('path')
 
 // initialise express
 const app = express()
@@ -20,12 +21,6 @@ app.use(cors())
 
 // bring in database config
 const db = require('./config/config.js').mongoURI
-
-// connect to the MongoDB databse
-mongoose
-  .connect(db, { useNewUrlParser: true })
-  .then(() => console.log('MongoDB connected'))
-  .catch(error => console.log(`MongoDB connection error: ${error}`))
 
 // use routes
 app.use('/api/', csvFiles)
@@ -46,31 +41,63 @@ const parseFile = require('./parsing/csvParser').parseFile
 // csv files should have a header line, followed by an array of values,
 // the last column of the CSV should be the label
 
-// const getFileNames = util.promisify(request)
-// const filesToParse = fs.readdirSync('./parsing/datasets/')
+const serverURI = require('./config/config').sevrerURI
+const startup = function () {
+  const filesToParse = fs.readdirSync(
+    path.join(__dirname, '/parsing/datasets/')
+  )
+  console.log(`server.startup: Files to parse: ${filesToParse}`)
 
-// getFileNames(
-//   {
-//     uri:    `http://localhost:${port}/api/csv/names/`,
-//     method: 'GET'
-//   }
-// )
-// .then(res => {
-//   parseMissingFiles(filesToParse, res.body.list)
-// })
-// .catch(err => console.log(`Server error: failed to get file; ${err}`))
+  const getFileNames = util.promisify(request)
+  getFileNames({
+    uri: `${serverURI}:${port}/api/names/`,
+    method: 'GET'
+  })
+    .then(res => {
+      const dbFiles = JSON.parse(res.body).list
+      console.log(`server.startup: Files on the database: ${dbFiles}`)
+      parseMissingFiles(filesToParse, dbFiles)
+    })
+    .catch(err =>
+      console.log(`server.startup: error: failed to get file names;\n\t ${err}`)
+    )
 
-// const parseMissingFiles = (filesToParse, dbFiles) => {
-//   if (dbFiles && dbFiles.length > 0) {
-//     filesToParse.forEach(x => {
-//       if (dbFiles.indexOf(x) === -1) {
-//         console.log(`Parsing ${x}...`)
-//         parseFile(x)
-//         console.log(`Successfully parsed ${x}`)
-//       }
-//     })
-//   }
-//   else filesToParse.map(x => parseFile(x))
-// }
+  const parseMissingFiles = (filesToParse, dbFiles) => {
+    if (!dbFiles) filesToParse.map(x => parseFile(x))
+    else if (dbFiles.length > 0) {
+      filesToParse.forEach(x => {
+        if (dbFiles.indexOf(x) === -1) {
+          console.log(`server.startup.parseMissingFiles: Parsing ${x}...`)
+          parseFile(x)
+          console.log(
+            `server.startup.parseMissingFiles: Successfully parsed ${x}`
+          )
+        }
+      })
+    }
+  }
+}
 
-// parseFile('testing.csv')
+// connect to the MongoDB databse
+const connectionOptions = {
+  socketTimeoutMS: 60000,
+  useNewUrlParser: true,
+  keepAlive: true,
+  keepAliveInitialDelay: 300000
+}
+mongoose
+  .connect(db, connectionOptions, err => console.log(err))
+  .then(() => {
+    console.log('MongoDB connected')
+    // parseFile('testing.csv')
+    startup()
+  })
+  .catch(error => console.log(`MongoDB connection error: ${error}`))
+
+mongoose.connection.on('error', () => console.log('MongoDB connection error'))
+
+mongoose.connection.on('connecting', () =>
+  console.log('Connecting to MongoDB...')
+)
+mongoose.connection.on('connected', () => console.log('Connected to MongoDB'))
+mongoose.connection.on('open', () => console.log('MongoDB connection opened'))
