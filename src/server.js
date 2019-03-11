@@ -2,11 +2,11 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const request = require('request')
-const csvFiles = require('routes/CSVFiles')
 const fs = require('fs')
 const util = require('util')
 const cors = require('cors')
 const path = require('path')
+const csvFiles = require(path.join(__dirname, '/routes/CSVFiles'))
 
 // initialise express
 const app = express()
