@@ -6,6 +6,6 @@ module.exports = {
   // mongoURI:
   //   'mongodb+srv://admin:p37LevejJ0grLyZB@grpteam02cluster-16frt.azure.mongodb.net/test?retryWrites=true',
   port: process.env.PORT ? process.env.PORT : 8000,
-  // sevrerURI: 'https://protected-tundra-24167.herokuapp.com/'
-  sevrerURI: 'http://localhost'
+  sevrerURI: 'https://protected-tundra-24167.herokuapp.com/'
+  // sevrerURI: 'http://localhost'
 }
