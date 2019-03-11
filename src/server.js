@@ -42,12 +42,18 @@ const parseFile = require('./parsing/csvParser').parseFile
 // the last column of the CSV should be the label
 
 const serverURI = require('./config/config').sevrerURI
+
+// Function that will run every time the sever starts,
+// Will upload all files in the ./parsin/datasets folder whose
+// names aren't one of the names of any file on the database
 const startup = function () {
+  // Read file names of files in the ./parsing/datasets folder
   const filesToParse = fs.readdirSync(
     path.join(__dirname, '/parsing/datasets/')
   )
   console.log(`server.startup: Files to parse: ${filesToParse}`)
 
+  // Get file names of files on the server
   const getFileNames = util.promisify(request)
   getFileNames({
     uri: `${serverURI}:${port}/api/names/`,
@@ -62,6 +68,8 @@ const startup = function () {
       console.log(`server.startup: error: failed to get file names;\n\t ${err}`)
     )
 
+  // For each file that doesn't exist in the database, parse and upload it
+  // using the parsefiles function
   const parseMissingFiles = (filesToParse, dbFiles) => {
     if (!dbFiles) filesToParse.map(x => parseFile(x))
     else if (dbFiles.length > 0) {
