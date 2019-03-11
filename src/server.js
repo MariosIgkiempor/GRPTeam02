@@ -6,7 +6,7 @@ const fs = require('fs')
 const util = require('util')
 const cors = require('cors')
 const path = require('path')
-const csvFiles = require(path.join(__dirname, '/routes/CSVFiles'))
+const csvFiles = require('./routes/CSVFiles'))
 
 // initialise express
 const app = express()

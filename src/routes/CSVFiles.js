@@ -2,7 +2,10 @@ const express = require('express')
 const router = express.Router()
 const CSVFile = require('../models/CSV') // bring in the CSVFile model
 const multer = require('multer')
-const upload = multer({ dest: '../parsing/datasets/' })
+// Config flag to specify whether the app is in production or development
+const production = require('../config/config').production
+const uploadLocation = production ? '/tmp/uploads' : '../parsing/datasets/'
+const upload = multer({ dest: uploadLocation })
 const { parseFile } = require('../parsing/csvParser')
 
 // router.use(CSVFile)

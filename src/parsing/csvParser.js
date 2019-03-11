@@ -7,6 +7,7 @@ const isCategorical = require('./isCategorical')
 const findAnomalies = require('./findAnomalies')
 const findStructure = require('./findStructure')
 const findComplexity = require('./findComplexity')
+const production = require('../config/config').production
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 const IMPUTE_ON = true
@@ -15,7 +16,10 @@ const IMPUTE_ON = true
 // with the schema defined in ../models/CSV.js
 const readFile = filename => {
   console.log(`csvParser.readFile: Reading ${filename}`)
-  const fileData = fs.readFileSync(`${__dirname}/datasets/${filename}`, 'utf8')
+  const location = production
+    ? `/tmp/uploads/${filename}`
+    : `${__dirname}/datasets/${filename}`
+  const fileData = fs.readFileSync(location, 'utf8')
 
   // object representation of a CSV file,
   // schema defined in ../models/CSV.js
