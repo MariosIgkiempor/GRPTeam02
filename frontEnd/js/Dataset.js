@@ -58,7 +58,7 @@ fileChooser.onchange = function(e) {
   const post = new HttpClient();
   post.post(
     file,
-    "https://protected-tundra-24167.herokuapp.com/api/",
+    "https://protected-tundra-24167.herokuapp.com/api/upload",
     onPostComplete
   );
 };
