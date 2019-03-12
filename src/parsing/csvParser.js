@@ -188,7 +188,9 @@ module.exports = {
   parseFile: filename => {
     console.log('csvParser.parseFile: Parsing ', filename)
     const fileObject = readFile(filename)
+    console.log('csvParser.parseFile: Finished parsing, sending ', filename)
     sendData(fileObject)
+    console.log('csvParser.parseFile: Finished sending ', filename)
   },
 
   // Export functions for testing purposes
