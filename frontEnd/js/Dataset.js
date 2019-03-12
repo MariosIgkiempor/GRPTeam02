@@ -24,15 +24,19 @@ function makeListOfNames(response) {
     switch (i) {
       case 0:
         listItem.style.backgroundColor = "#0094CB";
+        listItem.style.color = "#FFFFFF";
         break;
       case 1:
         listItem.style.backgroundColor = "#FFFFFF";
+        listItem.style.color = "#00AFD8";
         break;
       case 2:
         listItem.style.backgroundColor = "#00AFD8";
+        listItem.style.color = "#FFFFFF";
         break;
       case 3:
         listItem.style.backgroundColor = "#FFFFFF";
+        listItem.style.color = "#00AFD8";
         break;
     }
     listItem.ondblclick = function() {
