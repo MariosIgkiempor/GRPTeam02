@@ -1,72 +1,76 @@
-.box1{
-    display: table-cell;
-    vertical-align: middle;
-    text-align: center;
-    position: relative;
-    left: -260px;
-    top: 60px;
-    font-size: 40px;
-    font-weight: bold;
-    color: #1E90FF;
+.box1 {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  position: relative;
+  left: -260px;
+  top: 60px;
+  font-size: 40px;
+  font-weight: bold;
+  color: #1e90ff;
 }
-.button1{
-    background-color: #1E90FF;
-    border: 2px solid #1E90FF;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 24px;
-    position: relative;
-    left: 960px;
-    top: 10px;
+.button1 {
+  background-color: #1e90ff;
+  border: 2px solid #1e90ff;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 24px;
+  position: relative;
+  left: 960px;
+  top: 10px;
+}
+.button2 {
+  background-color: white;
+  border: 2px solid #1e90ff;
+  color: #1e90ff;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  cursor: pointer;
+  border-radius: 24px;
+  position: relative;
+  left: 1000px;
+  top: 10px;
+}
+.div1 {
+  position: relative;
+  left: 250px;
+  top: 40px;
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 15px;
+}
+.div2 {
+  width: 400px;
+  height: 400px;
+  margin: 0px 10px;
+  position: relative;
+  left: 230px;
+  top: 70px;
+  border: 2px solid black;
+  font-family: Roboto;
+  font-size: 16px;
+  line-height: 22px;
+}
 
+#features {
+  overflow: scroll;
 }
-.button2{
-    background-color: white;
-    border: 2px solid #1E90FF;
-    color: #1E90FF;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 12px;
-    cursor: pointer;
-    border-radius: 24px;
-    position: relative;
-    left: 1000px;
-    top: 10px;
-}
-.div1{
-    position: relative;
-    left: 250px;
-    top: 40px;
-    font-family: Roboto;
-    font-size: 14px;
-    line-height: 15px;
-}
-.div2{
-    width: 400px;
-    height: 400px;
-    margin: 0px 10px;
-    position: relative;
-    left: 230px;
-    top: 70px;
-    border: 2px solid black;
-    font-family: Roboto;
-    font-size: 16px;
-    line-height: 22px;
-}
-.div3{
-    text-align: center;
-    width: 600px;
-    height: 600px;
-    margin: 0px;
-    border: blcak;
-    position: relative;
-    left: 800px;
-    top: -450px;
+
+.div3 {
+  text-align: center;
+  width: 600px;
+  height: 600px;
+  margin: 0px;
+  border: blcak;
+  position: relative;
+  left: 800px;
+  top: -450px;
 }
