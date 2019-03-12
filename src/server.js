@@ -7,6 +7,7 @@ const fs = require('fs')
 const util = require('util')
 const cors = require('cors')
 const path = require('path')
+const multer = require('multer')
 
 // initialise express
 const app = express()
@@ -19,15 +20,31 @@ app.use(bodyParser())
 app.options('*', cors()) // Enable preflight requests
 app.use(cors())
 
+// Inititialise multer Storage Engine
+const storageEngine = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './src/parsing/datasets/')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname)
+  }
+})
+var upload = multer({ storage: storageEngine })
+
 // bring in database config
 const db = require('./config/config.js').mongoURI
 
 // use routes
 app.use('/api/', csvFiles)
 
+// route to upload a new file
+const type = upload.single('newFile')
+app.post('/api/upload/', type, (req, res) => {
+  console.log('router.post/upload: got', req.file)
+  parseFile(req.file.filename)
+})
+
 // port for server to run on
-// might need to change this when we publish the app,
-// 5000 works for development
 const port = require('./config/config').port
 
 // tell the server to listen on the port specified above
