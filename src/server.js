@@ -2,25 +2,24 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const request = require('request')
-const csvFiles = require('./routes/CSVFiles')
 const fs = require('fs')
 const util = require('util')
 const cors = require('cors')
 const path = require('path')
 const multer = require('multer')
 
-// initialise express
+// Initialise express app
 const app = express()
 
-// add express middleware to parse json requests
+// Add express middleware to parse json requests
 app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }))
 app.use(bodyParser())
 
-// Allow Cross Origin Resource Sharing
+// Add express middleware to allow Cross Origin Resource Sharing
 app.options('*', cors()) // Enable preflight requests
 app.use(cors())
 
-// Inititialise multer Storage Engine
+// Inititialise multer with Storage Engine
 const storageEngine = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, './src/parsing/datasets/')
@@ -31,35 +30,23 @@ const storageEngine = multer.diskStorage({
 })
 var upload = multer({ storage: storageEngine })
 
-// bring in database config
-const db = require('./config/config.js').mongoURI
+// Use routes defined in an external file
+const csvFileRoutes = require('./routes/CSVFiles')
+app.use('/api/', csvFileRoutes)
 
-// use routes
-app.use('/api/', csvFiles)
-
-// route to upload a new file
+// Route to upload a new file
 const type = upload.single('newFile')
 app.post('/api/upload/', type, (req, res) => {
   console.log('router.post/upload: got', req.file)
   parseFile(req.file.filename)
 })
 
-// port for server to run on
+// Start server listening on the port specified in the config file
 const port = require('./config/config').port
-
-// tell the server to listen on the port specified above
 app.listen(port, () => console.log(`Server listening on port ${port}`))
 
-// import the parseFile function
-const parseFile = require('./parsing/csvParser').parseFile
-
-// read and send the data to the database from a csv file
-// csv files should be put in the ./parsing/datasets directory
-// csv files should have a header line, followed by an array of values,
-// the last column of the CSV should be the label
-
 const serverURI = require('./config/config').sevrerURI
-
+const parseFile = require('./parsing/csvParser').parseFile
 // Function that will run every time the sever starts,
 // Will upload all files in the ./parsin/datasets folder whose
 // names aren't one of the names of any file on the database
@@ -88,18 +75,18 @@ const startup = function () {
   // For each file that doesn't exist in the database, parse and upload it
   // using the parsefiles function
   const parseMissingFiles = (filesToParse, dbFiles) => {
-    if (!dbFiles) filesToParse.map(x => parseFile(x))
-    else if (dbFiles.length > 0) {
-      filesToParse.forEach(x => {
-        if (dbFiles.indexOf(x) === -1) {
-          console.log(`server.startup.parseMissingFiles: Parsing ${x}...`)
-          parseFile(x)
-          console.log(
-            `server.startup.parseMissingFiles: Successfully parsed ${x}`
-          )
-        }
-      })
-    }
+    // if (!dbFiles) filesToParse.map(x => parseFile(x))
+    // else if (dbFiles.length > 0) {
+    filesToParse.forEach(x => {
+      if (!dbFiles || dbFiles.indexOf(x) === -1) {
+        console.log(`server.startup.parseMissingFiles: Parsing ${x}...`)
+        parseFile(x)
+        console.log(
+          `server.startup.parseMissingFiles: Successfully parsed ${x}`
+        )
+      }
+    })
+    // }
   }
 }
 
@@ -110,19 +97,16 @@ const connectionOptions = {
   keepAlive: true,
   keepAliveInitialDelay: 300000
 }
+const dbURI = require('./config/config.js').mongoURI
+
 mongoose
-  .connect(db, connectionOptions, err => console.log(err))
+  .connect(dbURI, connectionOptions, err => console.log(err))
   .then(() => {
     console.log('MongoDB connected')
     // parseFile('testing.csv')
     startup()
   })
   .catch(error => console.log(`MongoDB connection error: ${error}`))
-
 mongoose.connection.on('error', () => console.log('MongoDB connection error'))
-
-mongoose.connection.on('connecting', () =>
-  console.log('Connecting to MongoDB...')
-)
 mongoose.connection.on('connected', () => console.log('Connected to MongoDB'))
 mongoose.connection.on('open', () => console.log('MongoDB connection opened'))
