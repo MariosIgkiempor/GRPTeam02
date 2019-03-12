@@ -173,14 +173,19 @@ const sendData = o => {
     }
   }
 
+  console.log(`csvParser.sendData: sending ${o.name} to db...`)
   request(options, (error, response, body) => {
-    if (error) console.log(error)
-    else {
+    if (error) {
+      console.log(
+        `cavParser.sendData: error posting new file to database: ${error}`
+      )
+    } else {
       console.log(
         `Posted to the database; response code ${response.statusCode}`
       )
     }
   })
+  console.log(`csvParser.sendData: finished sending ${o.name} to db`)
 }
 
 module.exports = {
