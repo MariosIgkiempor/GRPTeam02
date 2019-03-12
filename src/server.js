@@ -111,7 +111,8 @@ const connectionOptions = {
   poolSize: 10,
   socketTimeoutMS: 6000000,
   reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
-  reconnectInterval: 500 // Reconnect every 500ms
+  reconnectInterval: 500, // Reconnect every 500ms
+  keepAlive: 6000000
 }
 
 const dbURI = require('./config/config.js').mongoURI
