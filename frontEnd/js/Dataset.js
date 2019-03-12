@@ -1,4 +1,5 @@
 const client = new HttpClient();
+document.querySelector("#output").innerHTML = "Requesting http now, please wait";
 
 client.get(
   "https://protected-tundra-24167.herokuapp.com/api/names",

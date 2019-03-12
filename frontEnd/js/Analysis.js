@@ -2,13 +2,12 @@ const client = new HttpClient();
 document.querySelector("#selectlist").innerHTML = "Requesting http now, please wait";
 document.querySelector("#features").innerHTML = "Requesting http now, please wait";
 document.querySelector("#result").innerHTML = "Requesting http now, please wait";
-
+const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`
+document.querySelector("#intro").innerHTML = intro;
 
 function getDatasetName() {
   var url = location.search;
-  console.log(url);
   if (url.indexOf("?") != -1) {
-    console.log(url.substr(1));
     return url.substr(1);
   } else {
     client.get(
@@ -20,7 +19,7 @@ function getDatasetName() {
 
 client.get(
   "https://protected-tundra-24167.herokuapp.com/api/names",
-  makeListOfNames
+  makeSelectList
 );
 
 client.get(
@@ -34,14 +33,14 @@ function getDefaut(response) {
   window.location.href = "Analysis.html?" + name;
 }
 
-function makeListOfNames(response) {
+function makeSelectList(response) {
   const names = JSON.parse(response).list;
   console.log(names);
   const selectlist = document.createElement("select");
   selectlist.style.fontSize = "40px";
   selectlist.style.padding = "10px";
   selectlist.style.color = "#007dcb";
-
+  selectlist.style.width = "404px";
 
   for(const name of names) {
     const selectlistItem = document.createElement("option");
