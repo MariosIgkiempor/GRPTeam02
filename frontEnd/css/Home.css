@@ -1,9 +1,9 @@
 .box1{
     display: table-cell;
     vertical-align: middle;
-    text-align: center;
+    text-align: left;
     position: relative;
-    left: -515px;
+    left: -472px;
     top: 150px;
     font-size: 35px;
     font-weight: bold;
@@ -14,8 +14,8 @@
     height: 400px;
     margin: 0px 10px;
     position: relative;
-    left: 300px;
-    top:50px;
+    left: -5px;
+    top:30px;
     font-family: Roboto;
     font-size: 16px;
     line-height: 22px;
@@ -27,8 +27,8 @@
   height: 400px;
   margin: 0px 10px;
   position: relative;
-  left: 300px;
-  top: -235px;
+  left: -10px;
+  top: -190px;
   font-family: Roboto;
 }
 
@@ -44,8 +44,8 @@
     cursor: pointer;
     border-radius: 24px;
     position: relative;
-    left: 843px;
-    top: -875px;
+    left: 600px;
+    top: -645px;
 }
 /*.button2{
     background-color: white;
@@ -67,8 +67,8 @@
                 height: 50px;
 /*                 margin: 100px auto; */
                 position: relative;
-                left: 650px;
-                top: -925px;
+                left: 10px;
+                top: -695px;
             }
             
             .parent {
@@ -105,7 +105,7 @@
             }
             
 .hover-grey {
-  color: red;
+  color: white;
 }
 
 .hover-grey:hover {
