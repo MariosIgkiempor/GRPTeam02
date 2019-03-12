@@ -52,4 +52,46 @@ div2.ul {
 
 #uploader {
   display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+}
+
+#blur {
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#uploader form {
+  display: block;
+  background: white;
+  padding: 1em;
+  z-index: 5;
+}
+
+#uploader form input {
+  /* display: block; */
+  width: 100%;
+}
+
+#uploader form button {
+  all: unset;
+  /* display: block; */
+  margin-top: 1em;
+  padding: 1em 2em;
+  background: #1e90ff;
+  color: white;
+}
+
+.hover-grey {
+  color: red;
+}
+
+.hover-grey:hover {
+  background: green;
 }

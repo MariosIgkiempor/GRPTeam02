@@ -39,17 +39,29 @@ function makeListOfNames(response) {
       window.location.href = "Analysis.html?" + name;
     };
     listItem.innerHTML = name;
+    listItem.classList.add("hover-grey");
     // listItem.appendChild(listButton);
     list.appendChild(listItem);
     i++;
   }
+
   document.querySelector("#output").innerHTML = "";
   document.querySelector("#output").appendChild(list);
 }
 
 const uploadButton = document.getElementById("upload-btn");
-uploadButton.onclick = () =>
-  (document.getElementById("uploader").style.display = "block");
+const uploader = document.getElementById("uploader");
+const blur = document.getElementById("blur");
+const submit = document.querySelector("form button");
+uploadButton.onclick = () => {
+  uploader.style.display = "flex";
+  blur.style.display = "block";
+};
+
+submit.onclick = blur.onclick = () => {
+  uploader.style.display = "none";
+  blur.style.display = "none";
+};
 
 document.getElementById("upload-form").addEventListener("submit", e => {
   e.preventDefault();
@@ -64,7 +76,3 @@ document.getElementById("upload-form").addEventListener("submit", e => {
     makeListOfNames
   );
 });
-
-function onPostComplete(res) {
-  console.log(res);
-}

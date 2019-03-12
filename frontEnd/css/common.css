@@ -1,128 +1,130 @@
 * {
-    padding: 0px;
-    margin: 0px;
+  padding: 0px;
+  margin: 0px;
 }
-body{
-    min-width: 1280px;
+body {
+  width: 100vw;
 }
 .header {
-    background-color: #007DCB;
-    color: white;
-    height: 106px;
-    width: 100%;
+  background-color: #007dcb;
+  color: white;
+  height: 106px;
+  width: 100%;
 }
 div.logo {
-    float: left;
-    margin: 45px 50px;
-    font-family: Helvetica Neue;
-    font-size: 40px;
+  float: left;
+  margin: 45px 50px;
+  font-family: Helvetica Neue;
+  font-size: 40px;
 }
 
 div.logo span {
-    font-size: 23px;
-    display: block;
-    float: right;
+  font-size: 23px;
+  display: block;
+  float: right;
 }
 ul.head {
-    list-style-type: none;
-    padding: 0px;
-    float: right;
-    position: relative;
+  list-style-type: none;
+  padding: 0px;
+  float: right;
+  position: relative;
 }
-ul.head img{
-    position: relative;
-    top: 3px;
+ul.head img {
+  position: relative;
+  top: 3px;
 }
 ul.head li {
-    width: 110px;
-    height: 106px;
-    text-align: center;
-    float: left;
+  width: 110px;
+  height: 106px;
+  text-align: center;
+  float: left;
 }
 ul.head li a {
-    color: white;
-    text-decoration: none;
-    line-height: 106px;
-    font-size: 21px;
-    font-family: Helvetica Neue;
-    font-weight: initial;
+  color: white;
+  text-decoration: none;
+  line-height: 106px;
+  font-size: 21px;
+  font-family: Helvetica Neue;
+  font-weight: initial;
 }
-ul.head a:hover{
-    color: white;
-}
-
-.move1{
-    height: 20px;
-    width: 110px;
-    border-top: 4px solid white;
-    position: absolute;
-    left: 0px;
-    top: 100px;
-    transition: left .2s ease-in-out 0s;/*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
-    -webkit-transition: left .2s ease-in-out 0s;/*chrome and safari*/
-    -moz-transition: left .2s ease-in-out 0s;/*firefox*/
-    -o-transition: left .2s ease-in-out 0s;/*opera*/
-}
-li:nth-child(1):hover~ .move1{    /*The first child element li of the parent element, when the mouse is over it, the left property of the move element changes*/
-    left: 0px;
-}
-li:nth-child(2):hover~ .move1{
-    left: 110px;
-}
-li:nth-child(3):hover~ .move1{
-    left: 220px;
+ul.head a:hover {
+  color: white;
 }
 
+.move1 {
+  height: 20px;
+  width: 110px;
+  border-top: 4px solid white;
+  position: absolute;
+  left: 0px;
+  top: 100px;
+  transition: left 0.2s ease-in-out 0s; /*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
+  -webkit-transition: left 0.2s ease-in-out 0s; /*chrome and safari*/
+  -moz-transition: left 0.2s ease-in-out 0s; /*firefox*/
+  -o-transition: left 0.2s ease-in-out 0s; /*opera*/
+}
+li:nth-child(1):hover ~ .move1 {
+  /*The first child element li of the parent element, when the mouse is over it, the left property of the move element changes*/
+  left: 0px;
+}
+li:nth-child(2):hover ~ .move1 {
+  left: 110px;
+}
+li:nth-child(3):hover ~ .move1 {
+  left: 220px;
+}
 
-.move2{
-    height: 20px;
-    width: 110px;
-    border-top: 4px solid white;
-    position: absolute;
-    left: 110px;
-    top: 100px;
-    transition: left .2s ease-in-out 0s;/*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
-    -webkit-transition: left .2s ease-in-out 0s;/*chrome and safari*/
-    -moz-transition: left .2s ease-in-out 0s;/*firefox*/
-    -o-transition: left .2s ease-in-out 0s;/*opera*/
+.move2 {
+  height: 20px;
+  width: 110px;
+  border-top: 4px solid white;
+  position: absolute;
+  left: 110px;
+  top: 100px;
+  transition: left 0.2s ease-in-out 0s; /*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
+  -webkit-transition: left 0.2s ease-in-out 0s; /*chrome and safari*/
+  -moz-transition: left 0.2s ease-in-out 0s; /*firefox*/
+  -o-transition: left 0.2s ease-in-out 0s; /*opera*/
 }
-li:nth-child(1):hover~ .move2{    /*The first child element li of the parent element, when the mouse is over it, the left property of the move element changes*/
-    left: 0px;
+li:nth-child(1):hover ~ .move2 {
+  /*The first child element li of the parent element, when the mouse is over it, the left property of the move element changes*/
+  left: 0px;
 }
-li:nth-child(2):hover~ .move2{
-    left: 110px;
+li:nth-child(2):hover ~ .move2 {
+  left: 110px;
 }
-li:nth-child(3):hover~ .move2{
-    left: 220px;
+li:nth-child(3):hover ~ .move2 {
+  left: 220px;
 }
 
-.move3{
-    height: 20px;
-    width: 110px;
-    border-top: 4px solid white;
-    position: absolute;
-    left: 220px;
-    top: 100px;
-    transition: left .2s ease-in-out 0s;/*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
-    -webkit-transition: left .2s ease-in-out 0s;/*chrome and safari*/
-    -moz-transition: left .2s ease-in-out 0s;/*firefox*/
-    -o-transition: left .2s ease-in-out 0s;/*opera*/
+.move3 {
+  height: 20px;
+  width: 110px;
+  border-top: 4px solid white;
+  position: absolute;
+  left: 220px;
+  top: 100px;
+  transition: left 0.2s ease-in-out 0s; /*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
+  -webkit-transition: left 0.2s ease-in-out 0s; /*chrome and safari*/
+  -moz-transition: left 0.2s ease-in-out 0s; /*firefox*/
+  -o-transition: left 0.2s ease-in-out 0s; /*opera*/
 }
-li:nth-child(1):hover~ .move3{    /*The first child element li of the parent element, when the mouse is over it, the left property of the move element changes*/
-    left: 0px;
+li:nth-child(1):hover ~ .move3 {
+  /*The first child element li of the parent element, when the mouse is over it, the left property of the move element changes*/
+  left: 0px;
 }
-li:nth-child(2):hover~ .move3{
-    left: 110px;
+li:nth-child(2):hover ~ .move3 {
+  left: 110px;
 }
-li:nth-child(3):hover~ .move3{
-    left: 220px;
+li:nth-child(3):hover ~ .move3 {
+  left: 220px;
 }
 
 .login {
   width: 110px;
   height: 37px;
-  background-color: #007DCB;
-  border: 2px solid #FDFEFF;
+  background-color: #007dcb;
+  border: 2px solid #fdfeff;
   color: white;
   text-align: center;
   text-decoration: none;
@@ -137,40 +139,40 @@ li:nth-child(3):hover~ .move3{
 }
 
 .bottomManu {
-  background-color: #007DCB;
+  background-color: #007dcb;
   color: white;
   height: 106px;
   width: 100%;
-  position:fixed;
-  bottom:0px;
-  left:0px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
 }
 
 ul.bottom {
-    list-style-type: none;
-    padding: 0px;
-    position: relative;
-    margin: auto;
-    width: 250px;
+  list-style-type: none;
+  padding: 0px;
+  position: relative;
+  margin: auto;
+  width: 250px;
 }
-ul.bottom img{
-    position: relative;
-    top: 3px;
+ul.bottom img {
+  position: relative;
+  top: 3px;
 }
 ul.bottom li {
-    width: 110px;
-    height: 106px;
-    text-align: center;
-    float: left;
+  width: 110px;
+  height: 106px;
+  text-align: center;
+  float: left;
 }
 ul.bottom li a {
-    color: white;
-    text-decoration: none;
-    line-height: 106px;
-    font-size: 21px;
-    font-family: Helvetica Neue;
-    font-weight: initial;
+  color: white;
+  text-decoration: none;
+  line-height: 106px;
+  font-size: 21px;
+  font-family: Helvetica Neue;
+  font-weight: initial;
 }
-ul.bottom a:hover{
-    color: white;
+ul.bottom a:hover {
+  color: white;
 }
