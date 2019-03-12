@@ -23,7 +23,7 @@ app.use(cors())
 // Inititialise multer with Storage Engine
 const storageEngine = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, production ? '/tmp/upload' : './src/parsing/datasets/') // Change upload location depending on production or development environment
+    cb(null, path.join(__dirname, 'parsing', 'datasets/')) // Change upload location depending on production or development environment
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)

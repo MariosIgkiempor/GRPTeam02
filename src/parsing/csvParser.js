@@ -1,4 +1,5 @@
 const helpers = require('../misc/helpers')
+const path = require('path')
 const fs = require('fs')
 const request = require('request')
 const R = require('ramda')
@@ -16,9 +17,10 @@ const IMPUTE_ON = true
 // with the schema defined in ../models/CSV.js
 const readFile = filename => {
   console.log(`csvParser.readFile: Reading ${filename}`)
-  const location = production // Change read location depending on if the program is in local development or heorku hosting
-    ? `/tmp/uploads/${filename}`
-    : `${__dirname}/datasets/${filename}`
+  // const location = production // Change read location depending on if the program is in local development or heorku hosting
+  //   ? `/tmp/uploads/${filename}`
+  //   : `${__dirname}/datasets/${filename}`
+  const location = path.join(__dirname, 'datasets/')
   const fileData = fs.readFileSync(location, 'utf8')
 
   // object representation of a CSV file,
