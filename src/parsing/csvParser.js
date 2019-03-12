@@ -16,7 +16,7 @@ const IMPUTE_ON = true
 // with the schema defined in ../models/CSV.js
 const readFile = filename => {
   console.log(`csvParser.readFile: Reading ${filename}`)
-  const location = production
+  const location = production // Change read location depending on if the program is in local development or heorku hosting
     ? `/tmp/uploads/${filename}`
     : `${__dirname}/datasets/${filename}`
   const fileData = fs.readFileSync(location, 'utf8')

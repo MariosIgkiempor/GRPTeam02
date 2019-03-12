@@ -7,6 +7,7 @@ const util = require('util')
 const cors = require('cors')
 const path = require('path')
 const multer = require('multer')
+const production = require('./config/config').production
 
 // Initialise express app
 const app = express()
@@ -22,7 +23,7 @@ app.use(cors())
 // Inititialise multer with Storage Engine
 const storageEngine = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, './src/parsing/datasets/')
+    cb(null, production ? '/tmp/upload' : './src/parsing/datasets/') // Change upload location depending on production or development environment
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname)
@@ -60,21 +61,27 @@ const startup = function () {
   // Get file names of files on the server
   const getFileNames = util.promisify(request)
   getFileNames({
-    uri: `${serverURI}:${port}/api/names/`,
+    uri: `${serverURI}:${port}/api/names`,
     method: 'GET'
   })
     .then(res => {
+      console.log(res.body)
       const dbFiles = JSON.parse(res.body).list
       console.log(`server.startup: Files on the database: ${dbFiles}`)
       parseMissingFiles(filesToParse, dbFiles)
     })
     .catch(err =>
-      console.log(`server.startup: error: failed to get file names;\n\t ${err}`)
+      console.log(
+        `server.startup: error: failed to get file names from database;\n\t ${err}`
+      )
     )
 
   // For each file that doesn't exist in the database, parse and upload it
   // using the parsefiles function
   const parseMissingFiles = (filesToParse, dbFiles) => {
+    console.log(
+      `server.startup.parseMissingFiles: files received from db: \n${dbFiles}`
+    )
     // if (!dbFiles) filesToParse.map(x => parseFile(x))
     // else if (dbFiles.length > 0) {
     filesToParse.forEach(x => {
