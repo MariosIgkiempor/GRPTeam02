@@ -58,7 +58,11 @@ document.getElementById("upload-form").addEventListener("submit", e => {
   console.log("posting", file);
   const data = new FormData();
   data.append("newFile", fileChooser.files[0]);
-  client.post(data, "http://localhost:8000/api/upload", makeListOfNames);
+  client.post(
+    data,
+    "https://protected-tundra-24167.herokuapp.com/api/upload/",
+    makeListOfNames
+  );
 });
 
 function onPostComplete(res) {
