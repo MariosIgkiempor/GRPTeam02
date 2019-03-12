@@ -20,7 +20,7 @@ const readFile = filename => {
   // const location = production // Change read location depending on if the program is in local development or heorku hosting
   //   ? `/tmp/uploads/${filename}`
   //   : `${__dirname}/datasets/${filename}`
-  const location = path.join(__dirname, 'datasets/')
+  const location = path.join(__dirname, 'datasets/', filename)
   const fileData = fs.readFileSync(location, 'utf8')
 
   // object representation of a CSV file,
