@@ -4,7 +4,7 @@
   "description": "An app to identify the best machine learning method to model a given dataset",
   "main": "./src/server.js",
   "engines": {
-    "node": "8.x"
+    "node": "11.4.0"
   },
   "scripts": {
     "test": "jest",
