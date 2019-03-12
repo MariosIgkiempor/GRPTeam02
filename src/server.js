@@ -98,12 +98,22 @@ const startup = function () {
 }
 
 // connect to the MongoDB databse
+// const connectionOptions = {
+//   socketTimeoutMS: 60000,
+//   useNewUrlParser: true,
+//   keepAlive: true,
+//   keepAliveInitialDelay: 300000,
+//   socketOptions: { socketTimeoutMS: }
+// }
+
 const connectionOptions = {
-  socketTimeoutMS: 60000,
   useNewUrlParser: true,
-  keepAlive: true,
-  keepAliveInitialDelay: 300000
+  poolSize: 10,
+  socketTimeoutMS: 6000000,
+  reconnectTries: Number.MAX_VALUE, // Never stop trying to reconnect
+  reconnectInterval: 500 // Reconnect every 500ms
 }
+
 const dbURI = require('./config/config.js').mongoURI
 
 mongoose
