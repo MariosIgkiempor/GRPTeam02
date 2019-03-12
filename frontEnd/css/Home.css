@@ -3,8 +3,8 @@
     vertical-align: middle;
     text-align: center;
     position: relative;
-    left: -260px;
-    top: 60px;
+    left: -515px;
+    top: 150px;
     font-size: 40px;
     font-weight: bold;
     color: #1E90FF;
@@ -14,12 +14,14 @@
     height: 400px;
     margin: 0px 10px;
     position: relative;
-    left: 230px;
-    top:100px;
+    left: 59px;
+    top:50px;
     font-family: Roboto;
     font-size: 16px;
     line-height: 22px;
+    color: black;
 }
+
 .button1{
     background-color: #1E90FF;
     border: none;
@@ -28,12 +30,12 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 14px;
+    font-size: 12px;
     cursor: pointer;
     border-radius: 24px;
     position: relative;
-    left: 450px;
-    top: 150px;
+    left: 660px;
+    top: -345px;
 }
 .button2{
     background-color: white;
@@ -47,6 +49,22 @@
     cursor: pointer;
     border-radius: 24px;
     position: relative;
-    left: 530px;
-    top: 150px;
+    left: 502px;
+    top: -275px;
 }
+/*
+.button3{
+    background-color: #1E90FF;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 12px;
+    cursor: pointer;
+    border-radius: 24px;
+    position: relative;
+    left: 368px;
+    top: -205px;
+}*/
