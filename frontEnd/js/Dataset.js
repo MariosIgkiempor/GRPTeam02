@@ -53,11 +53,14 @@ const uploadButton = document.getElementById("upload-btn");
 const uploader = document.getElementById("uploader");
 const blur = document.getElementById("blur");
 const submit = document.querySelector("form button");
+
+// When you click the upload button, show the form and make the background darker
 uploadButton.onclick = () => {
   uploader.style.display = "flex";
   blur.style.display = "block";
 };
 
+// when you click the submit button or the gray background, hide the form
 submit.onclick = blur.onclick = () => {
   uploader.style.display = "none";
   blur.style.display = "none";
