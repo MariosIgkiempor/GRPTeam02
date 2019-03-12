@@ -2,7 +2,6 @@ const client = new HttpClient();
 
 client.get(
   "https://protected-tundra-24167.herokuapp.com/api/names",
-
   makeListOfNames
 );
 
@@ -44,6 +43,7 @@ function makeListOfNames(response) {
     list.appendChild(listItem);
     i++;
   }
+  document.querySelector("#output").innerHTML = "";
   document.querySelector("#output").appendChild(list);
 }
 
@@ -51,17 +51,15 @@ const uploadButton = document.getElementById("upload-btn");
 uploadButton.onclick = () =>
   (document.getElementById("uploader").style.display = "block");
 
-const fileChooser = document.getElementById("file-chooser");
-fileChooser.onchange = function(e) {
-  console.log("posting");
-  const file = fileChooser.files[0];
-  const post = new HttpClient();
-  post.post(
-    file,
-    "https://protected-tundra-24167.herokuapp.com/api/upload",
-    onPostComplete
-  );
-};
+document.getElementById("upload-form").addEventListener("submit", e => {
+  e.preventDefault();
+  const fileChooser = document.getElementById("file-chooser");
+  const file = fileChooser.files["0"];
+  console.log("posting", file);
+  const data = new FormData();
+  data.append("newFile", fileChooser.files[0]);
+  client.post(data, "http://localhost:8000/api/upload", makeListOfNames);
+});
 
 function onPostComplete(res) {
   console.log(res);

@@ -28,7 +28,15 @@
     </div>
     <button class="button2" id="upload-btn">Upload a Dataset</button>
     <div id="uploader">
-      <input type="file" name="file" id="file-chooser" />
+      <form
+        action="http://localhost:8000/api/upload/"
+        method="post"
+        enctype="multipart/form-data"
+        id="upload-form"
+      >
+        <input type="file" name="newFile" id="file-chooser" />
+        <button type="submit">Submit</button>
+      </form>
     </div>
     <div class="div1">
       Double click on a dataset to analyse it.<br />Alternatively, upload a new

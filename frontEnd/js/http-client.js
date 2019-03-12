@@ -21,12 +21,9 @@ class HttpClient {
         }
       };
 
-      let formData = new FormData();
-      formData.append("file", file);
-
       request.open("POST", url);
       request.setRequestHeader("Access-Control-Allow-Origin", "*");
-      request.send(formData);
+      request.send(file);
     };
   }
 }
