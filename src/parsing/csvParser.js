@@ -8,6 +8,7 @@ const isCategorical = require('./isCategorical')
 const findAnomalies = require('./findAnomalies')
 const findStructure = require('./findStructure')
 const findComplexity = require('./findComplexity')
+const CSVFile = require('../models/CSV') // bring in the CSVFile model
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
 const IMPUTE_ON = true
@@ -138,17 +139,60 @@ const impute = (arr, missingIndicies) => {
 const serverURI = require('../config/config').sevrerURI
 
 // send a POST request to the server on port declared in the config file
-const sendData = o => {
-  const port = require('../config/config').port
-  const options = {
-    uri: `${serverURI}:${port}/api/`,
-    method: 'POST',
-    json: {
+// const sendData = o => {
+//   const port = require('../config/config').port
+//   const options = {
+//     uri: `${serverURI}:${port}/api/`,
+//     method: 'POST',
+//     json: {
+//       name: o.name,
+//       headings: o.headings,
+//       vals: o.vals,
+//       originalVals: o.originalVals ? o.originalVals : null,
+//       imputedVals: o.imputedVals ? o.imputedVals : null,
+//       labels: o.labels,
+//       dataType: o.dataType,
+//       size: o.size,
+//       numFeatures: o.numFeatures,
+//       missingValues: o.missingValues,
+//       missingLabels: o.missingLabels,
+//       labelsRatio: o.labelsRatio,
+//       isCategorical: o.isCategorical,
+//       categories: o.categories ? o.categories : null,
+//       complexity: o.complexity ? o.complexity : null,
+//       relations: o.relations ? o.relations : null,
+//       structure: o.structure ? o.structure : null,
+//       anomalies: o.anomalies ? o.anomalies : null
+//     },
+//     headers: {
+//       'User-Agent':
+//         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+//     }
+//   }
+
+//   console.log(`csvParser.sendData: sending ${o.name} to db...`)
+//   request(options, (error, response, body) => {
+//     if (error) {
+//       console.log(
+//         `cavParser.sendData: error posting new file to database: ${error}`
+//       )
+//     } else {
+//       console.log(
+//         `Posted to the database; response code ${response.statusCode}`
+//       )
+//     }
+//   })
+//   console.log(`csvParser.sendData: finished sending ${o.name} to db`)
+// }
+
+const sendData = function (o) {
+  CSVFile.create(
+    {
       name: o.name,
       headings: o.headings,
       vals: o.vals,
-      originalVals: o.originalVals ? o.originalVals : null,
-      imputedVals: o.imputedVals ? o.imputedVals : null,
+      originalVals: o.originalVals,
+      imputedVals: o.imputedVals,
       labels: o.labels,
       dataType: o.dataType,
       size: o.size,
@@ -157,31 +201,20 @@ const sendData = o => {
       missingLabels: o.missingLabels,
       labelsRatio: o.labelsRatio,
       isCategorical: o.isCategorical,
-      categories: o.categories ? o.categories : null,
-      complexity: o.complexity ? o.complexity : null,
-      relations: o.relations ? o.relations : null,
-      structure: o.structure ? o.structure : null,
-      anomalies: o.anomalies ? o.anomalies : null
+      categories: o.categories,
+      complexity: o.complexity,
+      relations: o.relations,
+      structure: o.structure,
+      anomalies: o.anomalies
     },
-    headers: {
-      'User-Agent':
-        'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
+    function (err, ret) {
+      if (err) {
+        console.log('router.post/ : error saving document', err)
+      } else {
+        console.log('Success posting document to database', ret)
+      }
     }
-  }
-
-  console.log(`csvParser.sendData: sending ${o.name} to db...`)
-  request(options, (error, response, body) => {
-    if (error) {
-      console.log(
-        `cavParser.sendData: error posting new file to database: ${error}`
-      )
-    } else {
-      console.log(
-        `Posted to the database; response code ${response.statusCode}`
-      )
-    }
-  })
-  console.log(`csvParser.sendData: finished sending ${o.name} to db`)
+  )
 }
 
 module.exports = {
