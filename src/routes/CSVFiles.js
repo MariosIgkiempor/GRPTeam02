@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
     },
     function (err, ret) {
       if (err) {
-        console.log('router.post/ : error saving document')
+        console.log('router.post/ : error saving document', err)
       } else {
         console.log('Success posting document to database', ret)
       }
