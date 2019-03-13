@@ -21,7 +21,7 @@ class HttpClient {
         }
       };
 
-      request.open("POST", url);
+      request.open("POST", url, true);
       request.setRequestHeader("Access-Control-Allow-Origin", "*");
       request.send(file);
     };
