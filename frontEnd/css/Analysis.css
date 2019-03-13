@@ -61,7 +61,12 @@
 }
 
 #features {
-  overflow: scroll;
+  overflow-y: scroll;
+
+}
+html{
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .div3 {
