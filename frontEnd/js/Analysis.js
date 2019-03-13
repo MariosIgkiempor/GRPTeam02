@@ -1,20 +1,62 @@
 const client = new HttpClient();
+document.querySelector("#selectlist").innerHTML = "Requesting http now, please wait";
+document.querySelector("#features").innerHTML = "Requesting http now, please wait";
+document.querySelector("#result").innerHTML = "Requesting http now, please wait";
+const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`
+document.querySelector("#intro").innerHTML = intro;
 
 function getDatasetName() {
   var url = location.search;
-  console.log(url);
   if (url.indexOf("?") != -1) {
-    console.log(url.substr(1));
     return url.substr(1);
   } else {
-    console.log("no csv file!!");
+    client.get(
+      "https://protected-tundra-24167.herokuapp.com/api/names",
+      getDefaut
+    );
   }
 }
+
+client.get(
+  "https://protected-tundra-24167.herokuapp.com/api/names",
+  makeSelectList
+);
 
 client.get(
   "https://protected-tundra-24167.herokuapp.com/api/:" + getDatasetName(),
   makeDecision
 );
+
+function getDefaut(response) {
+  const names = JSON.parse(response).list;
+  name = names[0];
+  window.location.href = "Analysis.html?" + name;
+}
+
+function makeSelectList(response) {
+  const names = JSON.parse(response).list;
+  console.log(names);
+  const selectlist = document.createElement("select");
+  selectlist.style.fontSize = "40px";
+  selectlist.style.padding = "10px";
+  selectlist.style.color = "#007dcb";
+  selectlist.style.width = "404px";
+
+  for(const name of names) {
+    const selectlistItem = document.createElement("option");
+    selectlistItem.innerHTML = name;
+    if(name == getDatasetName()){
+      selectlistItem.selected = true;
+    }
+    selectlist.appendChild(selectlistItem);
+  }
+  selectlist.onchange = function() {
+    window.location.href = "Analysis.html?" + selectlist.options[selectlist.selectedIndex].text;
+  }
+  document.querySelector("#selectlist").innerHTML = "";
+  document.querySelector("#selectlist").appendChild(selectlist);
+}
+
 
 let dataset;
 
@@ -120,7 +162,7 @@ function makeDecision(response) {
       bestMethod = "Self Training";
     }
   }
-  const res = `After analysis, it would appear the dataset would best be modelled using ${methodType}. The algorithm suggests that the best Machine Learning algorithm to use on ${getDatasetName()} is </br> ${bestMethod}`;
+  const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <strong>${bestMethod}</strong>`;
   result.innerHTML = res;
   // TODO: Make a list of features
   document.querySelector("#features").innerHTML = JSON.stringify(
