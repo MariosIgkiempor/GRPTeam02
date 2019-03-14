@@ -48,11 +48,13 @@ router.get('/names/', (req, res) => {
   CSVFile.find({}, (err, files) => {
     if (err) {
       console.error(`Error getting files: \n${err}`)
+      res.send(500)
       return
     }
     let names = { list: [] }
     files.forEach(file => names.list.push(file.name))
     res.json(names)
+    res.send(200)
   })
 })
 
@@ -60,10 +62,12 @@ router.get('/:name', (req, res) => {
   CSVFile.find({ name: req.params.name.substring(1) }, (err, file) => {
     if (err) {
       console.log(err)
+      res.send(500)
       return
     }
     console.log(file)
     res.json(file)
+    res.send(200)
   })
 })
 

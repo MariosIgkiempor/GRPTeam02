@@ -39,8 +39,7 @@ app.use('/api/', csvFileRoutes)
 const type = upload.single('newFile')
 app.post('/api/upload/', type, (req, res) => {
   console.log('router.post/upload: got', req.file)
-  parseFile(req.file.filename)
-  res.status(200).json(req.file.filename)
+  parseFile(req.file.filename, res)
 })
 
 // Start server listening on the port specified in the config file

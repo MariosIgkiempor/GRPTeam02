@@ -210,19 +210,26 @@ const sendData = function (o) {
     function (err, ret) {
       if (err) {
         console.log('router.post/ : error saving document', err)
+        return false
       } else {
         console.log('Success posting document to database', ret)
+        return true
       }
     }
   )
 }
 
 module.exports = {
-  parseFile: filename => {
+  parseFile: function (filename, res) {
     console.log('csvParser.parseFile: Parsing ', filename)
     const fileObject = readFile(filename)
     console.log('csvParser.parseFile: Finished parsing, sending ', filename)
-    sendData(fileObject)
+    const sent = sendData(fileObject)
+    if (sent) {
+      res.send(200)
+    } else {
+      res.send(500)
+    }
     console.log('csvParser.parseFile: Finished sending ', filename)
   },
 
