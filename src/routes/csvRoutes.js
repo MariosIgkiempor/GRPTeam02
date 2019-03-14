@@ -10,32 +10,6 @@ router.get('/', (req, res) => {
 // route to save a CSVFile to the database
 router.post('/', (req, res) => {
   console.log('rouer.post/: got ', req.body.name)
-  // const newFile = new CSVFile({
-  //   name: req.body.name,
-  //   headings: req.body.headings,
-  //   vals: req.body.vals,
-  //   originalVals: req.body.originalVals,
-  //   imputedVals: req.body.imputedVals,
-  //   labels: req.body.labels,
-  //   dataType: req.body.dataType,
-  //   size: req.body.size,
-  //   numFeatures: req.body.numFeatures,
-  //   missingValues: req.body.missingValues,
-  //   missingLabels: req.body.missingLabels,
-  //   labelsRatio: req.body.labelsRatio,
-  //   isCategorical: req.body.isCategorical,
-  //   categories: req.body.categories,
-  //   complexity: req.body.complexity,
-  //   relations: req.body.relations,
-  //   structure: req.body.structure,
-  //   anomalies: req.body.anomalies
-  // })
-  // newFile
-  //   .save()
-  //   .then(_ => res.json())
-  //   .then(json => console.log(`router/ : sent file: ${json}`))
-  //   .catch(error => console.log(`router/ : error sending file: ${error}`))
-
   CSVFile.create(
     {
       name: req.body.name,
@@ -60,8 +34,10 @@ router.post('/', (req, res) => {
     function (err, ret) {
       if (err) {
         console.log('router.post/ : error saving document', err)
+        res.send(500)
       } else {
         console.log('Success posting document to database', ret)
+        res.send(200)
       }
     }
   )
