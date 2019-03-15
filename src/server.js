@@ -7,7 +7,6 @@ const util = require('util')
 const cors = require('cors')
 const path = require('path')
 const multer = require('multer')
-const production = require('./config/config').production
 
 // Initialise express app
 const app = express()
