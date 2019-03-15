@@ -34,10 +34,10 @@ router.post('/', (req, res) => {
     function (err, ret) {
       if (err) {
         console.log('router.post/ : error saving document', err)
-        res.send(500)
+        res.status(500)
       } else {
         console.log('Success posting document to database', ret)
-        res.send(200)
+        res.status(200)
       }
     }
   )
@@ -48,13 +48,13 @@ router.get('/names/', (req, res) => {
   CSVFile.find({}, (err, files) => {
     if (err) {
       console.error(`Error getting files: \n${err}`)
-      res.send(500)
+      res.status(500)
       return
     }
     let names = { list: [] }
     files.forEach(file => names.list.push(file.name))
+    res.status(200)
     res.json(names)
-    res.send(200)
   })
 })
 
@@ -62,12 +62,12 @@ router.get('/:name', (req, res) => {
   CSVFile.find({ name: req.params.name.substring(1) }, (err, file) => {
     if (err) {
       console.log(err)
-      res.send(500)
+      res.status(500)
       return
     }
     console.log(file)
     res.json(file)
-    res.send(200)
+    res.status(200)
   })
 })
 
