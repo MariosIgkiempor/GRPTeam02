@@ -3,6 +3,7 @@ const R = require('ramda')
 const findRelations = function (data, threshold) {
   const columns = R.transpose(data)
 
+  // Create an array of every pair of columns in the array
   const pairs = columns.reduce(
     (acc, val, i1) => [
       ...acc,
@@ -28,4 +29,4 @@ const findRelations = function (data, threshold) {
   return covariances
 }
 
-console.log(findRelations([[1, 2], [1, 2], [1, 2], [1, 2]], 0.5))
+module.exports = findRelations
