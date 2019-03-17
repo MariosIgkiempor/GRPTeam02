@@ -71,7 +71,18 @@ function makeDecision(response) {
   //var features;
   //First of all we need to check: if(pattern != square(attributes), if 'if' return true, suggest user use Feature Selection Principal component Analysis):
   // console.log("suggest user use Feature Selection Principal component Analysis to preprocess dataset");
-
+  if(dataset.isCategorical == false){
+    for(var i = 0;i<dataset.relations.length;i++){
+      var sum = 0;
+      sum+=dataset.relations[i]
+    }
+    
+    if (dataset.numFeatures*dataset.numFeatures != dataset.complexity + dataset.structure + sum)
+    {
+      console.log("Feature Selection Principal component Analysis");
+      bestMethod = "Feature Selection Principal component Analysis";
+    }
+  }
   // Unsupervised Learning
   if (dataset.labelsRatio == 0) {
     console.log("Unsupervised Learning");
