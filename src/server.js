@@ -16,6 +16,14 @@ app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }))
 app.use(bodyParser())
 
 // Add express middleware to allow Cross Origin Resource Sharing
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Headers', '*')
+  res.header('Access-Control-Allow-Headers', '*')
+  if (req.method === 'Options') {
+    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
+    return res.status(200).json({})
+  }
+})
 app.options('*', cors()) // Enable preflight requests
 app.use(cors())
 
