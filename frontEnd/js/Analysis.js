@@ -1,8 +1,9 @@
 const client = new HttpClient();
-document.querySelector("#selectlist").innerHTML = "Requesting http now, please wait";
-document.querySelector("#features").innerHTML = "Requesting http now, please wait";
-document.querySelector("#result").innerHTML = "Requesting http now, please wait";
-const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`
+document.querySelector("#selectlist").innerHTML =
+  "Loading data, please wait...";
+document.querySelector("#features").innerHTML = "Loading data, please wait...";
+document.querySelector("#result").innerHTML = "Loading data, please wait...";
+const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`;
 document.querySelector("#intro").innerHTML = intro;
 
 function getDatasetName() {
@@ -42,21 +43,21 @@ function makeSelectList(response) {
   selectlist.style.color = "#007dcb";
   selectlist.style.width = "404px";
 
-  for(const name of names) {
+  for (const name of names) {
     const selectlistItem = document.createElement("option");
     selectlistItem.innerHTML = name;
-    if(name == getDatasetName()){
+    if (name == getDatasetName()) {
       selectlistItem.selected = true;
     }
     selectlist.appendChild(selectlistItem);
   }
   selectlist.onchange = function() {
-    window.location.href = "Analysis.html?" + selectlist.options[selectlist.selectedIndex].text;
-  }
+    window.location.href =
+      "Analysis.html?" + selectlist.options[selectlist.selectedIndex].text;
+  };
   document.querySelector("#selectlist").innerHTML = "";
   document.querySelector("#selectlist").appendChild(selectlist);
 }
-
 
 let dataset;
 
@@ -71,7 +72,20 @@ function makeDecision(response) {
   //var features;
   //First of all we need to check: if(pattern != square(attributes), if 'if' return true, suggest user use Feature Selection Principal component Analysis):
   // console.log("suggest user use Feature Selection Principal component Analysis to preprocess dataset");
+  if (dataset.isCategorical == false) {
+    for (var i = 0; i < dataset.relations.length; i++) {
+      var sum = 0;
+      sum += dataset.relations[i];
+    }
 
+    if (
+      dataset.numFeatures * dataset.numFeatures !=
+      dataset.complexity + dataset.structure + sum
+    ) {
+      console.log("Feature Selection Principal component Analysis");
+      bestMethod = "Feature Selection Principal component Analysis";
+    }
+  }
   // Unsupervised Learning
   if (dataset.labelsRatio == 0) {
     console.log("Unsupervised Learning");
@@ -164,11 +178,64 @@ function makeDecision(response) {
   }
   const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <strong>${bestMethod}</strong>`;
   result.innerHTML = res;
+  //let feat =`Dataset' s Name is : ${getDatasetName}</br>`;
+  let feat = `The labelsRatio is : <strong>${
+    dataset.labelsRatio
+  }</strong></br>`;
+  feat += `Number of Features: <strong>${dataset.numFeatures}</strong></br>`;
+  feat += `The data type of the dataset : <strong>${
+    dataset.dataType
+  }</strong></br>`;
+  feat += `The size of the dataset: <strong>${dataset.size}</strong></br>`;
+  feat += `There are  <strong>${dataset.categories.length}</strong>`;
+  feat += ` categories of the dataset: <strong>${
+    dataset.categories
+  }</strong></br>`;
+  if (dataset.missingLabels.length == 0) {
+    feat += `MissingLabels: <strong>No missing labels of the dataset</strong></br>`;
+  } else {
+    feat += `Missing labels of the dataset:<strong>${
+      dataset.missingLabels
+    }</strong></br>`;
+  }
+  if (dataset.missingValues.length == 0) {
+    feat += `MissingLabels: <strong>No missing values of the dataset</strong></br>`;
+  } else {
+    feat += `Missing values of the dataset:<strong>${
+      dataset.missingValues
+    }</strong></br>`;
+  }
+  if (dataset.complexity) {
+    feat += `The complexity of the dataset: <strong>${
+      dataset.complexity
+    }</strong></br>`;
+  }
+  if (dataset.structure) {
+    feat += `Unstructured or structured dataset(-1,1): <strong>${
+      dataset.structure
+    }</strong></br>`;
+  }
+  if (dataset.anomalies) {
+    feat += ` There are <strong>${
+      dataset.anomalies.length
+    }</strong> anomalies of the dataset: <strong>${
+      dataset.anomalies
+    }</strong></br>`;
+  }
+  if (dataset.relations) {
+    feat += ` Relations of the dataset: <strong>${
+      dataset.relations
+    }</strong></br>`;
+  }
+  //feat += ` missing labels of the dataset: ${  {null} else{dataset.categories}}</br>`
+  //feat += ` categories of the dataset: ${dataset.categories}</br>`
+
   // TODO: Make a list of features
-  document.querySelector("#features").innerHTML = JSON.stringify(
-    dataset,
-    " ",
-    2
-  );
+  // document.querySelector("#features").innerHTML = JSON.stringify(
+  //   dataset,
+  //   " ",
+  //   2
+  // );
+  document.querySelector("#features").innerHTML = feat;
   document.querySelector("#result").appendChild(resultValue);
 }
