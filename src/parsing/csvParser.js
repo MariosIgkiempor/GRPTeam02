@@ -1,13 +1,13 @@
 const helpers = require('../misc/helpers')
 const path = require('path')
 const fs = require('fs')
-const request = require('request')
 const R = require('ramda')
 const findDataType = require('./findDataType')
 const isCategorical = require('./isCategorical')
 const findAnomalies = require('./findAnomalies')
 const findStructure = require('./findStructure')
 const findComplexity = require('./findComplexity')
+const findRelations = require('./findRelations')
 const CSVFile = require('../models/CSV') // bring in the CSVFile model
 
 const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
@@ -112,6 +112,7 @@ const readFile = filename => {
     outputObject.structure = findStructure(outputObject.vals)
     outputObject.complexity = findComplexity(outputObject.vals)
     outputObject.anomalies = findAnomalies(outputObject.vals)
+    outputObject.relations = findRelations(outputObject.vals)
   }
 
   // console.log(outputObject)
@@ -135,55 +136,6 @@ const impute = (arr, missingIndicies) => {
   )
   return filled
 }
-
-const serverURI = require('../config/config').sevrerURI
-
-// send a POST request to the server on port declared in the config file
-// const sendData = o => {
-//   const port = require('../config/config').port
-//   const options = {
-//     uri: `${serverURI}:${port}/api/`,
-//     method: 'POST',
-//     json: {
-//       name: o.name,
-//       headings: o.headings,
-//       vals: o.vals,
-//       originalVals: o.originalVals ? o.originalVals : null,
-//       imputedVals: o.imputedVals ? o.imputedVals : null,
-//       labels: o.labels,
-//       dataType: o.dataType,
-//       size: o.size,
-//       numFeatures: o.numFeatures,
-//       missingValues: o.missingValues,
-//       missingLabels: o.missingLabels,
-//       labelsRatio: o.labelsRatio,
-//       isCategorical: o.isCategorical,
-//       categories: o.categories ? o.categories : null,
-//       complexity: o.complexity ? o.complexity : null,
-//       relations: o.relations ? o.relations : null,
-//       structure: o.structure ? o.structure : null,
-//       anomalies: o.anomalies ? o.anomalies : null
-//     },
-//     headers: {
-//       'User-Agent':
-//         'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36'
-//     }
-//   }
-
-//   console.log(`csvParser.sendData: sending ${o.name} to db...`)
-//   request(options, (error, response, body) => {
-//     if (error) {
-//       console.log(
-//         `cavParser.sendData: error posting new file to database: ${error}`
-//       )
-//     } else {
-//       console.log(
-//         `Posted to the database; response code ${response.statusCode}`
-//       )
-//     }
-//   })
-//   console.log(`csvParser.sendData: finished sending ${o.name} to db`)
-// }
 
 const sendData = function (o) {
   CSVFile.create(
