@@ -41,7 +41,9 @@ const findStructure = arr => {
 
   // high average correlation between columns means high structure in the dataset
   const structure = totalCorrelationCoefficient / pairs.length
-  return structure
+  return isNaN(structure) ? 0 : structure
 }
+
+console.log(findStructure([[1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3]]))
 
 module.exports = findStructure
