@@ -66,8 +66,8 @@ router.get('/:name', (req, res) => {
       return
     }
     console.log(file)
-    res.json(file)
     res.status(200)
+    res.json(file)
   })
 })
 
