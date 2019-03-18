@@ -48,7 +48,7 @@
   line-height: 15px;
 }
 .div2 {
-  width: 400px;
+  width: 40%;
   height: 400px;
   margin: 0px 10px;
   position: relative;
@@ -71,10 +71,10 @@ html{
 
 .div3 {
   text-align: center;
-  width: 600px;
+  width: 40%;
   height: 600px;
   margin: 0px;
-  border: blcak;
+  border: black;
   position: relative;
   left: 800px;
   top: -450px;
