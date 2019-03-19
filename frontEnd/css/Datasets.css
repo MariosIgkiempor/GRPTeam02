@@ -91,9 +91,7 @@ div2.ul {
   color: white;
 }
 
-.hover-grey {
-  color: red;
-}
+
 
 .hover-grey:hover {
   background: green;
