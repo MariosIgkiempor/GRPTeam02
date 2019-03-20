@@ -60,21 +60,12 @@ div2.ul {
   justify-items: center;
 }
 
-#blur {
-  display: none;
-  background: rgba(0, 0, 0, 0.5);
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: 0;
-  left: 0;
-}
 
 #uploader form {
   display: block;
   background: white;
   padding: 1em;
-  z-index: 5;
+  z-index: 1000;
 }
 
 #uploader form input {

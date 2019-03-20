@@ -83,7 +83,7 @@ function CreateDownloadButton(){
 
 const uploadButton = document.getElementById("upload-btn");
 const uploader = document.getElementById("uploader");
-const blur = document.getElementById("blur");
+// const blur = document.getElementById("blur");
 const submit = document.querySelector("form button");
 
 // When you click the upload button, show the form and make the background darker
@@ -96,6 +96,7 @@ uploadButton.onclick = () => {
 submit.onclick = blur.onclick = () => {
   uploader.style.display = "none";
   blur.style.display = "none";
+  loginBox.style.display = "none";
 };
 
 document.getElementById("upload-form").addEventListener("submit", e => {
