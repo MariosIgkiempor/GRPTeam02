@@ -5,6 +5,10 @@ const loginBox = document.getElementById("loginBox");
 const loginForm = document.createElement("form");
 loginForm.id = "loginForm";
 
+const errorsArea = document.createElement("div");
+errorsArea.id = "errors";
+loginBox.appendChild(errorsArea);
+
 const loginUsername = document.createElement("input");
 loginUsername.type = "text";
 loginUsername.name = "user";
@@ -75,7 +79,7 @@ const registerSelect = document.createElement("li");
 const selectmove = document.createElement("li");
 selectmove.className = "selectmove";
 loginSelect.innerHTML = "Login";
-registerSelect.innerHTML = "register";
+registerSelect.innerHTML = "Register";
 select.appendChild(loginSelect);
 select.appendChild(registerSelect);
 select.appendChild(selectmove);
