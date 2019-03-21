@@ -1,5 +1,6 @@
 const client = new HttpClient();
-document.querySelector("#output").innerHTML = "Requesting http now, please wait";
+document.querySelector("#output").innerHTML =
+  "Requesting http now, please wait";
 
 client.get(
   "https://protected-tundra-24167.herokuapp.com/api/names",
@@ -45,19 +46,18 @@ function makeListOfNames(response) {
     listItem.innerHTML = name;
     listItem.appendChild(downloadButton);
 
-    listItem.onmouseover = function(){
-      this.style.cursor="pointer";
+    listItem.onmouseover = function() {
+      this.style.cursor = "pointer";
       this.children[0].style.display = "inline";
-    }
-    listItem.onmouseout = function(){
+    };
+    listItem.onmouseout = function() {
       this.children[0].style.display = "none";
-    }
+    };
     listItem.ondblclick = function() {
       window.location.href = "Analysis.html?" + name;
     };
 
     //listItem.classList.add("hover-grey");
-
 
     // listItem.appendChild(listButton);
 
@@ -68,7 +68,7 @@ function makeListOfNames(response) {
   document.querySelector("#output").innerHTML = "";
   document.querySelector("#output").appendChild(list);
 }
-function CreateDownloadButton(){
+function CreateDownloadButton() {
   var downloadButton = document.createElement("button");
   downloadButton.style.marginRight = "10%";
   downloadButton.style.marginTop = "2%";
@@ -77,9 +77,6 @@ function CreateDownloadButton(){
   downloadButton.style.display = "none";
   return downloadButton;
 }
-
-
-
 
 const uploadButton = document.getElementById("upload-btn");
 const uploader = document.getElementById("uploader");
@@ -106,7 +103,7 @@ document.getElementById("upload-form").addEventListener("submit", e => {
   console.log("posting", file);
   const data = new FormData();
   data.append("newFile", fileChooser.files[0]);
-  client.post(
+  client.postFile(
     data,
     "https://protected-tundra-24167.herokuapp.com/api/upload/",
     makeListOfNames
