@@ -1,12 +1,11 @@
 #loginBox {
   position: fixed;
   z-index: 1000;
-  background: url("image/loginPage.png") no-repeat;
   background-color: white;
   /* border: 2px solid; */
   border-color: blue;
   display: none;
-  width:400px;
+  width: 400px;
   height: 300px;
   z-index: 1000;
   border-radius: 10%;
@@ -18,41 +17,113 @@
   top: 30%;
 }
 
-#loginBox form{
+#loginForm {
   position: absolute;
   background: white;
-  border: 1px;
   border-color: blue;
   width: 90%;
-  top:100px;
+  top: 100px;
 }
-#loginBox form input{
+
+#loginForm input {
   display: block;
   border-radius: 0.2em;
   width: 280px;
   height: 45px;
   border: none;
-  background-color:#f2f2f2;
+  background-color: #f2f2f2;
   font-size: 28px;
   margin: 20px auto;
   text-indent: 50px;
 }
 
-#loginBox form input[name = "user"]{
+#loginForm input[name="user"] {
   background: url("image/icon/username.png");
   background-repeat: no-repeat;
   background-size: 45px;
   background-color: #f2f2f2;
 }
 
-#loginBox form input[name = "pwd"]{
+#loginForm input[name="pwd"] {
   background: url("image/icon/password.png");
   background-repeat: no-repeat;
   background-size: 45px;
   background-color: #f2f2f2;
 }
 
-#loginBox form input[name = "submit"]{
+#loginForm input[name="submit"] {
+  background: url("image/submit.png");
+  background-repeat: no-repeat;
+  background-color: #00afd8;
+}
+
+#registerForm {
+  display: none;
+  position: absolute;
+  background: white;
+  border-color: blue;
+  width: 90%;
+  top: 100px;
+}
+
+#registerForm input {
+  display: block;
+  border-radius: 0.2em;
+  width: 280px;
+  height: 45px;
+  border: none;
+  background-color: #f2f2f2;
+  font-size: 28px;
+  margin: 20px auto;
+  text-indent: 50px;
+}
+
+#loginBox ul {
+  list-style-type: none;
+  padding: 0px;
+  float: right;
+  position: relative;
+  border-top-left-radius: 10%;
+  border-top-right-radius: 10%;
+}
+#loginBox li {
+  padding-top: 20px;
+  width: 200px;
+  height: 50px;
+  text-align: center;
+  float: left;
+  background-color: #007dcb;
+  color: white;
+  font-size: 26px;
+}
+
+#loginBox li:hover {
+  color: white;
+}
+
+#loginBox li.selectmove {
+  height: 1px;
+  width: 100px;
+  border-top: 4px solid white;
+  position: absolute;
+  left: 50px;
+  top: 60px;
+  transition: left 0.2s ease-in-out 0s; /*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
+  -webkit-transition: left 0.2s ease-in-out 0s; /*chrome and safari*/
+  -moz-transition: left 0.2s ease-in-out 0s; /*firefox*/
+  -o-transition: left 0.2s ease-in-out 0s; /*opera*/
+  padding: 0;
+}
+
+#loginBox li:nth-child(1):hover ~ .selectmove {
+  left: 50px;
+}
+
+#loginBox li:nth-child(2):hover ~ .selectmove {
+  left: 250px;
+}
+
+#registerForm input[name="submit"] {
   background: url("image/submit.png");
   background-repeat: no-repeat;
   background-color: #00afd8;
