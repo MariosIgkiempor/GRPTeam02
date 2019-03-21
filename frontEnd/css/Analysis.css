@@ -48,15 +48,15 @@
   line-height: 15px;
 }
 .div2 {
-  width: 400px;
-  height: 400px;
+  width: 27vw;
+  height: 25vw;
   margin: 0px 10px;
   position: relative;
-  left: 230px;
-  top: 70px;
+  left: 14vw;
+  top: 5vw;
   border: 2px solid black;
   font-family: Roboto;
-  font-size: 16px;
+  font-size: 1vw;
   line-height: 22px;
 }
 
@@ -71,10 +71,10 @@ html{
 
 .div3 {
   text-align: center;
-  width: 600px;
+  width: 40%;
   height: 600px;
   margin: 0px;
-  border: blcak;
+  border: black;
   position: relative;
   left: 800px;
   top: -450px;

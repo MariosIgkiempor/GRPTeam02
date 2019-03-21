@@ -1,4 +1,4 @@
-.box1{
+.box1 {
     display: table-cell;
     vertical-align: middle;
     text-align: center;
@@ -9,7 +9,7 @@
     font-weight: bold;
     color: #1E90FF;
 }
-.button2{
+.button2 {
     background-color: white;
     border: 2px solid #1E90FF;
     color: #1E90FF;
@@ -24,9 +24,9 @@
     left: 1000px;
     top: 10px;
 }
-.box2{
+.box2 {
     text-align: center;
-    width: 600px;
+    width: 50%;
     height: 600px;
     margin: 0px 10px;
     border: blcak;

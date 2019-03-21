@@ -40,12 +40,27 @@ function makeListOfNames(response) {
         listItem.style.color = "#00AFD8";
         break;
     }
+
+    var downloadButton = CreateDownloadButton();
+    listItem.innerHTML = name;
+    listItem.appendChild(downloadButton);
+
+    listItem.onmouseover = function(){
+      this.style.cursor="pointer";
+      this.children[0].style.display = "inline";
+    }
+    listItem.onmouseout = function(){
+      this.children[0].style.display = "none";
+    }
     listItem.ondblclick = function() {
       window.location.href = "Analysis.html?" + name;
     };
-    listItem.innerHTML = name;
-    listItem.classList.add("hover-grey");
+
+    //listItem.classList.add("hover-grey");
+
+
     // listItem.appendChild(listButton);
+
     list.appendChild(listItem);
     i++;
   }
@@ -53,10 +68,22 @@ function makeListOfNames(response) {
   document.querySelector("#output").innerHTML = "";
   document.querySelector("#output").appendChild(list);
 }
+function CreateDownloadButton(){
+  var downloadButton = document.createElement("button");
+  downloadButton.style.marginRight = "10%";
+  downloadButton.style.marginTop = "2%";
+  downloadButton.style.cssFloat = "right";
+  downloadButton.innerHTML = "Download";
+  downloadButton.style.display = "none";
+  return downloadButton;
+}
+
+
+
 
 const uploadButton = document.getElementById("upload-btn");
 const uploader = document.getElementById("uploader");
-const blur = document.getElementById("blur");
+// const blur = document.getElementById("blur");
 const submit = document.querySelector("form button");
 
 // When you click the upload button, show the form and make the background darker
@@ -69,6 +96,7 @@ uploadButton.onclick = () => {
 submit.onclick = blur.onclick = () => {
   uploader.style.display = "none";
   blur.style.display = "none";
+  loginBox.style.display = "none";
 };
 
 document.getElementById("upload-form").addEventListener("submit", e => {

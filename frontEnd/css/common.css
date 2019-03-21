@@ -3,13 +3,13 @@
   margin: 0px;
 }
 body {
-  width: 1680px;
+  width: 100%;
 }
 .header {
   background-color: #007dcb;
   color: white;
-  height: 106px;
   width: 100%;
+  height: 106px;
 }
 div.logo {
   float: left;
@@ -120,7 +120,7 @@ li:nth-child(3):hover ~ .move3 {
   left: 220px;
 }
 
-.login {
+#loginButton {
   width: 110px;
   height: 37px;
   background-color: #007dcb;
@@ -175,4 +175,15 @@ ul.bottom li a {
 }
 ul.bottom a:hover {
   color: white;
+}
+
+#blur {
+  display: none;
+  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
 }

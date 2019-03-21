@@ -1,0 +1,59 @@
+#loginBox {
+  position: fixed;
+  z-index: 1000;
+  background: url("image/loginPage.png") no-repeat;
+  background-color: white;
+  /* border: 2px solid; */
+  border-color: blue;
+  display: none;
+  width:400px;
+  height: 300px;
+  z-index: 1000;
+  border-radius: 10%;
+  padding: 1em;
+  overflow: auto;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  top: 30%;
+}
+
+#loginBox form{
+  position: absolute;
+  background: white;
+  border: 1px;
+  border-color: blue;
+  width: 90%;
+  top:100px;
+}
+#loginBox form input{
+  display: block;
+  border-radius: 0.2em;
+  width: 280px;
+  height: 45px;
+  border: none;
+  background-color:#f2f2f2;
+  font-size: 28px;
+  margin: 20px auto;
+  text-indent: 50px;
+}
+
+#loginBox form input[name = "user"]{
+  background: url("image/icon/username.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-color: #f2f2f2;
+}
+
+#loginBox form input[name = "pwd"]{
+  background: url("image/icon/password.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-color: #f2f2f2;
+}
+
+#loginBox form input[name = "submit"]{
+  background: url("image/submit.png");
+  background-repeat: no-repeat;
+  background-color: #00afd8;
+}
