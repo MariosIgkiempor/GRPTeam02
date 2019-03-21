@@ -70,6 +70,7 @@ div2.ul {
   background: white;
   padding: 1em;
   z-index: 1000;
+  border-radius: 10px;
 }
 
 #uploader form input {
@@ -89,8 +90,8 @@ div2.ul {
   padding: 1em 2em;
   background: #1e90ff;
   color: white;
-  right: 0;
-  left: 0;
+  float: right;
+  border-radius: 20px;
 }
 
 #uploader form textarea {
