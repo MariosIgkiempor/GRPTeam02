@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const emailValidator = require('email-validator')
+const bcrypt = require('bcryptjs')
 const User = require('../models/User') // bring in the User model
 
 router.post('/register/', (req, res) => {
@@ -8,6 +9,7 @@ router.post('/register/', (req, res) => {
 
   let errors = []
 
+  // Validate form input
   if (!(username && email && password && password2)) {
     errors.push('Please fill in all fields')
   }
@@ -21,9 +23,39 @@ router.post('/register/', (req, res) => {
     errors.push('Please enter a valid email')
   }
 
+  // If there were no initial errors
   if (errors.length === 0) {
-    res.send('success')
-  } else {
+    User.findOne({ email: email }).then(user => {
+      if (user) {
+        errors.push('Email already exists')
+        res.send(errors)
+      } else {
+        // Encrypt the password
+        bcrypt.genSalt(16, (err, salt) => {
+          if (err) throw err
+          bcrypt.hash(password, salt, (err, hash) => {
+            if (err) throw err
+            let hashedPassword = hash
+
+            // Create a new user with the encrypted password
+            const newUser = new User({
+              username,
+              email,
+              password: hashedPassword
+            })
+
+            // save the new user
+            newUser
+              .save()
+              .then(user => res.send(200))
+              .catch(err => res.send(err))
+          })
+        })
+      }
+    })
+  }
+  // Send errors back to client
+  else {
     res.send(errors)
   }
 })
