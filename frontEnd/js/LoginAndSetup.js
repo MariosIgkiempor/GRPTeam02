@@ -40,7 +40,7 @@ const setupEmail = document.createElement("input");
 setupEmail.type = "text";
 setupEmail.name = "setemail";
 setupEmail.className = "signinput";
-setupEmail.placeholder = "Username";
+setupEmail.placeholder = "Email";
 
 const setupPassword = document.createElement("input");
 setupPassword.type = "password";
@@ -106,3 +106,38 @@ setupSelect.onclick = () =>{
   setupForm.style.display = "block";
   selectmove.style.left = "250px";
 }
+
+setupSubmit.addEventListener("click", function(e) {
+  e.preventDefault();
+  const username = setupUsername.value;
+  const email = setupEmail.value;
+  const password = setupPassword.value;
+  const password2 = setupRePassword.value;
+  const request = new HttpClient();
+  const data = { username, password, password2, email };
+  console.log(data);
+    request.postJSON(
+      data,
+      "https://protected-tundra-24167.herokuapp.com/register/",
+      handleResponse
+    );
+  });
+
+  function handleResponse(res) {
+    if (res !== "success") {
+      let errors = [];
+      let responseErrors = JSON.parse(res);
+      for (let error of responseErrors) {
+        let paragraph = document.createElement("p");
+        paragraph.innerHTML = error;
+        errors.push(paragraph);
+      }
+
+      for (let e of errors) {
+        setupForm.appendChild(e);
+      }
+    } else {
+      loginBox.style.display = "none";
+      blur.style.display = "none";
+    }
+  }
