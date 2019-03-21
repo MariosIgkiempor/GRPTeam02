@@ -17,6 +17,7 @@ document
   });
 
 function handleResponse(res) {
+  console.log(res);
   if (res !== "success") {
     let errors = [];
     let responseErrors = JSON.parse(res);
@@ -29,5 +30,7 @@ function handleResponse(res) {
     for (let e of errors) {
       document.getElementById("errors").appendChild(e);
     }
+  } else {
+    document.getElementById("errors").innerHTML = "Successfully registered";
   }
 }
