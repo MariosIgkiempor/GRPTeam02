@@ -24,29 +24,35 @@
         <button id="loginButton">Login</button>
       </ul>
     </div>
-    <div class="box box1">
-      <span>Datasets</span>
+    <div class = "wrap">
+      <div class="box box1">
+        <span>Datasets</span>
+      </div>
+      <button class="button2" id="upload-btn">Upload a Dataset</button>
+      <div id="uploader">
+        <form
+          action="#"
+          method="post"
+          enctype="multipart/form-data"
+          id="upload-form"
+        >
+        <ul>
+          <li><input type="file" name="newFile" id="file-chooser" /></li>
+          <li><textarea name = "datasetInformation" placeholder="The dataset is ..."></textarea></li>
+          <li><button type="submit">Submit</button></li>
+        </ul>
+        </form>
+      </div>
+      <div class="div1">
+        Double click on a dataset to analyse it.<br />Alternatively, upload a new
+        dataset.
+      </div>
+      <div class="div2" id="output"></div>
     </div>
-    <button class="button2" id="upload-btn">Upload a Dataset</button>
-    <div id="uploader">
-      <form
-        action="#"
-        method="post"
-        enctype="multipart/form-data"
-        id="upload-form"
-      >
-        <input type="file" name="newFile" id="file-chooser" />
-        <button type="submit">Submit</button>
-      </form>
-    </div>
-    <div class="div1">
-      Double click on a dataset to analyse it.<br />Alternatively, upload a new
-      dataset.
-    </div>
+
     <div id="blur"></div>
     <div id="loginBox"></div>
     <script src = "js/LoginAndSetup.js"></script>
-    <div class="div2" id="output"></div>
     <script src="js/http-client.js"></script>
     <script src="js/Dataset.js"></script>
   </body>

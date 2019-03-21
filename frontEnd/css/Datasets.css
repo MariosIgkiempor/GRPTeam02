@@ -54,6 +54,10 @@ div2.ul {
 }
 
 #uploader {
+  position: absolute;
+  top: 30%;
+  right: 0;
+  left: 0;
   display: none;
   flex-direction: column;
   align-items: center;
@@ -73,6 +77,11 @@ div2.ul {
   width: 100%;
 }
 
+#uploader form li {
+  position: relative;
+  list-style-type:none;
+}
+
 #uploader form button {
   all: unset;
   /* display: block; */
@@ -80,10 +89,22 @@ div2.ul {
   padding: 1em 2em;
   background: #1e90ff;
   color: white;
+  right: 0;
+  left: 0;
+}
+
+#uploader form textarea {
+  height: 15em;
+  width: 20em;
 }
 
 
 
 .hover-grey:hover {
   background: green;
+}
+
+.wrap {
+  position: relative;
+  width: 80%;
 }
