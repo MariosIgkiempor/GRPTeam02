@@ -6,7 +6,7 @@ const User = require('../models/User') // bring in the User model
 router.post('/register/', (req, res) => {
   const { username, email, password, password2 } = req.body
 
-  let errors
+  let errors = []
 
   if (!(username && email && password && password2)) {
     errors.push('Please fill in all fields')
