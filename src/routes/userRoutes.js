@@ -47,7 +47,7 @@ router.post('/register/', (req, res) => {
             // save the new user
             newUser
               .save()
-              .then(user => res.send(200))
+              .then(user => res.send('success'))
               .catch(err => res.send(err))
           })
         })
