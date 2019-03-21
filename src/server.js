@@ -41,7 +41,9 @@ var upload = multer({ storage: storageEngine })
 
 // Use routes defined in an external file
 const csvFileRoutes = require('./routes/csvRoutes')
+const userRoutes = require('./routes/userRoutes')
 app.use('/api/', csvFileRoutes)
+app.use('/api/', userRoutes)
 
 // Route to upload a new file
 const type = upload.single('newFile')
