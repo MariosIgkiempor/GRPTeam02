@@ -25,6 +25,7 @@
     "body-parser": "^1.18.3",
     "concurrently": "^4.0.1",
     "cors": "^2.8.5",
+    "email-validator": "^2.0.4",
     "euclidean-distance": "^1.0.0",
     "express": "^4.16.4",
     "mongoose": "^5.3.7",
