@@ -5,9 +5,7 @@ const loginBox = document.getElementById("loginBox");
 const loginForm = document.createElement("form");
 loginForm.id = "loginForm";
 
-const errorsArea = document.createElement("div");
-errorsArea.id = "errors";
-loginBox.appendChild(errorsArea);
+
 
 const loginUsername = document.createElement("input");
 loginUsername.type = "text";
@@ -70,6 +68,11 @@ registerForm.appendChild(registerUsername);
 registerForm.appendChild(registerEmail);
 registerForm.appendChild(registerPassword);
 registerForm.appendChild(registerRePassword);
+
+const errorsArea = document.createElement("div");
+errorsArea.id = "errors";
+registerForm.appendChild(errorsArea);
+
 registerForm.appendChild(registerSubmit);
 loginBox.appendChild(registerForm);
 
@@ -129,6 +132,7 @@ registerSubmit.addEventListener("click", function(e) {
 
 function handleRegisterResponse(res) {
   console.log(res);
+  document.getElementById("errors").innerHTML = "";
   if (res !== "success") {
     let errors = [];
     let responseErrors = JSON.parse(res);
@@ -137,7 +141,6 @@ function handleRegisterResponse(res) {
       paragraph.innerHTML = error;
       errors.push(paragraph);
     }
-
     for (let e of errors) {
       document.getElementById("errors").appendChild(e);
     }

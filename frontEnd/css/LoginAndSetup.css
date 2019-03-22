@@ -128,3 +128,8 @@
   background-repeat: no-repeat;
   background-color: #00afd8;
 }
+
+#errors{
+  color: red;
+  margin-left: 60px;
+}
