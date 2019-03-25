@@ -2,6 +2,19 @@ const loginButton = document.getElementById("loginButton");
 const blur = document.getElementById("blur");
 const loginBox = document.getElementById("loginBox");
 
+const select = document.createElement("ul");
+const loginSelect = document.createElement("li");
+const registerSelect = document.createElement("li");
+const selectmove = document.createElement("li");
+selectmove.className = "selectmove";
+loginSelect.innerHTML = "Login";
+registerSelect.innerHTML = "Register";
+select.appendChild(loginSelect);
+select.appendChild(registerSelect);
+select.appendChild(selectmove);
+loginBox.appendChild(select);
+
+
 const loginForm = document.createElement("form");
 loginForm.id = "loginForm";
 
@@ -76,17 +89,6 @@ registerForm.appendChild(errorsArea);
 registerForm.appendChild(registerSubmit);
 loginBox.appendChild(registerForm);
 
-const select = document.createElement("ul");
-const loginSelect = document.createElement("li");
-const registerSelect = document.createElement("li");
-const selectmove = document.createElement("li");
-selectmove.className = "selectmove";
-loginSelect.innerHTML = "Login";
-registerSelect.innerHTML = "Register";
-select.appendChild(loginSelect);
-select.appendChild(registerSelect);
-select.appendChild(selectmove);
-loginBox.appendChild(select);
 
 loginButton.onclick = () => {
   loginBox.style.display = "block";
@@ -145,6 +147,9 @@ function handleRegisterResponse(res) {
       document.getElementById("errors").appendChild(e);
     }
   } else {
-    document.getElementById("errors").innerHTML = "Successfully registered";
+    //document.getElementById("errors").innerHTML = "Successfully registered";
+    window.alert("Successfully registered");
+    loginBox.style.display = "none";
+    blur.style.display = "none";
   }
 }
