@@ -9,12 +9,17 @@
   /* height: 300px; */
   z-index: 1000;
   border-radius: 40px;
-  padding: 1em;
   overflow: hidden;
   margin: 0 auto;
   left: 0;
   right: 0;
   top: 30%;
+}
+#loginSelect {
+  border-top-left-radius: 40px;
+}
+#registerSelect {
+  border-top-right-radius: 40px;
 }
 
 #loginForm {
