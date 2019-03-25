@@ -76,7 +76,37 @@
   font-size: 28px;
   margin: 20px auto;
   text-indent: 50px;
+
 }
+
+#registerForm input[name="setuser"] {
+  background: url("image/icon/setupUsername.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-color: #f2f2f2;
+}
+
+#registerForm input[name="setemail"] {
+  background: url("image/icon/email.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-color: #f2f2f2;
+}
+
+#registerForm input[name="setpwd"] {
+  background: url("image/icon/setupPassword.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-color: #f2f2f2;
+}
+
+#registerForm input[name="setrepwd"] {
+  background: url("image/icon/setupRePassword.png");
+  background-repeat: no-repeat;
+  background-size: 45px;
+  background-color: #f2f2f2;
+}
+
 
 #loginBox ul {
   list-style-type: none;
