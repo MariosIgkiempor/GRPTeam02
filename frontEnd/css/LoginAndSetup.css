@@ -6,11 +6,11 @@
   border-color: blue;
   display: none;
   width: 400px;
-  height: 300px;
+  /* height: 300px; */
   z-index: 1000;
-  border-radius: 10%;
+  border-radius: 40px;
   padding: 1em;
-  overflow: auto;
+  overflow: hidden;
   margin: 0 auto;
   left: 0;
   right: 0;
@@ -18,11 +18,12 @@
 }
 
 #loginForm {
-  position: absolute;
+  position: relative;
   background: white;
   border-color: blue;
   width: 90%;
-  top: 100px;
+  margin: auto;
+  margin-top: 100px;
 }
 
 #loginForm input {
@@ -35,6 +36,7 @@
   font-size: 28px;
   margin: 20px auto;
   text-indent: 50px;
+  position: relative;
 }
 
 #loginForm input[name="user"] {
@@ -59,11 +61,12 @@
 
 #registerForm {
   display: none;
-  position: absolute;
+  position: relative;
   background: white;
   border-color: blue;
   width: 90%;
-  top: 100px;
+  margin: auto;
+  margin-top: 88px;
 }
 
 #registerForm input {
@@ -112,7 +115,7 @@
   list-style-type: none;
   padding: 0px;
   float: right;
-  position: relative;
+  position: absolute;
   border-top-left-radius: 10%;
   border-top-right-radius: 10%;
 }
