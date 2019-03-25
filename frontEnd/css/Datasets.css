@@ -75,10 +75,11 @@ div2.ul {
 
 #uploader form input {
   /* display: block; */
-  width: 100%;
+  /* width: 100%; */
 }
 
 #uploader form li {
+  display: block;
   position: relative;
   list-style-type:none;
 }
@@ -99,7 +100,9 @@ div2.ul {
   width: 20em;
 }
 
-
+#uploader form div {
+  float: left;
+}
 
 .hover-grey:hover {
   background: green;
