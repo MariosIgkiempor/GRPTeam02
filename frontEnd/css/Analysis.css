@@ -78,4 +78,8 @@ html{
   position: relative;
   left: 800px;
   top: -450px;
+  margin-bottom: 100px;
+}
+#result img{
+  margin: 20px;
 }

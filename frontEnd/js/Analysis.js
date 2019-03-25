@@ -5,6 +5,7 @@ document.querySelector("#features").innerHTML = "Loading data, please wait...";
 document.querySelector("#result").innerHTML = "Loading data, please wait...";
 const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`;
 document.querySelector("#intro").innerHTML = intro;
+const decisionTreeImage = document.getElementById("decisionTree");
 
 function getDatasetName() {
   var url = location.search;
@@ -178,6 +179,8 @@ function makeDecision(response) {
   }
   const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <strong>${bestMethod}</strong>`;
   result.innerHTML = res;
+  // decisionTreeImage.src = "./DecisionTree/" + bestMethod + ".png";
+
   //let feat =`Dataset' s Name is : ${getDatasetName}</br>`;
   let feat = `The labelsRatio is : <strong>${
     dataset.labelsRatio
@@ -236,6 +239,15 @@ function makeDecision(response) {
   //   " ",
   //   2
   // );
+
   document.querySelector("#features").innerHTML = feat;
   document.querySelector("#result").appendChild(resultValue);
+
+  let bestMethods = bestMethod.replace("either ","");
+  bestMethods = bestMethods.split(" OR ");
+  for (var i = 0; i < bestMethods.length; i++) {
+    let img = document.createElement("img");
+    img.src = "./DecisionTree/" + bestMethods[i] + ".png";
+    result.appendChild(img);
+  }
 }
