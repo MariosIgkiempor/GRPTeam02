@@ -61,9 +61,28 @@ router.post('/register/', (req, res) => {
   }
 })
 
-router.post('/login/', passport.authenticate('local', {}), function (req, res) {
-  console.log('In Login')
-  res.send(req.session)
+router.post('/login/', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) {
+      return next(err)
+    }
+    // Generate a JSON response reflecting authentication status
+    if (!user) {
+      return res.send(401, { success: false, message: 'authentication failed' })
+    }
+    req.login(user, function (err) {
+      if (err) {
+        return next(err)
+      }
+      return res.send({ success: true, message: 'authentication succeeded' })
+    })
+  })(req, res, next)
+})
+
+router.get('/logout/', (req, res) => {
+  req.logout()
+  res.status(200)
+  res.send('logged out')
 })
 
 module.exports = router
