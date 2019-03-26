@@ -87,9 +87,15 @@ router.get('/logout/', (req, res) => {
   res.send('logged out')
 })
 
-router.get('/loggedin/', (req, res, next) => {
-  if (req.user) res.send('logged in')
-  else res.send('not logged in')
+router.get('/loggedin/', isLoggedIn, (req, res, next) => {
+  res.status(200).json(req.user)
 })
+
+function isLoggedIn (req, res, next) {
+  if (req.isAuthenticated()) return next()
+  res.status(400).json({
+    message: 'access denied'
+  })
+}
 
 module.exports = router
