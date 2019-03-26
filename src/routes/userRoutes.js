@@ -74,6 +74,7 @@ router.post('/login/', (req, res, next) => {
       if (err) {
         return next('error')
       }
+      res.cookie('userid', user.id, { maxAge: 2592000000 })
       return res.send({ success: true, message: 'authentication succeeded' })
     })
   })(req, res, next)
@@ -81,6 +82,7 @@ router.post('/login/', (req, res, next) => {
 
 router.get('/logout/', (req, res) => {
   req.logout()
+  res.clearCookie('userid')
   res.status(200)
   res.send('logged out')
 })
