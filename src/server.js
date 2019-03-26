@@ -23,6 +23,7 @@ app.use(bodyParser())
 app.use(
   session({
     secret: 'secret',
+    cookie: { maxAge: 300000 },
     resave: true,
     saveUninitialized: true
   })
