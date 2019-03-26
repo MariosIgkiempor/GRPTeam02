@@ -68,7 +68,7 @@ router.post('/login/', (req, res, next) => {
     }
     // Generate a JSON response reflecting authentication status
     if (!user) {
-      return res.send(401, { success: false, message: 'authentication failed' })
+      return res.send({ success: false, message: 'authentication failed' })
     }
     req.login(user, err => {
       if (err) {
