@@ -87,15 +87,9 @@ router.get('/logout/', (req, res) => {
   res.send('logged out')
 })
 
-router.get(
-  '/loggedin/',
-  (req, res, next) => {
-    if (req.user) next()
-    else res.send('not logged in')
-  },
-  (req, res) => {
-    res.send('logged in')
-  }
-)
+router.get('/loggedin/', (req, res, next) => {
+  if (req.user) res.send('logged in')
+  else res.send('not logged in')
+})
 
 module.exports = router
