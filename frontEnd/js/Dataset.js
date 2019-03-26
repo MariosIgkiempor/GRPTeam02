@@ -42,7 +42,7 @@ function makeListOfNames(response) {
         break;
     }
 
-    var downloadButton = CreateDownloadButton();
+    var downloadButton = CreateDownloadButton(name);
     listItem.innerHTML = name;
     listItem.appendChild(downloadButton);
 
@@ -68,14 +68,45 @@ function makeListOfNames(response) {
   document.querySelector("#output").innerHTML = "";
   document.querySelector("#output").appendChild(list);
 }
-function CreateDownloadButton() {
+function CreateDownloadButton(name) {
   var downloadButton = document.createElement("button");
   downloadButton.style.marginRight = "10%";
   downloadButton.style.marginTop = "2%";
   downloadButton.style.cssFloat = "right";
   downloadButton.innerHTML = "Download";
   downloadButton.style.display = "none";
+  downloadButton.id = name;
+  downloadButton.className = "download-button";
+  downloadButton.addEventListener("click", () => handleDownload(name));
   return downloadButton;
+}
+
+function handleDownload(filename) {
+  const client = new HttpClient();
+  client.get(
+    "https://protected-tundra-24167.herokuapp.com/api/:" + filename,
+    res => {
+      let dataset = JSON.parse(res)[0];
+      console.log(dataset);
+      let { headings, vals, labels } = dataset;
+      let fileStr = headings.join() + "\n";
+      for (let i = 0; i < vals.length; ++i) {
+        fileStr += `${vals[i].join()},${labels[i]}\n`;
+      }
+
+      let fileData = new Blob([fileStr], { type: "text/plain" });
+      let downloadLink = document.createElement("a");
+      downloadLink.setAttribute("download", filename);
+      downloadLink.href = window.URL.createObjectURL(fileData);
+      document.body.appendChild(downloadLink);
+
+      // Wait for the downloadLink to be appended to the body and then immediately click it
+      window.requestAnimationFrame(() => {
+        downloadLink.dispatchEvent(new MouseEvent("click"));
+        document.body.removeChild(downloadLink);
+      });
+    }
+  );
 }
 
 const uploadButton = document.getElementById("upload-btn");
