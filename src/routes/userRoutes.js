@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const emailValidator = require('email-validator')
 const bcrypt = require('bcryptjs')
+const passport = require('passport')
 const User = require('../models/User') // bring in the User model
 
 router.post('/register/', (req, res) => {
@@ -58,6 +59,11 @@ router.post('/register/', (req, res) => {
   else {
     res.send(errors)
   }
+})
+
+router.post('/login/', passport.authenticate('local', {}), function (req, res) {
+  console.log('In Login')
+  res.send(req.session)
 })
 
 module.exports = router

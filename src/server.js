@@ -1,4 +1,7 @@
 const express = require('express')
+const session = require('express-session')
+const passport = require('passport')
+const flash = require('connect-flash')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -9,9 +12,27 @@ const parseFile = require('./parsing/csvParser').parseFile
 // Initialise express app
 const app = express()
 
+// Passport config
+require('./config/passport')(passport)
+
 // Add express middleware to parse json requests
 app.use(bodyParser.json({ limit: '50mb', type: 'application/json' }))
 app.use(bodyParser())
+
+// Add express session middleware
+app.use(
+  session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true
+  })
+)
+
+app.use(passport.initialize())
+app.use(passport.session())
+
+// Connect flash middleware
+app.use(flash())
 
 // Add express middleware to allow Cross Origin Resource Sharing
 app.use((req, res, next) => {
