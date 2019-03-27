@@ -6,6 +6,7 @@ const Schema = mongoose.Schema
 const CSVFileSchema = new Schema(
   {
     name: String,
+    description: String,
     headings: [String],
     vals: [[{}]],
     originalVals: [[{}]],
@@ -18,6 +19,8 @@ const CSVFileSchema = new Schema(
     missingLabels: {},
     labelsRatio: Number,
     isCategorical: Boolean,
+    isTimeSeries: Boolean,
+    isImageData: Boolean,
     complexity: Number,
     structure: Number,
     relations: String,
