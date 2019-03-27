@@ -144,7 +144,7 @@ document.getElementById("upload-form").addEventListener(
         text = e.target.result;
         const description = document.getElementById("dataset-description")
           .value;
-        let toAdd = description + "\r\n";
+        let toAdd = (description || "N/A") + "\r\n";
         const isTimeSeries = document.querySelector(
           'input[name="isTimeSeries"]:checked'
         ).value;
@@ -158,8 +158,8 @@ document.getElementById("upload-form").addEventListener(
         else toAdd += "neither\r\n";
 
         text = toAdd + "" + text;
-
-        const file = new File([text], "newFile", { type: "text/plain" });
+        console.log(text);
+        const file = new File([text], "testing.csv", { type: "text/plain" });
         const data = new FormData();
         data.append("newFile", file);
         client.postFile(
