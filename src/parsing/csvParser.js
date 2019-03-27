@@ -38,13 +38,13 @@ const readFile = filename => {
     R.map(R.split(','))
   )(fileData)
 
-  console.log('raw data array before description: ' + rawDataArray)
+  console.log('raw data array before description: ', rawDataArray)
 
   // The first two lines of the CSV file will contain the description followed
   // by whether the data is a time series, image data or neither, denoted by
   // "time", "image" or "neither" respectively
   const description = rawDataArray.splice(0, 1)[0] // Description of the dataset
-  console.log('raw data array after description: ' + rawDataArray, ' ', 2)
+  console.log('raw data array after description: ', rawDataArray)
   const type = rawDataArray.splice(0, 1)[0] // Type (time, image, neither)
   let isTimeSeries = type === 'time'
   let isImageData = type === 'image'
