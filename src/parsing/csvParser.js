@@ -34,7 +34,7 @@ const readFile = filename => {
   // type: [[String]]
   let rawDataArray = R.pipe(
     R.trim,
-    R.split('\r\n'),
+    R.split('\n'),
     R.map(R.split(','))
   )(fileData)
 
