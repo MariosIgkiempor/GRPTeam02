@@ -42,11 +42,11 @@ const readFile = filename => {
   // by whether the data is a time series, image data or neither, denoted by
   // "time", "image" or "neither" respectively
   const description = rawDataArray.splice(0, 1)[0] // Description of the dataset
+  console.log(rawDataArray)
   const type = rawDataArray.splice(0, 1)[0] // Type (time, image, neither)
   let isTimeSeries = type === 'time'
   let isImageData = type === 'image'
   if (type === 'both') isTimeSeries = isImageData = true
-  console.log(rawDataArray)
 
   outputObject.description = description
   outputObject.isTimeSeries = isTimeSeries
