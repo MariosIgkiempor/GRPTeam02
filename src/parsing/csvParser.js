@@ -19,6 +19,7 @@ const readFile = filename => {
   console.log(`csvParser.readFile: Reading ${filename}`)
   const location = path.join(__dirname, 'datasets/', filename)
   const fileData = fs.readFileSync(location, 'utf8')
+  console.log(fileData)
 
   // object representation of a CSV file,
   // schema defined in ../models/CSV.js
