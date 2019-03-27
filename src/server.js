@@ -76,15 +76,6 @@ app.post('/api/upload/', type, (req, res) => {
 const port = require('./config/config').port
 app.listen(port, () => console.log(`Server listening on port ${port}`))
 
-// connect to the MongoDB databse
-// const connectionOptions = {
-//   socketTimeoutMS: 60000,
-//   useNewUrlParser: true,
-//   keepAlive: true,
-//   keepAliveInitialDelay: 300000,
-//   socketOptions: { socketTimeoutMS: }
-// }
-
 const connectionOptions = {
   useNewUrlParser: true,
   poolSize: 10,
