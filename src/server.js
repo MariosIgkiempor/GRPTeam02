@@ -41,8 +41,8 @@ app.use((req, res, next) => {
   }
   next()
 })
-app.options('*', cors()) // Enable preflight requests
 app.use(cors())
+app.options('*', cors()) // Enable preflight requests
 
 // Inititialise multer with Storage Engine
 const storageEngine = multer.diskStorage({
