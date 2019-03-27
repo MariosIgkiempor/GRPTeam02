@@ -16,21 +16,20 @@ select.appendChild(registerSelect);
 select.appendChild(selectmove);
 loginBox.appendChild(select);
 
-
 const loginForm = document.createElement("form");
 loginForm.id = "loginForm";
-
-
 
 const loginUsername = document.createElement("input");
 loginUsername.type = "text";
 loginUsername.name = "user";
 loginUsername.className = "signinput";
+loginUsername.id = "loginUsername";
 loginUsername.placeholder = "Username";
 const loginPassword = document.createElement("input");
 loginPassword.type = "password";
 loginPassword.name = "pwd";
 loginPassword.className = "signinput";
+loginPassword.id = "loginPassword";
 loginPassword.placeholder = "Password";
 const loginSubmit = document.createElement("input");
 loginSubmit.type = "submit";
@@ -86,11 +85,10 @@ registerForm.appendChild(registerRePassword);
 
 const errorsArea = document.createElement("div");
 errorsArea.id = "errors";
-registerForm.appendChild(errorsArea);
+loginBox.appendChild(errorsArea);
 
 registerForm.appendChild(registerSubmit);
 loginBox.appendChild(registerForm);
-
 
 loginButton.onclick = () => {
   loginBox.style.display = "block";
@@ -99,6 +97,20 @@ loginButton.onclick = () => {
   blur.style.display = "block";
   selectmove.style.left = "50px";
 };
+
+loginSubmit.addEventListener("click", function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById("loginUsername").value;
+  const password = document.getElementById("loginPassword").value;
+  const data = { username, password };
+  const client = new HttpClient();
+  client.postJSON(
+    data,
+    "https://protected-tundra-24167.herokuapp.com/login/",
+    handleLoginResponse
+  );
+});
 
 loginSelect.onclick = () => {
   loginForm.style.display = "block";
@@ -154,4 +166,23 @@ function handleRegisterResponse(res) {
     loginBox.style.display = "none";
     blur.style.display = "none";
   }
+}
+
+function handleLoginResponse(res) {
+  const resJson = JSON.parse(res);
+  document.getElementById("errors").innerHTML = "";
+  if (resJson.success == false) {
+    console.log("error");
+    document.getElementById("errors").innerHTML = "Could not log in";
+  } else if (resJson.success == true) {
+    //document.getElementById("errors").innerHTML = "Successfully registered";
+    window.alert("Logged in successfully");
+    loginBox.style.display = "none";
+    blur.style.display = "none";
+  }
+
+  const client = new HttpClient();
+  client.get("https://protected-tundra-24167.herokuapp.com/loggedin/", res =>
+    console.log(res)
+  );
 }

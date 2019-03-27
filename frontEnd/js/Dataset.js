@@ -81,6 +81,7 @@ function CreateDownloadButton(name) {
   return downloadButton;
 }
 
+// Inspired by https://stackoverflow.com/a/21016088
 function handleDownload(filename) {
   const client = new HttpClient();
   client.get(
@@ -127,16 +128,50 @@ submit.onclick = blur.onclick = () => {
   loginBox.style.display = "none";
 };
 
-document.getElementById("upload-form").addEventListener("submit", e => {
-  e.preventDefault();
-  const fileChooser = document.getElementById("file-chooser");
-  const file = fileChooser.files["0"];
-  console.log("posting", file);
-  const data = new FormData();
-  data.append("newFile", fileChooser.files[0]);
-  client.postFile(
-    data,
-    "https://protected-tundra-24167.herokuapp.com/api/upload/",
-    makeListOfNames
-  );
-});
+const fileChooser = document.getElementById("file-chooser");
+document.getElementById("upload-form").addEventListener(
+  "submit",
+  e => {
+    e.preventDefault();
+    const file = fileChooser.files[0];
+    var textType = /text.*/;
+    var text;
+
+    if (file.type.match(textType)) {
+      var reader = new FileReader();
+
+      reader.onload = function(e) {
+        text = e.target.result;
+        const description = document.getElementById("dataset-description")
+          .value;
+        let toAdd = description + "\r\n";
+        const isTimeSeries = document.querySelector(
+          'input[name="isTimeSeries"]:checked'
+        ).value;
+        const isImageData = document.querySelector(
+          'input[name="isImage"]:checked'
+        ).value;
+        if (isImageData === "true" && isTimeSeries === "true")
+          toAdd += "both\r\n";
+        else if (isImageData === "true") toAdd += "image\r\n";
+        else if (isTimeSeries === "true") toAdd += "time\r\n";
+        else toAdd += "neither\r\n";
+
+        text = toAdd + "" + text;
+
+        const file = new File([text], "newFile", { type: "text/plain" });
+        const data = new FormData();
+        data.append("newFile", file);
+        client.postFile(
+          data,
+          "https://protected-tundra-24167.herokuapp.com/api/upload/",
+          makeListOfNames
+        );
+      };
+
+      reader.readAsText(file);
+    } else alert("File type not supported!");
+    // console.log("posting", file);
+  },
+  false
+);

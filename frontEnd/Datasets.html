@@ -7,7 +7,7 @@
     <title>Datasets-page</title>
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <link rel="stylesheet" type="text/css" href="css/Datasets.css" />
-    <link rel="stylesheet" type="text/css" href="css/LoginAndSetup.css">
+    <link rel="stylesheet" type="text/css" href="css/LoginAndSetup.css" />
   </head>
   <body>
     <div class="header">
@@ -24,7 +24,7 @@
         <button id="loginButton">Login</button>
       </ul>
     </div>
-    <div class = "wrap">
+    <div class="wrap">
       <div class="box box1">
         <span>Datasets</span>
       </div>
@@ -36,36 +36,64 @@
           enctype="multipart/form-data"
           id="upload-form"
         >
-        <ul>
-          <li><input type="file" name="newFile" id="file-chooser" /></li>
-          <li>
+          <ul>
+            <li><input type="file" name="newFile" id="file-chooser" /></li>
+            <li>
               <tr>
                 <td>Is time series：</td>
-                <td><input name="isTimeSeries" type="radio" value="true"/> true <input name="isTimeSeries" type="radio"  value="false" checked="checked"/> false <input name="isTimeSeries"type="radio"  value=" unknown" checked="checked"/> unknown</td>
-                </tr>
-          </li>
-          <li>
+                <td>
+                  <input name="isTimeSeries" type="radio" value="true" /> true
+                  <input name="isTimeSeries" type="radio" value="false" />
+                  false
+                  <input
+                    name="isTimeSeries"
+                    type="radio"
+                    value=" unknown"
+                    checked="checked"
+                  />
+                  unknown
+                </td>
+              </tr>
+            </li>
+
+            <li>
               <tr>
                 <td>Is Image：</td>
-                <td><input name="isImage" type="radio" value="true"/> true <input name="isImage"type="radio"  value="false"/> false <input name="isImage"type="radio"  value=" unknown" checked="checked"/> unknown</td>
-                </tr>
-          </li>
+                <td>
+                  <input name="isImage" type="radio" value="true" /> true
+                  <input name="isImage" type="radio" value="false" /> false
+                  <input
+                    name="isImage"
+                    type="radio"
+                    value=" unknown"
+                    checked="checked"
+                  />
+                  unknown
+                </td>
+              </tr>
+            </li>
 
-          <li><textarea name = "datasetInformation" placeholder="The dataset is ..."></textarea></li>
-          <li><button type="submit">Confirm</button></li>
-        </ul>
+            <li>
+              <textarea
+                name="datasetInformation"
+                placeholder="Enter a description of the dataset..."
+                id="dataset-description"
+              ></textarea>
+            </li>
+            <li><button type="submit">Confirm</button></li>
+          </ul>
         </form>
       </div>
       <div class="div1">
-        Double click on a dataset to analyse it.<br />Alternatively, upload a new
-        dataset.
+        Double click on a dataset to analyse it.<br />Alternatively, upload a
+        new dataset.
       </div>
       <div class="div2" id="output"></div>
     </div>
 
     <div id="blur"></div>
     <div id="loginBox"></div>
-    <script src = "js/LoginAndSetup.js"></script>
+    <script src="js/LoginAndSetup.js"></script>
     <script src="js/http-client.js"></script>
     <script src="js/Dataset.js"></script>
   </body>
