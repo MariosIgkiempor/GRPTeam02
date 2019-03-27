@@ -46,6 +46,7 @@ const readFile = filename => {
   let isTimeSeries = type === 'time'
   let isImageData = type === 'image'
   if (type === 'both') isTimeSeries = isImageData = true
+  console.log(rawDataArray)
 
   outputObject.description = description
   outputObject.isTimeSeries = isTimeSeries
