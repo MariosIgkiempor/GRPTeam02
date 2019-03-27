@@ -1,7 +1,6 @@
 const express = require('express')
 const session = require('express-session')
 const passport = require('passport')
-const flash = require('connect-flash')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cors = require('cors')
@@ -31,9 +30,6 @@ app.use(
 
 app.use(passport.initialize())
 app.use(passport.session())
-
-// Connect flash middleware
-app.use(flash())
 
 // Add express middleware to allow Cross Origin Resource Sharing
 app.use((req, res, next) => {
