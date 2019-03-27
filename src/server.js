@@ -34,7 +34,7 @@ app.use(passport.session())
 // Add express middleware to allow Cross Origin Resource Sharing
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Headers', '*')
-  res.header('Access-Control-Allow-Headers', '*')
+  res.header('Access-Control-Allow-Origin', '*')
   if (req.method === 'Options') {
     res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET')
     return res.status(200).json({})
