@@ -68,7 +68,7 @@ const readFile = filename => {
 
   // array of labels
   // TODO: change pop() because it's mutating
-  outputObject.labels = R.map(row => row.pop())(rawDataArray)
+  outputObject.labels = R.map(row => row.pop().trim())(rawDataArray)
 
   // array of row index of missing labels (if any)
   outputObject.missingLabels = findNullIndicies(outputObject.labels)
