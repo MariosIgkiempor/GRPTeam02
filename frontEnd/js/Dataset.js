@@ -1,4 +1,5 @@
 const client = new HttpClient();
+let currentFileName = "";
 document.querySelector("#output").innerHTML =
   "Requesting http now, please wait";
 
@@ -134,8 +135,21 @@ document.getElementById("upload-form").addEventListener(
   e => {
     e.preventDefault();
     const file = fileChooser.files[0];
+    currentFileName = file.name;
     var textType = /text.*/;
     var text;
+
+    function postFile(text) {
+      const file = new File([text], currentFileName, { type: "text/plain" });
+      const data = new FormData();
+      data.append("newFile", file);
+
+      client.postFile(
+        data,
+        "https://protected-tundra-24167.herokuapp.com/api/upload/",
+        makeListOfNames
+      );
+    }
 
     if (file.type.match(textType)) {
       var reader = new FileReader();
@@ -144,7 +158,7 @@ document.getElementById("upload-form").addEventListener(
         text = e.target.result;
         const description = document.getElementById("dataset-description")
           .value;
-        let toAdd = (description || "N/A") + "\r\n";
+        let toAdd = (description || "N/A") + "\n";
         const isTimeSeries = document.querySelector(
           'input[name="isTimeSeries"]:checked'
         ).value;
@@ -152,21 +166,15 @@ document.getElementById("upload-form").addEventListener(
           'input[name="isImage"]:checked'
         ).value;
         if (isImageData === "true" && isTimeSeries === "true")
-          toAdd += "both\r\n";
-        else if (isImageData === "true") toAdd += "image\r\n";
-        else if (isTimeSeries === "true") toAdd += "time\r\n";
-        else toAdd += "neither\r\n";
+          toAdd += "both\n";
+        else if (isImageData === "true") toAdd += "image\n";
+        else if (isTimeSeries === "true") toAdd += "time\n";
+        else toAdd += "neither\n";
 
         text = toAdd + "" + text;
+        text = text.replace(/\s/g, "\n");
         console.log(text);
-        const file = new File([text], "testing.csv", { type: "text/plain" });
-        const data = new FormData();
-        data.append("newFile", file);
-        client.postFile(
-          data,
-          "https://protected-tundra-24167.herokuapp.com/api/upload/",
-          makeListOfNames
-        );
+        postFile(text);
       };
 
       reader.readAsText(file);
