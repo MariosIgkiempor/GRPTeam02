@@ -73,7 +73,7 @@ function makeDecision(response) {
   //var features;
   //First of all we need to check: if(pattern != square(attributes), if 'if' return true, suggest user use Feature Selection Principal component Analysis):
   // console.log("suggest user use Feature Selection Principal component Analysis to preprocess dataset");
-  if (dataset.isCategorical == false) {
+  if (dataset.isCategorical == false && dataset.relations != null) {
     for (var i = 0; i < dataset.relations.length; i++) {
       var sum = 0;
       sum += dataset.relations[i];
@@ -115,6 +115,7 @@ function makeDecision(response) {
         if (dataset.complexity < 1 && dataset.size >= 1000) {
           console.log("Multiclass Neural Network");
           bestMethod = "Multiclass Neural Network";
+
           //When reached any Neural Network, ask the user "Are there any images involved in the dataset?"
           //if(1) suggest Deep Learning: console.log("Deep Learning"); otherwise unchanged: console.log("Multiclass Neural Network");
           //In the same time, ask the user whether the dataset is a time series,
@@ -190,10 +191,14 @@ function makeDecision(response) {
     dataset.dataType
   }</strong></br>`;
   feat += `The size of the dataset: <strong>${dataset.size}</strong></br>`;
+  if (dataset.isCategorical)
+  {
   feat += `There are  <strong>${dataset.categories.length}</strong>`;
   feat += ` categories of the dataset: <strong>${
-    dataset.categories
+  dataset.categories
   }</strong></br>`;
+  }
+ 
   if (dataset.missingLabels.length == 0) {
     feat += `MissingLabels: <strong>No missing labels of the dataset</strong></br>`;
   } else {
