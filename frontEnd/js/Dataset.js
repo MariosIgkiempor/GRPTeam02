@@ -147,7 +147,10 @@ document.getElementById("upload-form").addEventListener(
       client.postFile(
         data,
         "https://protected-tundra-24167.herokuapp.com/api/upload/",
-        makeListOfNames
+        err => {
+          if (err) alert("Error uploading file");
+          else alert("File uploaded successfully");
+        }
       );
     }
 
