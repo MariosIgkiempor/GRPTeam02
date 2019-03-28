@@ -158,6 +158,7 @@ const sendData = function (o) {
   CSVFile.create(
     {
       name: o.name,
+      description: o.description,
       headings: o.headings,
       vals: o.vals,
       originalVals: o.originalVals,
@@ -170,6 +171,8 @@ const sendData = function (o) {
       missingLabels: o.missingLabels,
       labelsRatio: o.labelsRatio,
       isCategorical: o.isCategorical,
+      isTimeSeries: o.isTimeSeries,
+      isImageData: o.isImageData,
       categories: o.categories,
       complexity: o.complexity,
       relations: o.relations,
