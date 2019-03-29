@@ -154,6 +154,7 @@ document.getElementById("upload-form").addEventListener(
       );
     }
 
+    // Check whether the file is a text file
     if (file.type.match(textType)) {
       var reader = new FileReader();
 
