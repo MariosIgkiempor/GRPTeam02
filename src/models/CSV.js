@@ -6,6 +6,7 @@ const Schema = mongoose.Schema
 const CSVFileSchema = new Schema(
   {
     name: String,
+    username: String,
     description: String,
     headings: [String],
     vals: [[{}]],
