@@ -161,7 +161,14 @@ document.getElementById("upload-form").addEventListener(
         text = e.target.result;
         const description = document.getElementById("dataset-description")
           .value;
-        let toAdd = (description || "N/A") + "\n";
+        // toAdd represents the metadata to be added to the top of the csv file
+        // prepend the username of the user who uploaded the file if one is logged in, otherwise prepend "N/A"
+        let toAdd = Cookies.get("username" || "N/A") + "\n";
+
+        // Prepend the description entered in the textarea, or "N/A" if none was present
+        toAdd += (description || "N/A") + "\n";
+
+        // Prepend whether the dataset is time series/image data, as denoted by the radio buttons, or neither or both
         const isTimeSeries = document.querySelector(
           'input[name="isTimeSeries"]:checked'
         ).value;
@@ -174,7 +181,10 @@ document.getElementById("upload-form").addEventListener(
         else if (isTimeSeries === "true") toAdd += "time\n";
         else toAdd += "neither\n";
 
+        // Append the rest of the data in the file
         text = toAdd + "" + text;
+
+        // Replace all whitespace with \n to enable the server to parse everything correctly
         text = text.replace(/\s/g, "\n");
         console.log(text);
         postFile(text);
