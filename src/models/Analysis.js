@@ -1,9 +1,11 @@
 const client = new HttpClient();
-document.querySelector("#selectlist").innerHTML = "Requesting http now, please wait";
-document.querySelector("#features").innerHTML = "Requesting http now, please wait";
-document.querySelector("#result").innerHTML = "Requesting http now, please wait";
-const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`
+document.querySelector("#selectlist").innerHTML =
+  "Loading data, please wait...";
+document.querySelector("#features").innerHTML = "Loading data, please wait...";
+document.querySelector("#result").innerHTML = "Loading data, please wait...";
+const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`;
 document.querySelector("#intro").innerHTML = intro;
+const decisionTreeImage = document.getElementById("decisionTree");
 
 function getDatasetName() {
   var url = location.search;
@@ -42,21 +44,21 @@ function makeSelectList(response) {
   selectlist.style.color = "#007dcb";
   selectlist.style.width = "404px";
 
-  for(const name of names) {
+  for (const name of names) {
     const selectlistItem = document.createElement("option");
     selectlistItem.innerHTML = name;
-    if(name == getDatasetName()){
+    if (name == getDatasetName()) {
       selectlistItem.selected = true;
     }
     selectlist.appendChild(selectlistItem);
   }
   selectlist.onchange = function() {
-    window.location.href = "Analysis.html?" + selectlist.options[selectlist.selectedIndex].text;
-  }
+    window.location.href =
+      "Analysis.html?" + selectlist.options[selectlist.selectedIndex].text;
+  };
   document.querySelector("#selectlist").innerHTML = "";
   document.querySelector("#selectlist").appendChild(selectlist);
 }
-
 
 let dataset;
 
@@ -71,14 +73,16 @@ function makeDecision(response) {
   //var features;
   //First of all we need to check: if(pattern != square(attributes), if 'if' return true, suggest user use Feature Selection Principal component Analysis):
   // console.log("suggest user use Feature Selection Principal component Analysis to preprocess dataset");
-  if(dataset.isCategorical == false){
-    for(var i = 0;i<dataset.relations.length;i++){
+  if (dataset.isCategorical == false && dataset.relations != null) {
+    for (var i = 0; i < dataset.relations.length; i++) {
       var sum = 0;
-      sum+=dataset.relations[i]
+      sum += dataset.relations[i];
     }
-    
-    if (dataset.numFeatures*dataset.numFeatures != dataset.complexity + dataset.structure + sum)
-    {
+
+    if (
+      dataset.numFeatures * dataset.numFeatures !=
+      dataset.complexity + dataset.structure + sum
+    ) {
       console.log("Feature Selection Principal component Analysis");
       bestMethod = "Feature Selection Principal component Analysis";
     }
@@ -109,16 +113,55 @@ function makeDecision(response) {
       // Classification
       if (dataset.categories.length >= 3) {
         if (dataset.complexity < 1 && dataset.size >= 1000) {
-          console.log("Multiclass Neural Network");
-          bestMethod = "Multiclass Neural Network";
+          if (dataset.isTimeSeries && dataset.isImageData)
+          {
+            console.log("Recurrent Neural Network, Time Delay Neural Network AND Deep Learning");
+            bestMethod = "Recurrent Neural Network, Time Delay Neural Network AND Deep Learning";
+          }
+          else if (dataset.isTimeSeries)
+          {
+            console.log("Either Recurrent Neural Network OR Time Delay Neural Network");
+            bestMethod = "Either Recurrent Neural Network OR Time Delay Neural Network";
+          }
+          else if (dataset.isImageData)
+          {
+            console.log("Deep Learning");
+            bestMethod = "Deep Learning";
+          }
+          else
+          {
+            console.log("Multiclass Neural Network");
+            bestMethod = "Multiclass Neural Network";
+          }
+          
+
           //When reached any Neural Network, ask the user "Are there any images involved in the dataset?"
           //if(1) suggest Deep Learning: console.log("Deep Learning"); otherwise unchanged: console.log("Multiclass Neural Network");
           //In the same time, ask the user whether the dataset is a time series,
           //if(1) suggest Recurrent Neural Network and Time Delay Neural Network: console.log("Recurrent Neural Network "), console.log("Time Delay Neural Network");
           //otherwise remain constant: console.log("Multiclass Neural Network");
         } else {
-          console.log("either Multiclass Neural Network OR Random Forest");
-          bestMethod = "either Multiclass Neural Network OR Random Forest";
+          if (dataset.isTimeSeries && dataset.isImageData)
+          {
+            console.log("Recurrent Neural Network, Time Delay Neural Network AND Deep Learning");
+            bestMethod = "Recurrent Neural Network, Time Delay Neural Network AND Deep Learning";
+          }
+          else if (dataset.isTimeSeries)
+          {
+            console.log("Either Recurrent Neural Network OR Time Delay Neural Network");
+            bestMethod = "Either Recurrent Neural Network OR Time Delay Neural Network";
+          }
+          else if (dataset.isImageData)
+          {
+            console.log("Deep Learning");
+            bestMethod = "Deep Learning";
+          }
+          else
+          {
+            console.log("Either Multiclass Neural Network OR Random Forest");
+          bestMethod = "Either Multiclass Neural Network OR Random Forest";
+          }
+          
           //When reached any Neural Network, ask the user "Are there any images involved in the dataset?"
           //if(1) suggest Deep Learning: console.log("Deep Learning"); otherwise unchanged: console.log("Multiclass Neural Network");
           //In the same time, ask the user whether the dataset is a time series,
@@ -135,10 +178,10 @@ function makeDecision(response) {
             bestMethod = "Multi-Layer Perceptron";
           } else {
             console.log(
-              "either Naive Bayesian Network OR Support Vector Machine"
+              "Either Naive Bayesian Network OR Support Vector Machine"
             );
             bestMethod =
-              "either Naive Bayesian Network OR Support Vector Machine";
+              "Either Naive Bayesian Network OR Support Vector Machine";
             //Is the result of analyse better than guessing(>50%)?
             //If yes use Anti-learning
             //But Chris doesn' t need us to analyse. How could we know the result after analysing?
@@ -155,8 +198,8 @@ function makeDecision(response) {
         console.log("Linear Regression");
         bestMethod = "Linear Regression";
       } else {
-        console.log("either Sum Regression OR Random Forest Regression");
-        bestMethod = "either Sum Regression OR Random Forest Regression";
+        console.log("Either Sum Regression OR Random Forest Regression");
+        bestMethod = "Either Sum Regression OR Random Forest Regression";
       }
     }
   }
@@ -175,30 +218,61 @@ function makeDecision(response) {
   }
   const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <strong>${bestMethod}</strong>`;
   result.innerHTML = res;
+  // decisionTreeImage.src = "./DecisionTree/" + bestMethod + ".png";
+
   //let feat =`Dataset' s Name is : ${getDatasetName}</br>`;
-  let feat =`The labelsRatio is : <strong>${dataset.labelsRatio}</strong></br>`;
-  feat += `Number of Features: <strong>${dataset.numFeatures}</strong></br>`
-  feat += `The data type of the dataset : <strong>${dataset.dataType}</strong></br>`
-  feat += `The size of the dataset: <strong>${dataset.size}</strong></br>`
-  feat += `There are  <strong>${dataset.categories.length}</strong>`
-  feat += ` categories of the dataset: <strong>${dataset.categories}</strong></br>`
-  if (dataset.missingLabels.length == 0){
-    feat += `MissingLabels: <strong>No missing labels of the dataset</strong></br>`
+  let feat = `The labelsRatio is : <strong>${
+    dataset.labelsRatio
+  }</strong></br>`;
+  feat += `Number of Features: <strong>${dataset.numFeatures}</strong></br>`;
+  feat += `The data type of the dataset : <strong>${
+    dataset.dataType
+  }</strong></br>`;
+  //feat += `Description: <strong>${dataset.description}</strong></br>`;
+  feat += `The size of the dataset: <strong>${dataset.size}</strong></br>`;
+  if (dataset.isCategorical)
+  {
+  feat += `There are  <strong>${dataset.categories.length}</strong>`;
+  feat += ` categories of the dataset: <strong>${
+  dataset.categories
+  }</strong></br>`;
   }
-  else {
-    feat += `Missing labels of the dataset:<strong>${dataset.missingLabels}</strong></br>`
+ 
+  if (dataset.missingLabels.length == 0) {
+    feat += `MissingLabels: <strong>No missing labels of the dataset</strong></br>`;
+  } else {
+    feat += `Missing labels of the dataset:<strong>${
+      dataset.missingLabels
+    }</strong></br>`;
   }
-  if (dataset.missingValues.length == 0){
-    feat += `MissingLabels: <strong>No missing values of the dataset</strong></br>`
+  if (dataset.missingValues.length == 0) {
+    feat += `MissingLabels: <strong>No missing values of the dataset</strong></br>`;
+  } else {
+    feat += `Missing values of the dataset:<strong>${
+      dataset.missingValues
+    }</strong></br>`;
   }
-  else {
-    feat += `Missing values of the dataset:<strong>${dataset.missingValues}</strong></br>`
+  if (dataset.complexity) {
+    feat += `The complexity of the dataset: <strong>${
+      dataset.complexity
+    }</strong></br>`;
   }
-  if(dataset.isCategorical == false){
-    feat += `The complexity of the dataset: <strong>${dataset.complexity}</strong></br>`
-    feat += `Unstructured or structured dataset(-1,1): <strong>${dataset.structure}</strong></br>`
-    feat += ` There are <strong>${dataset.anomalies.length}</strong> anomalies of the dataset: <strong>${dataset.anomalies}</strong></br>`
-    feat += ` Relations of the dataset: <strong>${dataset.relations}</strong></br>`
+  if (dataset.structure) {
+    feat += `Unstructured or structured dataset(-1,1): <strong>${
+      dataset.structure
+    }</strong></br>`;
+  }
+  if (dataset.anomalies) {
+    feat += ` There are <strong>${
+      dataset.anomalies.length
+    }</strong> anomalies of the dataset: <strong>${
+      dataset.anomalies
+    }</strong></br>`;
+  }
+  if (dataset.relations) {
+    feat += ` Relations of the dataset: <strong>${
+      dataset.relations
+    }</strong></br>`;
   }
   //feat += ` missing labels of the dataset: ${  {null} else{dataset.categories}}</br>`
   //feat += ` categories of the dataset: ${dataset.categories}</br>`
@@ -209,6 +283,15 @@ function makeDecision(response) {
   //   " ",
   //   2
   // );
+
   document.querySelector("#features").innerHTML = feat;
   document.querySelector("#result").appendChild(resultValue);
+
+  let bestMethods = bestMethod.replace("Either ","");
+  bestMethods = bestMethods.split(" OR ");
+  for (var i = 0; i < bestMethods.length; i++) {
+    let img = document.createElement("img");
+    img.src = "./DecisionTree/" + bestMethods[i] + ".png";
+    result.appendChild(img);
+  }
 }
