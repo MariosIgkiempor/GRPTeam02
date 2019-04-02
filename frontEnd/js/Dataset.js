@@ -1,18 +1,19 @@
 const client = new HttpClient()
 let currentFileName = ''
-document.querySelector('#output').innerHTML = 'Requesting http now, please wait'
-
+document.querySelector('#output').innerHTML = 'Loading files, please wait...'
 ;(function () {
-  const isLoggedIn = client.get(
-    'https://protected-tundra-24167.herokuapp.com/loggedin/',
-    () => {
-      console.log(res)
-    }
-  )
-  client.get(
-    'https://protected-tundra-24167.herokuapp.com/api/names',
-    makeListOfNames
-  )
+  const username = Cookies.get('username') || ''
+  if (username) {
+    client.get(
+      `https://protected-tundra-24167.herokuapp.com/api/names/${username}`,
+      makeListOfNames
+    )
+  } else {
+    client.get(
+      `https://protected-tundra-24167.herokuapp.com/api/names/`,
+      makeListOfNames
+    )
+  }
 })()
 
 function makeListOfNames (response) {
