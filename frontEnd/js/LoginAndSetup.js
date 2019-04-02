@@ -97,6 +97,7 @@ loginButton.onclick = () => {
   loginBox.style.display = 'block'
   loginForm.style.display = 'block'
   registerForm.style.display = 'none'
+  errorsArea.style.display = 'none'
   blur.style.display = 'block'
   selectmove.style.left = '50px'
 }
