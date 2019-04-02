@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
 
 router.get('/names/', (req, res) => {
   console.log('Getting names...')
-  CSVFile.find({}, (err, files) => {
+  CSVFile.find({ username: 'N/A' }, (err, files) => {
     if (err) {
       console.error(`Error getting files: \n${err}`)
       res.status(500)
