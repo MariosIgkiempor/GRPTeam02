@@ -59,7 +59,7 @@ router.get('/names/', (req, res) => {
 })
 
 router.get('/names/:username', (req, res) => {
-  const username = req.params.username.substring
+  const username = req.params.username
   console.log(`Getting names for user ${username}...`)
   CSVFile.find({}, (err, files) => {
     if (err) {
