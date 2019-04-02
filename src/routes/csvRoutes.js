@@ -58,6 +58,22 @@ router.get('/names/', (req, res) => {
   })
 })
 
+router.get('/names/:username', (req, res) => {
+  const username = req.params.username.substring
+  console.log(`Getting names for user ${username}...`)
+  CSVFile.find({}, (err, files) => {
+    if (err) {
+      console.error(`Error getting files: \n${err}`)
+      res.status(500)
+      return
+    }
+    let names = { list: [] }
+    files.forEach(file => names.list.push(file.name))
+    res.status(200)
+    res.json(names)
+  })
+})
+
 router.get('/:name', (req, res) => {
   CSVFile.find({ name: req.params.name.substring(1) }, (err, file) => {
     if (err) {
