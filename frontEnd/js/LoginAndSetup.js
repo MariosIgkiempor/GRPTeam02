@@ -179,6 +179,7 @@ function handleLoginResponse (res) {
   } else if (resJson.success == true) {
     // document.getElementById("errors").innerHTML = "Successfully registered";
     window.alert(`Logged in as ${Cookies.get('username')}`)
+    location.reload()
     loginBox.style.display = 'none'
     blur.style.display = 'none'
   }
