@@ -4,6 +4,7 @@ document.querySelector('#output').innerHTML = 'Loading files, please wait...'
 ;(function () {
   const username = Cookies.get('username') || ''
   if (username) {
+    document.querySelector('#datasetTitle').innerHTML = `${username}'s Dataset`;
     client.get(
       `https://protected-tundra-24167.herokuapp.com/api/names/${username}`,
       makeListOfNames

@@ -25,6 +25,7 @@ loginUsername.name = 'user'
 loginUsername.className = 'signinput'
 loginUsername.id = 'loginUsername'
 loginUsername.placeholder = 'Username'
+
 const loginPassword = document.createElement('input')
 loginPassword.type = 'password'
 loginPassword.name = 'pwd'
@@ -51,6 +52,7 @@ registerUsername.type = 'text'
 registerUsername.name = 'setuser'
 registerUsername.className = 'signinput'
 registerUsername.placeholder = 'Username'
+
 
 const registerEmail = document.createElement('input')
 registerEmail.type = 'text'
@@ -85,10 +87,11 @@ registerForm.appendChild(registerRePassword)
 
 const errorsArea = document.createElement('div')
 errorsArea.id = 'errors'
-loginBox.appendChild(errorsArea)
+
 
 registerForm.appendChild(registerSubmit)
 loginBox.appendChild(registerForm)
+loginBox.appendChild(errorsArea)
 
 loginButton.onclick = () => {
   loginBox.style.display = 'block'
@@ -118,6 +121,7 @@ loginSelect.onclick = () => {
   loginForm.style.display = 'block'
   registerForm.style.display = 'none'
   selectmove.style.left = '50px'
+  errorsArea.style.display = 'none'
 }
 
 blur.onclick = () => {
@@ -130,6 +134,7 @@ registerSelect.onclick = () => {
   loginForm.style.display = 'none'
   registerForm.style.display = 'block'
   selectmove.style.left = '250px'
+  errorsArea.style.display = 'block'
 }
 
 registerSubmit.addEventListener('click', function (e) {
