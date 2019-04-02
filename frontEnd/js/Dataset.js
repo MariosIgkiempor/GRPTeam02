@@ -3,10 +3,18 @@ let currentFileName = "";
 document.querySelector("#output").innerHTML =
   "Requesting http now, please wait";
 
-client.get(
-  "https://protected-tundra-24167.herokuapp.com/api/names",
-  makeListOfNames
-);
+(function() {
+  const isLoggedIn = client.get(
+    "https://protected-tundra-24167.herokuapp.com/loggedin/",
+    () => {
+      console.log(res);
+    }
+  );
+  client.get(
+    "https://protected-tundra-24167.herokuapp.com/api/names",
+    makeListOfNames
+  );
+})();
 
 function makeListOfNames(response) {
   const list = document.createElement("ul");
@@ -164,7 +172,8 @@ document.getElementById("upload-form").addEventListener(
           .value;
         // toAdd represents the metadata to be added to the top of the csv file
         // prepend the username of the user who uploaded the file if one is logged in, otherwise prepend "N/A"
-        let toAdd = Cookies.get("username" || "N/A") + "\n";
+        let toAdd = `${Cookies.get("username") || "N/A"}\n`;
+        if (toAdd != "N/A") console.log("logged in uploading");
 
         // Prepend the description entered in the textarea, or "N/A" if none was present
         toAdd += (description || "N/A") + "\n";
@@ -186,7 +195,7 @@ document.getElementById("upload-form").addEventListener(
         text = toAdd + "" + text;
 
         // Replace all whitespace with \n to enable the server to parse everything correctly
-        text = text.replace(/\s/g, "\n");
+        text = text.replace(/(\r\n)/g, "\n");
         console.log(text);
         postFile(text);
       };

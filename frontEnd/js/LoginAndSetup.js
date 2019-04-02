@@ -103,6 +103,7 @@ loginSubmit.addEventListener("click", function(e) {
 
   const username = document.getElementById("loginUsername").value;
   const password = document.getElementById("loginPassword").value;
+  Cookies.set("username", username, { expires: 1 });
   const data = { username, password };
   const client = new HttpClient();
   client.postJSON(
@@ -174,9 +175,10 @@ function handleLoginResponse(res) {
   if (resJson.success == false) {
     console.log("error");
     document.getElementById("errors").innerHTML = "Could not log in";
+    Cookies.delete("username");
   } else if (resJson.success == true) {
     //document.getElementById("errors").innerHTML = "Successfully registered";
-    window.alert("Logged in successfully");
+    window.alert(`Logged in as ${Cookies.get("username")}`);
     loginBox.style.display = "none";
     blur.style.display = "none";
   }
