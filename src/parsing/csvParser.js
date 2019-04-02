@@ -163,7 +163,7 @@ const sendData = function (o) {
   CSVFile.create(
     {
       name: o.name,
-      usename: o.username,
+      username: o.username,
       description: o.description,
       headings: o.headings,
       vals: o.vals,
