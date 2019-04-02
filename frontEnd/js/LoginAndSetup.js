@@ -103,7 +103,8 @@ loginSubmit.addEventListener('click', function (e) {
 
   const username = document.getElementById('loginUsername').value
   const password = document.getElementById('loginPassword').value
-  Cookies.set('username', username, { expires: 1 })
+  // Create a cookie storing the username that will expire in 6 hours from time of creation
+  Cookies.set('username', username, 0.25)
   const data = { username, password }
   const client = new HttpClient()
   client.postJSON(
