@@ -41,7 +41,7 @@ const readFile = filename => {
   console.log('raw data array before description: ', rawDataArray)
 
   // The first line of the file will contain the username of the person who uploaded the dataset
-  const username = rawDataArray.splice(0, 1)[0]
+  const username = rawDataArray.splice(0, 1)[0][0]
 
   // The next two lines of the CSV file will contain the description followed
   // by whether the data is a time series, image data or neither, denoted by
