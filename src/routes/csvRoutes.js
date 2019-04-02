@@ -61,7 +61,7 @@ router.get('/names/', (req, res) => {
 router.get('/names/:username', (req, res) => {
   const username = req.params.username
   console.log(`Getting names for user ${username}...`)
-  CSVFile.find({}, (err, files) => {
+  CSVFile.find({ username: username }, (err, files) => {
     if (err) {
       console.error(`Error getting files: \n${err}`)
       res.status(500)
