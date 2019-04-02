@@ -88,11 +88,13 @@ router.get('/logout/', (req, res) => {
 })
 
 router.get('/loggedin/', isLoggedIn, (req, res, next) => {
+  console.log('request authenticated')
   res.status(200).json(req.user)
 })
 
 function isLoggedIn (req, res, next) {
   if (req.isAuthenticated()) return next()
+  console.log('request not authenticated')
   res.status(400).json({
     message: 'access denied'
   })
