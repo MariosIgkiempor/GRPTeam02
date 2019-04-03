@@ -21,22 +21,23 @@
   cursor: pointer;
   border-radius: 24px;
   position: relative;
-  left: 530px;
-  top: 10px;
+  margin-left: 10px;
+  bottom: 5px;
 }
 .div1 {
   position: relative;
-  left: 250px;
-  top: 35px;
   font-family: Roboto;
   font-size: 14px;
   line-height: 15px;
-  width: 50%;
+  width: 300px;
+  color: black;
+  text-align: left;
 }
 .div2 {
+  padding: 10px;
   width: 50%;
   height: 400px;
-  margin: 0px 10px;
+  margin: 20px 0px;
   position: relative;
   left: 230px;
   top: 50px;

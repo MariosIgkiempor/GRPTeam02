@@ -5,9 +5,10 @@
     <title>Analysis-page</title>
     <link rel="stylesheet" type="text/css" href="css/common.css" />
     <link rel="stylesheet" type="text/css" href="css/Analysis.css" />
-    <link rel="stylesheet" type="text/css" href="css/LoginAndSetup.css">
+    <link rel="stylesheet" type="text/css" href="css/LoginAndSetup.css" />
   </head>
   <body>
+
     <div class="header">
       <div class="logo">
         <span> Machine Learning Dataset Parsing Tool </span>
@@ -22,18 +23,20 @@
         <button id="loginButton">Login</button>
       </ul>
     </div>
-    <div class="box box1" id = "selectlist">
-      <!-- <span>Datasets_2</span> -->
-    </div>
-    <button class="button1">Delete</button>
-    <button class="button2">Download</button>
-    <div class="div1" id = "intro"></div>
+  <div class="LeftBox">
+    <div class="box box1" id="selectlist">  </div>
+    <div class="div1" id="intro"></div>
     <div class="div2" id="features"></div>
-    <div class="div3" >
-      <div id = "result"></div>
-      <img id = "decisionTree" />
-    </div>
+  </div>
+      <!-- <span>Datasets_2</span> -->
 
+    <!-- <button class="button1">Delete</button>
+    <button class="button2">Download</button> -->
+
+    <div class="div3">
+      <div id="result"></div>
+      <img id="decisionTree" />
+    </div>
 
     <div class="bottomManu">
       <ul class="bottom">
@@ -44,8 +47,11 @@
     </div>
     <div id="blur"></div>
     <div id="loginBox"></div>
-    <script src = "js/LoginAndSetup.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    <script src="js/LoginAndSetup.js"></script>
     <script src="js/http-client.js"></script>
+    <script src="js/logout-button.js"></script>
     <script src="js/Analysis.js"></script>
   </body>
 </html>
