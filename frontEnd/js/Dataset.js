@@ -20,11 +20,14 @@ document.querySelector('#output').innerHTML = 'Loading files, please wait...'
 function makeListOfNames (response) {
   const list = document.createElement('ul')
   list.style.listStyle = 'none inside none'
-  list.style.padding = '10px'
   list.style.lineHeight = '45px'
   list.style.fontSize = '25px'
   const names = JSON.parse(response).list
-
+  if(names.length == 0){
+    document.querySelector('#output').innerHTML = 'There is no dataset in the server now</br>You can upload your datasets to analyse'
+    console.log("No dataset in the server");
+    return;
+  }
   console.log(names)
 
   var i = 0

@@ -39,7 +39,6 @@ function makeSelectList (response) {
   console.log(names)
   const selectlist = document.createElement('select')
   selectlist.style.fontSize = '40px'
-  selectlist.style.padding = '10px'
   selectlist.style.color = '#007dcb'
   selectlist.style.width = '404px'
 

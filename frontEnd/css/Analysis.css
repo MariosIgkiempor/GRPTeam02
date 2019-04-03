@@ -3,8 +3,6 @@
   vertical-align: middle;
   text-align: center;
   position: relative;
-  left: -260px;
-  top: 60px;
   font-size: 40px;
   font-weight: bold;
   color: #1e90ff;
@@ -41,25 +39,26 @@
 }
 .div1 {
   position: relative;
-  left: 250px;
-  top: 40px;
   font-family: Roboto;
   font-size: 14px;
   line-height: 15px;
+  margin: 10px;
 }
 .div2 {
   width: 27vw;
   height: 25vw;
-  margin: 0px 10px;
   position: relative;
-  left: 14vw;
-  top: 5vw;
   border: 2px solid black;
   font-family: Roboto;
-  font-size: 1vw;
+  font-size: 15px;
   line-height: 22px;
+  margin: 10px;
 }
-
+.LeftBox {
+  
+  width: 50%;
+  padding: 5% 0% 0% 8%;
+}
 #features {
   overflow-y: scroll;
 
@@ -71,14 +70,13 @@ html{
 
 .div3 {
   text-align: center;
-  width: 40%;
-  height: 600px;
-  margin: 0px;
+  width: 50%;
   border: black;
-  position: relative;
-  left: 800px;
-  top: -450px;
-  margin-bottom: 100px;
+  position: absolute;
+  top: 106px;
+  left: 50%;
+  padding-top: 10%;
+  height: 130%;
 }
 #result img{
   margin: 20px;
