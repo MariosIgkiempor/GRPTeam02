@@ -53,9 +53,10 @@
   font-size: 15px;
   line-height: 22px;
   margin: 10px;
+  min-width: 400px;
 }
 .LeftBox {
-  
+
   width: 50%;
   padding: 5% 0% 0% 8%;
 }
@@ -70,7 +71,7 @@ html{
 
 .div3 {
   text-align: center;
-  width: 50%;
+  width: 48%;
   border: black;
   position: absolute;
   top: 106px;
@@ -79,5 +80,6 @@ html{
   height: 130%;
 }
 #result img{
-  margin: 20px;
+  margin-top: 20px;
+  margin-bottom: 106px;
 }
