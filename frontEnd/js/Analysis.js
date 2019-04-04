@@ -175,7 +175,7 @@ function makeDecision (response) {
       bestMethod = 'Self Training'
     }
   }
-  const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <strong>${bestMethod}</strong>`
+  const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <a href = "AnalysisDocument.html?${escape(bestMethod)}"><strong>${bestMethod}</strong></a>`
   result.innerHTML = res
   // decisionTreeImage.src = "./DecisionTree/" + bestMethod + ".png";
 
