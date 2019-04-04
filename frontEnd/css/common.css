@@ -9,7 +9,13 @@ body {
   background-color: #007dcb;
   color: white;
   width: 100%;
+  position: fixed;
+  z-index: 100;
+  top: 0;
   height: 106px;
+}
+.mainpage {
+  margin-top: 106px;
 }
 div.logo {
   float: left;
@@ -73,6 +79,9 @@ li:nth-child(2):hover ~ .move1 {
 li:nth-child(3):hover ~ .move1 {
   left: 220px;
 }
+li:nth-child(4):hover ~ .move1 {
+  left: 330px;
+}
 
 .move2 {
   height: 20px;
@@ -95,6 +104,9 @@ li:nth-child(2):hover ~ .move2 {
 }
 li:nth-child(3):hover ~ .move2 {
   left: 220px;
+}
+li:nth-child(4):hover ~ .move1 {
+  left: 330px;
 }
 
 .move3 {
@@ -119,42 +131,37 @@ li:nth-child(2):hover ~ .move3 {
 li:nth-child(3):hover ~ .move3 {
   left: 220px;
 }
-
-#loginButton {
-  width: 110px;
-  height: 37px;
-  background-color: #007dcb;
-  border: 2px solid #fdfeff;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 24px;
-  position: relative;
-  float: right;
-  margin-top: 37px;
-  margin-right: 30px;
+li:nth-child(4):hover ~ .move1 {
+  left: 330px;
 }
 
-#logoutButton {
+.move4 {
+  height: 20px;
   width: 110px;
-  height: 37px;
-  background-color: #dd0000;
-  border: 2px solid #fdfeff;
-  color: white;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 18px;
-  cursor: pointer;
-  border-radius: 24px;
-  position: relative;
-  float: right;
-  margin-top: 37px;
-  margin-right: 30px;
+  border-top: 4px solid white;
+  position: absolute;
+  left: 330px;
+  top: 100px;
+  transition: left 0.2s ease-in-out 0s; /*Contains four over-Attributes: Execute Transform, Execution Time, Rate, Delay Attribute*/
+  -webkit-transition: left 0.2s ease-in-out 0s; /*chrome and safari*/
+  -moz-transition: left 0.2s ease-in-out 0s; /*firefox*/
+  -o-transition: left 0.2s ease-in-out 0s; /*opera*/
 }
+li:nth-child(1):hover ~ .move4 {
+  /*The first child element li of the parent element, when the mouse is over it, the left property of the move element changes*/
+  left: 0px;
+}
+li:nth-child(2):hover ~ .move4 {
+  left: 110px;
+}
+li:nth-child(3):hover ~ .move4 {
+  left: 220px;
+}
+li:nth-child(4):hover ~ .move4 {
+  left: 330px;
+}
+
+
 
 .bottomManu {
   background-color: #007dcb;
