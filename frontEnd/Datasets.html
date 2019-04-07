@@ -17,82 +17,83 @@
       <ul class="head">
         <li><a href="Introduction.html">Introduction</a></li>
         <li><a href="Datasets.html">Dataset</a></li>
-        <li><a href="Visualisation.html">Analysis</a></li>
-
+        <li><a href="Analysis.html">Analysis</a></li>
+        <li><a href="AnalysisDocument.html">Document</a></li>
         <li class="move2"></li>
 
         <button id="loginButton">Login</button>
       </ul>
     </div>
-    <div class="wrap">
-      <div class="box box1">
-        <span id="datasetTitle">Public Datasets</span>
-        <button class="button2" id="upload-btn">Upload a Dataset</button>
-        <div class="div1">
-          Double click on a dataset to analyse it.<br />Alternatively, upload a
-          new dataset.
+    <div class="mainpage">
+      <div class="wrap">
+        <div class="box box1">
+          <span id="datasetTitle">Public Datasets</span>
+          <button class="button2" id="upload-btn">Upload a Dataset</button>
+          <div class="div1">
+            Double click on a dataset to analyse it.<br />Alternatively, upload a
+            new dataset.
+          </div>
         </div>
+
+        <div id="uploader">
+          <form
+            action="#"
+            method="post"
+            enctype="multipart/form-data"
+            id="upload-form"
+          >
+            <ul>
+              <li><input type="file" name="newFile" id="file-chooser" /></li>
+              <li>
+                <tr>
+                  <td>Is time series：</td>
+                  <td>
+                    <input name="isTimeSeries" type="radio" value="true" /> true
+                    <input name="isTimeSeries" type="radio" value="false" />
+                    false
+                    <input
+                      name="isTimeSeries"
+                      type="radio"
+                      value=" unknown"
+                      checked="checked"
+                    />
+                    unknown
+                  </td>
+                </tr>
+              </li>
+
+              <li>
+                <tr>
+                  <td>Is Image：</td>
+                  <td>
+                    <input name="isImage" type="radio" value="true" /> true
+                    <input name="isImage" type="radio" value="false" /> false
+                    <input
+                      name="isImage"
+                      type="radio"
+                      value=" unknown"
+                      checked="checked"
+                    />
+                    unknown
+                  </td>
+                </tr>
+              </li>
+
+              <li>
+                <textarea
+                  name="datasetInformation"
+                  placeholder="Enter a description of the dataset..."
+                  id="dataset-description"
+                ></textarea>
+              </li>
+              <li><button type="submit">Confirm</button></li>
+            </ul>
+          </form>
+        </div>
+
+        <div class="div2" id="output"></div>
       </div>
-
-      <div id="uploader">
-        <form
-          action="#"
-          method="post"
-          enctype="multipart/form-data"
-          id="upload-form"
-        >
-          <ul>
-            <li><input type="file" name="newFile" id="file-chooser" /></li>
-            <li>
-              <tr>
-                <td>Is time series：</td>
-                <td>
-                  <input name="isTimeSeries" type="radio" value="true" /> true
-                  <input name="isTimeSeries" type="radio" value="false" />
-                  false
-                  <input
-                    name="isTimeSeries"
-                    type="radio"
-                    value=" unknown"
-                    checked="checked"
-                  />
-                  unknown
-                </td>
-              </tr>
-            </li>
-
-            <li>
-              <tr>
-                <td>Is Image：</td>
-                <td>
-                  <input name="isImage" type="radio" value="true" /> true
-                  <input name="isImage" type="radio" value="false" /> false
-                  <input
-                    name="isImage"
-                    type="radio"
-                    value=" unknown"
-                    checked="checked"
-                  />
-                  unknown
-                </td>
-              </tr>
-            </li>
-
-            <li>
-              <textarea
-                name="datasetInformation"
-                placeholder="Enter a description of the dataset..."
-                id="dataset-description"
-              ></textarea>
-            </li>
-            <li><button type="submit">Confirm</button></li>
-          </ul>
-        </form>
-      </div>
-
-      <div class="div2" id="output"></div>
     </div>
-
     <div id="blur"></div>
     <div id="loginBox"></div>
     <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>

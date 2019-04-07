@@ -2,24 +2,23 @@ const client = new HttpClient()
 document.querySelector('#selectlist').innerHTML = 'Loading data, please wait...'
 document.querySelector('#features').innerHTML = 'Loading data, please wait...'
 document.querySelector('#result').innerHTML = 'Loading data, please wait...'
-const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`
-document.querySelector('#intro').innerHTML = intro
-const decisionTreeImage = document.getElementById('decisionTree')
 
+const decisionTreeImage = document.getElementById('decisionTree')
+const username = Cookies.get('username') || ''
 function getDatasetName () {
   var url = location.search
   if (url.indexOf('?') != -1) {
     return url.substr(1)
   } else {
     client.get(
-      'https://protected-tundra-24167.herokuapp.com/api/names',
+      `https://protected-tundra-24167.herokuapp.com/api/names/${username}`,
       getDefaut
     )
   }
 }
 
 client.get(
-  'https://protected-tundra-24167.herokuapp.com/api/names',
+  `https://protected-tundra-24167.herokuapp.com/api/names/${username}`,
   makeSelectList
 )
 
@@ -27,7 +26,8 @@ client.get(
   'https://protected-tundra-24167.herokuapp.com/api/:' + getDatasetName(),
   makeDecision
 )
-
+const intro = `Below is a list of features of <em>${getDatasetName()}</em> that the<br />system has automatically detected. Click the Edit<br />button to manually correct these. Editing features<br />of the dataset may influence the decision made by<br />the analyser and may change the optimal<br />machine learning algorithm suggested.`
+document.querySelector('#intro').innerHTML = intro
 function getDefaut (response) {
   const names = JSON.parse(response).list
   name = names[0]
@@ -175,7 +175,7 @@ function makeDecision (response) {
       bestMethod = 'Self Training'
     }
   }
-  const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <strong>${bestMethod}</strong>`
+  const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <a href = "AnalysisDocument.html?${escape(bestMethod)}"><strong>${bestMethod}</strong></a>`
   result.innerHTML = res
   // decisionTreeImage.src = "./DecisionTree/" + bestMethod + ".png";
 
