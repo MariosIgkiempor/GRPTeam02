@@ -105,7 +105,7 @@ li:nth-child(2):hover ~ .move2 {
 li:nth-child(3):hover ~ .move2 {
   left: 220px;
 }
-li:nth-child(4):hover ~ .move1 {
+li:nth-child(4):hover ~ .move2 {
   left: 330px;
 }
 
@@ -131,7 +131,7 @@ li:nth-child(2):hover ~ .move3 {
 li:nth-child(3):hover ~ .move3 {
   left: 220px;
 }
-li:nth-child(4):hover ~ .move1 {
+li:nth-child(4):hover ~ .move3 {
   left: 330px;
 }
 
