@@ -82,4 +82,29 @@ html{
 #result img{
   margin-top: 20px;
   margin-bottom: 106px;
+  cursor: pointer;
+}
+
+#biggerimg{
+  text-align: center;
+  position: fixed;
+  z-index: 1000;
+  background-color: white;
+  display: none;
+  width: 250px;
+  height: 800px;
+  z-index: 1000;
+  border-radius: 10px;
+  overflow: auto;
+  margin: 0 auto;
+  left: 20px;
+  right: 0;
+  top: 20px;
+  bottom: 20px;
+  overflow-x: hidden;
+}
+
+#biggerimg img{
+  overflow: scroll;
+  height: 1200px;
 }

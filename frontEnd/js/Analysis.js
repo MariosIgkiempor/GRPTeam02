@@ -228,6 +228,19 @@ function makeDecision (response) {
       dataset.relations
     }</strong></br>`
   }
+  if (dataset.isImageData) {
+    feat += `If the dataset is image Data: <strong>True</strong></br>`
+  }
+  if (!dataset.isImageData) {
+    feat += `If the dataset is image Data: <strong>False</strong></br>`
+  }
+
+  if (dataset.isTimeSeries) {
+    feat += `If the dataset is Time Series: <strong>True</strong></br>`
+  }
+  if (!dataset.isImageData) {
+    feat += `If the dataset is Time Series: <strong>False</strong></br>`
+  }
   // feat += ` missing labels of the dataset: ${  {null} else{dataset.categories}}</br>`
   // feat += ` categories of the dataset: ${dataset.categories}</br>`
 
@@ -240,6 +253,13 @@ function makeDecision (response) {
 
   document.querySelector('#features').innerHTML = feat
   document.querySelector('#result').appendChild(resultValue)
+  blur.onclick = () => {
+    // loginForm.reset();
+    loginBox.style.display = 'none'
+    blur.style.display = 'none'
+    document.querySelector('#biggerimg').style.display = 'none';
+    document.querySelector('#biggerimg').innerHTML = '';
+  }
 
   let bestMethods = bestMethod.replace('either ', '')
   bestMethods = bestMethods.split(' OR ')
@@ -247,5 +267,13 @@ function makeDecision (response) {
     let img = document.createElement('img')
     img.src = './DecisionTree/' + bestMethods[i] + '.png'
     result.appendChild(img)
+    img.addEventListener('click',function(){
+      blur.style.display = 'block';
+      let biggerimg = document.createElement('img');
+      biggerimg.src = img.src;
+      document.querySelector('#biggerimg').appendChild(biggerimg);
+      document.querySelector('#biggerimg').style.display = 'block';
+    })
+
   }
 }

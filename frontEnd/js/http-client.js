@@ -15,6 +15,12 @@ class HttpClient {
 
     this.postJSON = function (data, url, callback) {
       const request = new XMLHttpRequest()
+                request.onload = e => {
+                  console.log('request success');
+                };
+                request.onloadend = e => {
+                  console.log('request loadend');
+                };
       request.onreadystatechange = function () {
         if (request.readyState === 4 && request.status === 200) {
           callback(request.responseText)

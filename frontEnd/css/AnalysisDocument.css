@@ -44,3 +44,10 @@
   margin-top: 150px;
   margin-bottom: 600px;
 }
+
+#biggerimg{
+  position: fixed;
+  min-height: 941px;
+  display: none;;
+  z-index: 1000;
+}

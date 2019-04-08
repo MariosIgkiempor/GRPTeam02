@@ -36,6 +36,7 @@ const loginSubmit = document.createElement('input')
 loginSubmit.type = 'submit'
 loginSubmit.value = ''
 loginSubmit.name = 'submit'
+loginSubmit.id = 'loginSubmit'
 loginSubmit.onmouseover = function () {
   this.style.cursor = 'pointer'
 }
@@ -102,6 +103,8 @@ loginButton.onclick = () => {
   selectmove.style.left = '50px'
 }
 
+
+
 loginSubmit.addEventListener('click', function (e) {
   e.preventDefault()
 
@@ -111,6 +114,7 @@ loginSubmit.addEventListener('click', function (e) {
   Cookies.set('username', username, 0.25)
   const data = { username, password }
   const client = new HttpClient()
+
   client.postJSON(
     data,
     'https://protected-tundra-24167.herokuapp.com/login/',
@@ -179,11 +183,15 @@ function handleRegisterResponse (res) {
 function handleLoginResponse (res) {
   const resJson = JSON.parse(res)
   document.getElementById('errors').innerHTML = ''
+
+  loginBox.style.cursor = "progress";
   if (resJson.success == false) {
+    loginBox.style.cursor = "defaut";
     console.log('error')
     document.getElementById('errors').innerHTML = 'Could not log in'
     Cookies.delete('username')
   } else if (resJson.success == true) {
+    loginBox.style.cursor = "progress";
     // document.getElementById("errors").innerHTML = "Successfully registered";
     window.alert(`Logged in as ${Cookies.get('username')}`)
     location.reload()
