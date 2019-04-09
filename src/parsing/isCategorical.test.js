@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const isCategorical = require('./isCategorical')
 
 describe('csvParser.isCategorical', () => {

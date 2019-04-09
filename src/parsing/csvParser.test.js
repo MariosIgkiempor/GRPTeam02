@@ -1,4 +1,6 @@
-const { findMatchingIndicies, findAnomalies } = require('./csvParser')
+// Author: Marios Igkiempor 10335752
+
+const { findMatchingIndicies } = require('./csvParser')
 
 describe('csvParser.findMatchingIndicies', () => {
   // Predicate function to be used with the tests for findMatchingIndicies

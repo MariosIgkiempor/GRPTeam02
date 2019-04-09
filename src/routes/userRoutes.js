@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const express = require('express')
 const router = express.Router()
 const emailValidator = require('email-validator')

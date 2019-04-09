@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const { power, qSort, createUniqueArray } = require('./helpers')
 
 describe('helpers.power', () => {

@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const R = require('ramda')
 const { qSort } = require('../misc/helpers')
 const distance = require('euclidean-distance')

@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const findAnomalies = require('./findAnomalies')
 
 describe('csvParser.findAnomalies', () => {

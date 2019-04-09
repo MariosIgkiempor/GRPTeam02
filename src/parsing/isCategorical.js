@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const R = require('ramda')
 const { createUniqueArray } = require('../misc/helpers')
 const findDataType = require('./findDataType')

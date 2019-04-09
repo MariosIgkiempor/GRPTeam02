@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const helpers = require('../misc/helpers')
 const path = require('path')
 const fs = require('fs')
@@ -26,6 +28,7 @@ const readFile = filename => {
   // schema example in data-model.txt
   const outputObject = {}
 
+  // TODO: Check if file name already exists
   outputObject.name = filename
 
   outputObject.labels = []

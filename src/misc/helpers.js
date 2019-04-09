@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const power = x => y => Math.pow(y, x)
 
 const qSort = function (xs) {

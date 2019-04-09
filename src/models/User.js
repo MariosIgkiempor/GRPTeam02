@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const mongoose = require('mongoose')
 
 const UserSchema = new mongoose.Schema({

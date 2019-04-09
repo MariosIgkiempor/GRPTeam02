@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 // file containing the API keys, database login details
 // and other config variables needed throughout the app
 

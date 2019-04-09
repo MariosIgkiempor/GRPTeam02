@@ -1,3 +1,5 @@
+// Author: Marios Igkiempor 10335752
+
 const express = require('express')
 const router = express.Router()
 const CSVFile = require('../models/CSV') // bring in the CSVFile model
@@ -86,5 +88,7 @@ router.get('/:name', (req, res) => {
     res.json(file)
   })
 })
+
+// TODO: Add a delete route
 
 module.exports = router
