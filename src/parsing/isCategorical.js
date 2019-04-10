@@ -5,10 +5,12 @@ const { createUniqueArray } = require('../misc/helpers')
 const findDataType = require('./findDataType')
 
 const isCategorical = (labels, threshold) => {
-  if (findDataType(labels) === 'boolean') return true // booleans are categorical by default
+  // booleans are categorical by default
+  if (findDataType(labels) === 'boolean') return true
 
   const uniqueCount = R.length(createUniqueArray(labels))
-  let categorical = !(uniqueCount > labels.length * threshold) // if all lavels are numbers and less than a constant ratio of the labels are unique, assume categories
+  // if all labels are numbers and less than a given ratio of the labels are unique, assume the dataset is categorical
+  let categorical = uniqueCount < labels.length * threshold
 
   return categorical
 }

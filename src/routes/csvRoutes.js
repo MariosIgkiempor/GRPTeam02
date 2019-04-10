@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   CSVFile.find().then(csvFiles => res.json(csvFiles))
 })
 
-// route to save a CSVFile to the database
+// route to save a CSVFile to the database, given an object in the requests body
 router.post('/', (req, res) => {
   console.log('rouer.post/: got ', req.body.name)
   CSVFile.create(
@@ -45,8 +45,10 @@ router.post('/', (req, res) => {
   )
 })
 
+// Route to get the all names of files stored on the database posted by users that are not logged in
 router.get('/names/', (req, res) => {
   console.log('Getting names...')
+  // Find all files where the username == 'N/A' (ie the user was not logged in when posting the file)
   CSVFile.find({ username: 'N/A' }, (err, files) => {
     if (err) {
       console.error(`Error getting files: \n${err}`)
@@ -60,6 +62,7 @@ router.get('/names/', (req, res) => {
   })
 })
 
+// Route to get all file names posted by a specific user
 router.get('/names/:username', (req, res) => {
   const username = req.params.username
   console.log(`Getting names for user ${username}...`)
@@ -76,6 +79,7 @@ router.get('/names/:username', (req, res) => {
   })
 })
 
+// Route to retreieve a file by its name
 router.get('/:name', (req, res) => {
   CSVFile.find({ name: req.params.name.substring(1) }, (err, file) => {
     if (err) {

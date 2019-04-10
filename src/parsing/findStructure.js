@@ -4,8 +4,6 @@ const R = require('ramda')
 const { power } = require('../misc/helpers')
 
 const findStructure = arr => {
-  // TODO: missing values
-  // TODO: ignore anomalies
   // "structure" is the correlation between all columns of a dataset
   // average of correlation coefficients between all columns
   let totalCorrelationCoefficient = 0
@@ -45,7 +43,5 @@ const findStructure = arr => {
   const structure = totalCorrelationCoefficient / pairs.length
   return isNaN(structure) ? 0 : structure
 }
-
-console.log(findStructure([[1, 2, 3], [1, 2, 3], [1, 2, 3], [1, 2, 3]]))
 
 module.exports = findStructure

@@ -1,5 +1,6 @@
 // Author: Marios Igkiempor 10335752
 
+// Import all libraries needed
 const helpers = require('../misc/helpers')
 const path = require('path')
 const fs = require('fs')
@@ -12,8 +13,8 @@ const findComplexity = require('./findComplexity')
 const findRelations = require('./findRelations')
 const CSVFile = require('../models/CSV') // bring in the CSVFile model
 
-const CATEGORICAL_THRESHOLD = 0.25 // threshold for unique labels being considered categorical
-const IMPUTE_ON = true
+const CATEGORICAL_THRESHOLD = 0.25 // threshold ratio for unique labels being considered categorical
+const IMPUTE_ON = true // flag for imputing missing data or not
 
 // takes the file out of the datasets folder and converts it to an object
 // with the schema defined in ../models/CSV.js
@@ -75,7 +76,6 @@ const readFile = filename => {
   rawDataArray = R.map(R.map(x => (x === '' ? null : x)))(rawDataArray)
 
   // array of labels
-  // TODO: change pop() because it's mutating
   outputObject.labels = R.map(row => row.pop().trim())(rawDataArray)
 
   // array of row index of missing labels (if any)
@@ -91,7 +91,6 @@ const readFile = filename => {
     )
   )
 
-  // TODO: Detect data type for labels
   outputObject.dataType = findDataType(rawDataArray)
 
   // parse the object's values depending on the data type
@@ -140,8 +139,6 @@ const readFile = filename => {
     outputObject.relations = findRelations(outputObject.vals)
   }
 
-  // console.log(outputObject)
-
   return outputObject
 }
 
@@ -151,9 +148,12 @@ const findMatchingIndicies = f => xs =>
 
 const findNullIndicies = findMatchingIndicies(x => x === null)
 
+// Impute missing values with the average value for the column they are in
 const impute = (arr, missingIndicies) => {
   const cols = R.transpose(arr)
   const means = cols.map(xs => R.mean(xs))
+
+  // create a new array with missing values from the original array imputed
   const filled = arr.map((xs, row, o) =>
     xs.map((_, col) =>
       R.contains({ row, col }, missingIndicies) ? means[col] : o[row][col]
@@ -202,16 +202,13 @@ const sendData = function (o) {
 
 module.exports = {
   parseFile: function (filename, res) {
-    console.log('csvParser.parseFile: Parsing ', filename)
     const fileObject = readFile(filename)
-    console.log('csvParser.parseFile: Finished parsing, sending ', filename)
     const sent = sendData(fileObject)
     if (sent) {
       res.send(200)
     } else {
       res.send(500)
     }
-    console.log('csvParser.parseFile: Finished sending ', filename)
   },
 
   // Export functions for testing purposes
@@ -219,9 +216,3 @@ module.exports = {
   findMatchingIndicies,
   findAnomalies
 }
-
-// suggest whether to impute/remove rows/cols
-// computability
-// categories/subcategories
-// detecting temporal drift in the dataset
-// convert time to UNIX time

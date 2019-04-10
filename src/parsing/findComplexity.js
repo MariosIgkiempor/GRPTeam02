@@ -3,15 +3,10 @@
 const R = require('ramda')
 const { power } = require('../misc/helpers')
 
+// Complexity assumed to be the average of the variance in each column
 const findComplexity = arr => {
-  // TODO: Shannon Entropy!! for complexity
-  // TODO: missing values
-  // TODO: anomalies
-  // or ask the user
-  // how chaotic single values are
-
   let totalVariance = 0
-  // s = (1/N-1)(sum((X-Mx)^2))
+  // variance s = (1/N-1)(sum((X-Mx)^2))
   const columns = R.transpose(arr)
   const means = R.map(R.mean)(columns)
   columns.forEach((xs, i) => {

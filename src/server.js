@@ -57,7 +57,7 @@ const storageEngine = multer.diskStorage({
 })
 var upload = multer({ storage: storageEngine })
 
-// Use routes defined in an external file
+// Use routes defined in an external files
 const csvFileRoutes = require('./routes/csvRoutes')
 const userRoutes = require('./routes/userRoutes')
 app.use('/api/', csvFileRoutes)
@@ -74,7 +74,7 @@ app.post('/api/upload/', type, (req, res) => {
 const port = require('./config/config').port
 app.listen(port, () => console.log(`Server listening on port ${port}`))
 
-const connectionOptions = {
+const mongoConnectionOptions = {
   useNewUrlParser: true,
   poolSize: 10,
   socketTimeoutMS: 6000000,
@@ -86,11 +86,13 @@ const connectionOptions = {
 const dbURI = require('./config/config.js').mongoURI
 
 mongoose
-  .connect(dbURI, connectionOptions, err => console.log(err))
+  .connect(dbURI, mongoConnectionOptions, err => console.log(err))
   .then(() => {
     console.log('MongoDB connected')
   })
   .catch(error => console.log(`MongoDB connection error: ${error}`))
+
+// Debugging outputs for different Mongo connection events
 mongoose.connection.on('error', () => console.log('MongoDB connection error'))
 mongoose.connection.on('connected', () => console.log('Connected to MongoDB'))
 mongoose.connection.on('open', () => console.log('MongoDB connection opened'))

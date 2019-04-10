@@ -1,7 +1,10 @@
 // Author: Marios Igkiempor 10335752
+// Helper functions used throughout the project
 
+// Curried power function wrapping Javascript's Math.pow() to make it more useful when used alongside Ramda.js
 const power = x => y => Math.pow(y, x)
 
+// Iterative quicksort implementation, to avoid maximum call stack size errors for larger datasets
 const qSort = function (xs) {
   const swap = (xs, i, j) => {
     let temp = xs[i]
@@ -54,7 +57,7 @@ const qSort = function (xs) {
 
 const createUniqueArray = xs => [...new Set(xs)] // sets only allow unique values (ie categories)
 
-const parseBool = x => x === '1' // assuming only numbers
+const parseBool = x => x === '1' // assuming only numbers can be parsed into booleans
 
 module.exports = {
   // Curried power function, for use with Rambda functional-style functions

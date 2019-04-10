@@ -17,14 +17,15 @@ const findRelations = function (data, threshold) {
   )
 
   // Covariance between each pair of columns as a measure of relation
+  // Sample covariance of two variables X, Y is gievn by Sum((Xi - Mean(X)) * (Yj - Mean(Y))) / (n-1)
   const covariances = pairs.map(pair => {
     const meanX = R.mean(pair[0]) // Mx
     const meanY = R.mean(pair[1]) // My
     const xs = R.map(x => x - meanX)(pair[0]) // X - Mx
     const ys = R.map(y => y - meanY)(pair[1]) // Y - My
     const xsys = xs.map((x, i) => x * ys[i]) // (X - Mx)(Y - My)
-    const sumXsys = R.sum(xsys)
-    const covariance = sumXsys / (pairs[0].length - 1)
+    const sumXsys = R.sum(xsys) // Sum((X - Mx)(Y - My))
+    const covariance = sumXsys / (pairs[0].length - 1) // Sum((X - Mx)(Y - My)) / (n-1)
     return covariance
   })
 
