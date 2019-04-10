@@ -175,8 +175,7 @@ function makeDecision (response) {
       bestMethod = 'Self Training'
     }
   }
-  const res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <a href = "AnalysisDocument.html?${escape(bestMethod)}"><strong>${bestMethod}</strong></a>`
-  result.innerHTML = res
+
   // decisionTreeImage.src = "./DecisionTree/" + bestMethod + ".png";
 
   // let feat =`Dataset' s Name is : ${getDatasetName}</br>`;
@@ -200,7 +199,7 @@ function makeDecision (response) {
     }</strong></br>`
   }
   if (dataset.missingValues.length == 0) {
-    feat += `MissingLabels: <strong>No missing values of the dataset</strong></br>`
+    feat += `missingValues: <strong>No missing values of the dataset</strong></br>`
   } else {
     feat += `Missing values of the dataset:<strong>${
       dataset.missingValues
@@ -250,7 +249,13 @@ function makeDecision (response) {
   //   " ",
   //   2
   // );
-
+  let bestMethods = bestMethod.replace('either ', '')
+  bestMethods = bestMethods.split(' OR ')
+  if(bestMethods.length == 1)
+    var res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is </br> <a href = "AnalysisDocument.html?${escape(bestMethod)}"><strong>${bestMethod}</strong></a>`
+  if(bestMethods.length == 2)
+    var res = `After analysis, it would appear the dataset would best be modelled using <strong>${methodType}</strong>. </br>The algorithm suggests that the best Machine Learning algorithm to use on <em>${getDatasetName()}</em> is  </br>either <a href = "AnalysisDocument.html?${escape(bestMethods[0])}"><strong>${bestMethods[0]}</strong></a> or <a href = "AnalysisDocument.html?${escape(bestMethods[1])}"><strong>${bestMethods[1]}</strong></a>`
+  result.innerHTML = res
   document.querySelector('#features').innerHTML = feat
   document.querySelector('#result').appendChild(resultValue)
   blur.onclick = () => {
@@ -261,8 +266,7 @@ function makeDecision (response) {
     document.querySelector('#biggerimg').innerHTML = '';
   }
 
-  let bestMethods = bestMethod.replace('either ', '')
-  bestMethods = bestMethods.split(' OR ')
+
   for (var i = 0; i < bestMethods.length; i++) {
     let img = document.createElement('img')
     img.src = './DecisionTree/' + bestMethods[i] + '.png'

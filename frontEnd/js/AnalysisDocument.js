@@ -6,30 +6,59 @@ function getMethodIndex () {
     var str = unescape(url.substr(1));
     console.log(str);
     switch (str) {
-      case "Feature Selection Principal component Analysis":
-          return 15;
-        break;
       case "Self-Organising Map":
           return 0;
         break;
+        case "K-Means Clustering":
+          return 1;
+          break;
       case "Principle Component Analysis":
           return 2;
-        break;
-      case "Multiclass Neural Network":
-          return 5;
-        break;
-      case "Logistic Regression":
-          return 7;
-        break;
-      case 'Multi-Layer Perceptron':
-          return 4;
         break;
       case "Linear Regression":
           return 3;
         break;
+      case 'Multi-Layer Perceptron':
+          return 4;
+        break;
+      case "Multiclass Neural Network":
+          return 5;
+        break;
+      case "Random Forest Regression":
+        return 6;
+        break;
+      case "Logistic Regression":
+          return 7;
+        break;
+      case "Multiclass Logistic Regression":
+        return 8;
+        break;
+      case "Naive Bayesian Network":
+        return 9;
+      break;
+      case "Support Vector Machine":
+        return 10;
+      break;
       case "Self Training":
           return 11;
         break;
+      case "Deep Learning":
+        return 12;
+        break;
+      case "Recurrent Neural Network":
+        return 13;
+        break;
+      case "Time Delay Neural Network":
+        return 14;
+        break;
+      case "Feature Selection Principal component Analysis":
+          return 15;
+        break;
+
+
+
+
+
       default:
         return 0;
         break;
