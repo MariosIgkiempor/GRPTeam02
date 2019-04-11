@@ -10,7 +10,7 @@ const isCategorical = (labels, threshold) => {
 
   const uniqueCount = R.length(createUniqueArray(labels))
   // if all labels are numbers and less than a given ratio of the labels are unique, assume the dataset is categorical
-  let categorical = uniqueCount < labels.length * threshold
+  let categorical = !(uniqueCount > labels.length * threshold)
 
   return categorical
 }
